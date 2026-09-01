@@ -1,0 +1,100 @@
+name: FRED ALFRED Ephemeral Macro Run v4
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "handoff/request_v4.txt"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fred-alfred-ephemeral-v4
+  cancel-in-progress: true
+
+jobs:
+  macro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Compile and regression-test macro PIT v1.1 runtime
+        run: |
+          python -m py_compile btc_baseline.py run_baseline_fresh.py macro_pit.py macro_pit_runner_v4.py
+          python -m unittest -v test_macro_runtime_v4.py
+
+      - name: Generate one-time RSA handoff key
+        id: handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          nonce="$(tr -cd 'A-Za-z0-9_-' < handoff/request_v4.txt)"
+          test -n "$nonce"
+          mkdir -p handoff_public
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out /tmp/fred_private.pem >/dev/null 2>&1
+          openssl pkey -in /tmp/fred_private.pem -pubout -out "handoff_public/fred_public_${nonce}.pem" >/dev/null 2>&1
+          echo "nonce=$nonce" >> "$GITHUB_OUTPUT"
+
+      - name: Publish one-time public key
+        uses: actions/upload-artifact@v4
+        with:
+          name: fred-ephemeral-public-key-${{ steps.handoff.outputs.nonce }}
+          path: handoff_public/
+          retention-days: 1
+
+      - name: Wait for encrypted API-key handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          nonce="${{ steps.handoff.outputs.nonce }}"
+          url="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/handoff/fred_key_${nonce}.enc.b64"
+          ok=0
+          for i in $(seq 1 180); do
+            code="$(curl -L -sS -o /tmp/fred_key.b64 -w '%{http_code}' "${url}?nonce=${GITHUB_RUN_ID}-${i}" || true)"
+            if [ "$code" = "200" ] && base64 -d /tmp/fred_key.b64 > /tmp/fred_key.enc 2>/dev/null; then
+              if openssl pkeyutl -decrypt -inkey /tmp/fred_private.pem -in /tmp/fred_key.enc -out /tmp/fred_key.txt -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 2>/dev/null; then
+                if [ "$(wc -c < /tmp/fred_key.txt | tr -d ' ')" = "32" ]; then
+                  ok=1
+                  break
+                fi
+              fi
+            fi
+            sleep 5
+          done
+          test "$ok" = "1"
+          chmod 600 /tmp/fred_key.txt
+
+      - name: Run frozen ALFRED point-in-time benchmark v1.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          FRED_API_KEY="$(cat /tmp/fred_key.txt)" python macro_pit_runner_v4.py
+
+      - name: Destroy one-time private material
+        if: always()
+        shell: bash
+        run: |
+          shred -u /tmp/fred_key.txt /tmp/fred_key.enc /tmp/fred_key.b64 /tmp/fred_private.pem 2>/dev/null || rm -f /tmp/fred_key.txt /tmp/fred_key.enc /tmp/fred_key.b64 /tmp/fred_private.pem
+
+      - name: Upload macro results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-macro-pit-results-v1-1
+          path: |
+            MACRO_FREEZE_v1_1.json
+            macro_artifacts/
+          if-no-files-found: warn
+          retention-days: 90
