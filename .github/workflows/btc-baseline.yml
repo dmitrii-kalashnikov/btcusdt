@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "btc_baseline.py"
+      - "run_baseline_fresh.py"
       - "test_baseline.py"
       - "requirements.txt"
       - "BASELINE_FREEZE_v2.json"
@@ -40,11 +41,11 @@ jobs:
 
       - name: Compile and anti-leakage tests
         run: |
-          python -m py_compile btc_baseline.py
+          python -m py_compile btc_baseline.py run_baseline_fresh.py
           python -m unittest -v test_baseline.py
 
       - name: Run locked benchmark
-        run: python btc_baseline.py
+        run: python run_baseline_fresh.py
 
       - name: Upload benchmark artifact
         if: always()
