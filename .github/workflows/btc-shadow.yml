@@ -8,6 +8,12 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/btc-shadow.yml'
+      - 'shadow_run.py'
+      - 'shadow_sources.py'
+      - 'shadow_model.py'
+      - 'shadow_score.py'
+      - 'test_shadow_run.py'
+      - 'shadow/SHADOW_FREEZE_v1_2.json'
 
 permissions:
   contents: write
