@@ -17,6 +17,10 @@ def main():
     daily=download_with_daily_tail(); px=base.add_features_targets(daily); origin=pd.Timestamp(px.time.iloc[-1]).tz_convert('UTC').normalize()
     if origin<src.TRAIN_CUTOFF: raise RuntimeError('BTC source behind frozen cutoff')
     f=load_csv(FORECAST); snap=src.load_preclose(); old=json.loads(PROMO.read_text()) if PROMO.exists() else {'status':'INSUFFICIENT_DATA'}; old_status=old.get('status','INSUFFICIENT_DATA')
+    if not snap.empty:
+        latest_packet=pd.to_datetime(snap.origin_date,utc=True,errors='raise').max().normalize()
+        if latest_packet>origin:
+            raise RuntimeError(f'BTC source behind latest pre-close packet: btc_origin={origin.date()} packet_origin={latest_packet.date()}')
     os=origin.strftime('%Y-%m-%d'); new=f.empty or not ((f.origin_date.astype(str).str[:10]==os)&(f.model=='price_ridge')).any(); verified=0; source_status='EXISTING_FROZEN_ORIGIN'
     if new:
         raw=src.preclose_packet(snap,origin); macro=src.current_macro_features(seed,snap,origin,raw); verified=len(src.SERIES); source_status='PRECLOSE_PACKET_PASS'; f=append_origin(f,px,seed,macro,origin,capture)
