@@ -1,0 +1,45 @@
+{
+  "manifest": {
+    "created_after_consumed_price_holdout": true,
+    "data_sources": {
+      "btc": "Binance Vision spot BTCUSDT 1d",
+      "macro": "FRED/ALFRED API point-in-time vintages"
+    },
+    "development_end": "2021-12-31",
+    "experiment_id": "btc-macro-pit-v1.2",
+    "fit_rule": "For forecast origin t and horizon h, every training origin s must satisfy s+h<=t. Median imputation and standardization are fitted only on allowed training rows.",
+    "horizons_days": [7, 30, 90, 180, 365],
+    "macro_feature_classification": {
+      "derived": [
+        "DGS10-DGS2 yield curve",
+        "DGS10-DFII10 breakeven proxy",
+        "WALCL-WTREGEN-1000*RRPONTSYD net liquidity; positive net-liquidity log changes over 13w/52w"
+      ],
+      "growth_series": ["M2SL", "WALCL", "WTREGEN", "DTWEXBGS", "NASDAQCOM", "CPIAUCSL", "PAYEMS"],
+      "growth_transform": "log(value) difference over 13 and 52 weekly origins; requires positive value",
+      "level_series": ["RRPONTSYD", "DFF", "DGS2", "DGS10", "DFII10", "VIXCLS", "UNRATE"],
+      "level_transform": "level plus 13w and 52w absolute delta"
+    },
+    "macro_series": ["M2SL", "WALCL", "WTREGEN", "RRPONTSYD", "DFF", "DGS2", "DGS10", "DFII10", "DTWEXBGS", "VIXCLS", "NASDAQCOM", "CPIAUCSL", "UNRATE", "PAYEMS"],
+    "source_exclusions": {
+      "BAMLH0A0HYM2": "Excluded before any macro model metrics were observed because FRED/ICE notes state that starting April 2026 the series only includes 3 years of observations; the live ALFRED request returned HTTP 400 for the required 2018+ PIT history.",
+      "SP500": "Excluded before any macro model metrics were observed because FRED states that FRED and associated services include only 10 years of daily S&P history; live ALFRED PIT requests for the required 2018 vintage history returned HTTP 400 even with a bounded 400-day observation lookback. NASDAQCOM remains as the pre-specified equity-risk proxy."
+    },
+    "macro_vintage_rule": "At forecast origin t, macro values must come from ALFRED vintage t (or latest state returned for that exact vintage date); no value with available_at > t.",
+    "model_selection_rule": "No hyperparameter search. Compare fixed price-only Ridge against fixed price+macro Ridge. Do not change feature set or alpha based on 2024-2025 results.",
+    "models": {
+      "price_macro_ridge": {"alpha": 50.0},
+      "price_ridge": {"alpha": 50.0}
+    },
+    "price_features": ["ret_7d", "ret_30d", "ret_90d", "ret_180d", "ret_365d", "rv_30d", "rv_90d", "dist_ma_50", "dist_ma_200", "drawdown_from_ath"],
+    "probability_note": "P(up) is a baseline normal approximation from predicted log return and training-target dispersion, not a calibrated posterior.",
+    "prospective_start": "2026-01-01",
+    "secondary_backtest_end": "2025-12-31",
+    "secondary_backtest_start": "2024-01-01",
+    "secondary_backtest_status": "CONSUMED_BY_PRIOR_PRICE_BENCHMARK_NOT_PRISTINE",
+    "validation_end": "2023-12-31",
+    "validation_start": "2022-01-01",
+    "weekly_origin_anchor": "2018-01-01 every 7 days; current latest BTC date appended for prospective forecast"
+  },
+  "sha256": "6af1b586910fd3b7dc7c9f858b3c412866507a8c7bf4f9c96193c61209a6d4b1"
+}
