@@ -8,24 +8,22 @@ import requests
 ROOT=Path('shadow')
 OUT=ROOT/'preclose_macro_snapshots.csv'
 PROBE=ROOT/'source_probe.json'
-FRED='https://fred.stlouisfed.org/graph/fredgraph.csv'
 SERIES=['M2SL','WALCL','WTREGEN','RRPONTSYD','DFF','DGS2','DGS10','DFII10','DTWEXBGS','VIXCLS','NASDAQCOM','CPIAUCSL','UNRATE','PAYEMS']
 
 def sha(b:bytes)->str: return hashlib.sha256(b).hexdigest()
 
 def fetch_one(sid:str,asof:datetime,s:requests.Session)->dict:
-    end=asof.date(); start=end-timedelta(days=120)
-    params={'id':sid,'cosd':start.isoformat(),'coed':end.isoformat()}
-    raw=None; last=None; url=None
+    end=asof.date(); url=f'https://fred.stlouisfed.org/series/{sid}/downloaddata/{sid}.csv'
+    raw=None; last=None
     for attempt in range(1,5):
         try:
-            print(f'FRED {sid} attempt={attempt}',flush=True)
-            r=s.get(FRED,params=params,timeout=(15,30))
-            r.raise_for_status(); raw=r.content; url=r.url; break
+            print(f'FRED static {sid} attempt={attempt}',flush=True)
+            r=s.get(url,timeout=(15,30))
+            r.raise_for_status(); raw=r.content; break
         except requests.RequestException as e:
             last=f'{type(e).__name__}: {e}'
             if attempt<4: time.sleep(2**attempt)
-    if raw is None: raise RuntimeError(f'FRED current snapshot failed for {sid} after 4 attempts; last={last}')
+    if raw is None: raise RuntimeError(f'FRED static snapshot failed for {sid} after 4 attempts; last={last}')
     d=pd.read_csv(io.BytesIO(raw))
     if d.shape[1]<2: raise RuntimeError(f'FRED schema failure for {sid}')
     dates=pd.to_datetime(d.iloc[:,0],utc=True,errors='coerce')
@@ -36,7 +34,7 @@ def fetch_one(sid:str,asof:datetime,s:requests.Session)->dict:
     return {'series_id':sid,'value':float(vals.loc[j]),'observation_date':dates.loc[j].strftime('%Y-%m-%d'),'source_sha256':sha(raw),'source_url':url}
 
 def fetch_all(now:datetime)->list[dict]:
-    s=requests.Session(); s.headers.update({'User-Agent':'btc-shadow-preclose/1.0','Accept':'text/csv'})
+    s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0 btc-shadow-preclose/1.1','Accept':'text/csv,*/*;q=0.8','Connection':'close'})
     return [fetch_one(sid,now,s) for sid in SERIES]
 
 def main():
