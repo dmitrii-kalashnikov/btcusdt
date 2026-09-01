@@ -1,0 +1,14 @@
+{
+  "btc_latest_close": 78581.29,
+  "completed_rows_total": 0,
+  "experiment_id": "btc-shadow-prospective-v1.2",
+  "forecast_rows_total": 15,
+  "governance": "shadow-only; no auto-promotion",
+  "macro_feature_count": 39,
+  "macro_series_verified": 0,
+  "macro_source_status": "EXISTING_FROZEN_ORIGIN",
+  "new_forecast_origin_appended": false,
+  "origin_date": "2026-08-31",
+  "promotion_status": "INSUFFICIENT_DATA",
+  "run_capture_utc": "2026-09-01T04:43:28.415538+00:00"
+}

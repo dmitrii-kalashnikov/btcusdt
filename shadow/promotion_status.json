@@ -1,7 +1,9 @@
 {
   "auto_promoted": false,
-  "next_gate": "At least 13 completed 7d origins and 3 completed 30d non-overlap origins for WATCH_POSITIVE review.",
-  "reason": "Prospective shadow period just started; no matured post-2026-08-31 outcomes yet.",
+  "changed": false,
+  "previous_status": "INSUFFICIENT_DATA",
+  "reason": "Prospective evidence has not reached the minimum review sample.",
+  "review_policy": "Never auto-promote. PROMOTION_REVIEW only opens a human review.",
   "status": "INSUFFICIENT_DATA",
-  "updated_utc": "2026-09-01T04:00:00Z"
+  "updated_utc": "2026-09-01T04:45:26.854267+00:00"
 }
