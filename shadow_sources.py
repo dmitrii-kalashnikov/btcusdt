@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import btc_baseline as base
 
-ROOT=Path('shadow'); FREEZE_PATH=ROOT/'SHADOW_FREEZE_v1_1.json'; SEED_PATH=ROOT/'seed_macro_weekly_features.csv'; PRECLOSE_PATH=ROOT/'preclose_macro_snapshots.csv'
+ROOT=Path('shadow'); FREEZE_PATH=ROOT/'SHADOW_FREEZE_v1_2.json'; SEED_PATH=ROOT/'seed_macro_weekly_features.csv'; PRECLOSE_PATH=ROOT/'preclose_macro_snapshots.csv'
 TRAIN_CUTOFF=pd.Timestamp('2026-08-31',tz='UTC')
 SERIES={'M2SL':'m2','WALCL':'fed_assets','WTREGEN':'tga','RRPONTSYD':'rrp','DFF':'fed_funds','DGS2':'ust_2y','DGS10':'ust_10y','DFII10':'real_10y','DTWEXBGS':'broad_usd','VIXCLS':'vix','NASDAQCOM':'nasdaq','CPIAUCSL':'cpi','UNRATE':'unemployment','PAYEMS':'payrolls'}
 GROWTH=('broad_usd','m2','payrolls','nasdaq','cpi','tga','fed_assets')
@@ -20,7 +20,7 @@ def sha256(b:bytes)->str: return hashlib.sha256(b).hexdigest()
 
 def load_freeze()->dict:
     c=json.loads(FREEZE_PATH.read_text())
-    checks=[c.get('experiment_id')=='btc-shadow-prospective-v1.1',c.get('training_cutoff')=='2026-08-31',c.get('macro_feature_count')==len(MACRO_FEATURES),c.get('governance',{}).get('no_auto_promotion') is True]
+    checks=[c.get('experiment_id')=='btc-shadow-prospective-v1.2',c.get('training_cutoff')=='2026-08-31',c.get('macro_feature_count')==len(MACRO_FEATURES),c.get('governance',{}).get('no_auto_promotion') is True]
     if not all(checks): raise RuntimeError('Shadow contract drift')
     if sha256(SEED_PATH.read_bytes())!=c.get('seed_macro_weekly_features_sha256'): raise RuntimeError('Seed macro SHA256 mismatch')
     return c
