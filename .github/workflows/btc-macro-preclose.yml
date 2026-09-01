@@ -1,0 +1,91 @@
+name: BTC Macro Pre-Close Capture
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 22 * * 1'   # Monday 22:30 UTC, 90 minutes before the Monday BTC daily candle closes.
+  push:
+    branches: [main]
+    paths:
+      - 'shadow_capture.py'
+      - 'shadow/SHADOW_FREEZE_v1_1.json'
+      - '.github/workflows/btc-macro-preclose.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: btc-macro-preclose
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Compile capture runtime
+        run: python -m py_compile shadow_capture.py
+      - name: Probe or capture FRED packet
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = 'schedule' ] || [ "$GITHUB_EVENT_NAME" = 'workflow_dispatch' ]; then
+            if [ "$(date -u +%u)" = '1' ]; then
+              python shadow_capture.py
+            else
+              python shadow_capture.py --probe
+            fi
+          else
+            python shadow_capture.py --probe
+          fi
+      - name: Commit scheduled pre-close packet
+        if: github.event_name == 'schedule'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'btc-shadow-bot'
+          git config user.email 'btc-shadow-bot@users.noreply.github.com'
+          git add shadow/preclose_macro_snapshots.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "shadow: pre-close macro packet $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Close resolved source-failure issue
+        if: success() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          number="$(gh issue list --state open --search 'BTC macro preclose: DATA_SOURCE_FAILURE in:title' --json number --jq '.[0].number // empty')"
+          if [ -n "$number" ]; then gh issue close "$number" --comment 'Latest scheduled pre-close capture succeeded.'; fi
+      - name: Open source-failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title='BTC macro preclose: DATA_SOURCE_FAILURE'
+          existing="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "Pre-close FRED capture failed closed. The next BTC shadow origin must not be generated without a valid pre-close packet. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+          fi
+      - name: Upload capture audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-macro-preclose-${{ github.run_id }}
+          path: |
+            shadow/source_probe.json
+            shadow/preclose_macro_snapshots.csv
+          retention-days: 90
+          if-no-files-found: warn
