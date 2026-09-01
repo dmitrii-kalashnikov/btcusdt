@@ -29,12 +29,14 @@ def load_freeze()->dict:
 
 def fetch_one(sid:str,vintage:pd.Timestamp,s:requests.Session)->dict:
     v=pd.Timestamp(vintage); v=v.tz_convert('UTC') if v.tzinfo else v.tz_localize('UTC'); vd=v.strftime('%Y-%m-%d')
-    q={'id':sid,'vintage_date':vd,'cosd':(v-pd.Timedelta(days=400)).strftime('%Y-%m-%d'),'coed':vd}
+    # Only the last known print is needed here. 13w/52w lags come from the frozen PIT seed,
+    # so a compact exact-vintage window avoids expensive ALFRED history rendering.
+    q={'id':sid,'vintage_date':vd,'cosd':(v-pd.Timedelta(days=120)).strftime('%Y-%m-%d'),'coed':vd}
     raw=None; last_error=None
     for attempt in range(1,5):
         try:
             print(f'ALFRED {sid} vintage={vd} attempt={attempt}',flush=True)
-            r=s.get(ALFRED,params=q,timeout=(15,45))
+            r=s.get(ALFRED,params=q,timeout=(15,35))
             r.raise_for_status(); raw=r.content
             break
         except requests.RequestException as e:
@@ -50,7 +52,7 @@ def fetch_one(sid:str,vintage:pd.Timestamp,s:requests.Session)->dict:
     return {'series_id':sid,'name':SERIES[sid],'value':float(vals.loc[j]),'observation_date':dates.loc[j].strftime('%Y-%m-%d'),'vintage_date':vd,'source_sha256':sha256(raw)}
 
 def fetch_vintage(origin:pd.Timestamp)->tuple[dict,list[dict]]:
-    s=requests.Session(); s.headers.update({'User-Agent':'btc-shadow-prospective/1.1','Accept':'text/csv'}); wide={}; rows=[]; capture=datetime.now(timezone.utc).isoformat()
+    s=requests.Session(); s.headers.update({'User-Agent':'btc-shadow-prospective/1.2','Accept':'text/csv'}); wide={}; rows=[]; capture=datetime.now(timezone.utc).isoformat()
     for sid in SERIES:
         r=fetch_one(sid,origin,s); wide[r['name']]=r['value']; rows.append({'origin_date':pd.Timestamp(origin).strftime('%Y-%m-%d'),'capture_time_utc':capture,'series_id':sid,'value':r['value'],'observation_date':r['observation_date'],'source_sha256':r['source_sha256'],'vintage_date':r['vintage_date']})
     return wide,rows
