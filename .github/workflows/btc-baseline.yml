@@ -1,0 +1,54 @@
+name: BTC Baseline Benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "btc_baseline.py"
+      - "test_baseline.py"
+      - "requirements.txt"
+      - "BASELINE_FREEZE_v2.json"
+      - ".github/workflows/btc-baseline.yml"
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Compile and anti-leakage tests
+        run: |
+          python -m py_compile btc_baseline.py
+          python -m unittest -v test_baseline.py
+
+      - name: Run locked benchmark
+        run: python btc_baseline.py
+
+      - name: Upload benchmark artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-baseline-results
+          path: |
+            BASELINE_FREEZE_v2.json
+            artifacts/
+          if-no-files-found: warn
+          retention-days: 90
