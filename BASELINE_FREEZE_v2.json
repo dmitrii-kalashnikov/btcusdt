@@ -1,0 +1,37 @@
+{
+  "manifest": {
+    "checksum_policy": "STRICT_SHA256_WHEN_COMPANION_PRESENT",
+    "data_source": "Binance Vision spot BTCUSDT 1d archive",
+    "development_end": "2021-12-31",
+    "experiment_id": "btc-price-cycle-baseline-v2",
+    "forecast_origin_stride_days": 7,
+    "holdout_end": "2025-12-31",
+    "holdout_start": "2024-01-01",
+    "holdout_tuning_policy": "NO_HOLDOUT_TUNING",
+    "horizons_days": [7, 30, 90, 180, 365],
+    "models": {
+      "constant_mean": {
+        "definition": "expanding mean of fully-realized forward log returns"
+      },
+      "equal_weight_ensemble": {
+        "members": ["constant_mean", "momentum", "four_year_cycle", "ridge_price"],
+        "weights": "fixed_equal"
+      },
+      "four_year_cycle": {
+        "definition": "forward log return observed exactly 4 calendar years earlier at same date; no fitting"
+      },
+      "momentum": {
+        "definition": "OLS-through-origin coefficient on trailing same-horizon log return; training labels fully realized by forecast time"
+      },
+      "ridge_price": {
+        "alpha": 10.0,
+        "features": ["ret_7d", "ret_30d", "ret_90d", "ret_180d", "ret_365d", "rv_30d", "rv_90d", "dist_ma_50", "dist_ma_200", "drawdown_from_ath"]
+      }
+    },
+    "no_leakage_rule": "For forecast origin t and horizon h, every fitted training row s must satisfy s+h<=t; features use observations <=t only.",
+    "notes": "Baseline definitions are frozen before holdout scoring. Holdout target availability is censored naturally; origins without realized h-day target are not scored.",
+    "validation_end": "2023-12-31",
+    "validation_start": "2022-01-01"
+  },
+  "sha256": "2cef61955f200a63bb3341a39590275e3d8eae0dd79824fba901e0e8ee341fb1"
+}
