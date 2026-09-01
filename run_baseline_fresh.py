@@ -8,10 +8,12 @@ import requests
 
 import btc_baseline as b
 
+ORIGINAL_DOWNLOAD = b.download_binance_daily
+
 
 def download_with_daily_tail() -> pd.DataFrame:
     # First run the frozen, checksum-verified monthly loader.
-    base = b.download_binance_daily()
+    base = ORIGINAL_DOWNLOAD()
     latest = base["time"].iloc[-1].date()
     yesterday = datetime.now(timezone.utc).date() - timedelta(days=1)
     if latest >= yesterday:
