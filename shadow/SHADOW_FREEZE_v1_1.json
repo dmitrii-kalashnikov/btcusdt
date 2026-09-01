@@ -7,7 +7,7 @@
   "macro_history_source": "Audited ALFRED PIT seed from btc-macro-pit-v1.2",
   "macro_live_source": "FRED public fredgraph.csv snapshots physically captured and hashed before the target BTC daily candle closes",
   "source_timing": {
-    "capture_schedule": "Monday 23:30 UTC",
+    "capture_schedule": "Monday 22:30 UTC",
     "target_btc_candle_date": "same UTC Monday",
     "target_btc_close_time": "Tuesday 00:00 UTC",
     "required_invariant": "macro_capture_time_utc < target_btc_close_time_utc"
