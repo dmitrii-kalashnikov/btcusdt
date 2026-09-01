@@ -8,6 +8,9 @@ on:
     branches: [main]
     paths:
       - 'shadow_run.py'
+      - 'shadow_sources.py'
+      - 'shadow_model.py'
+      - 'shadow_score.py'
       - 'test_shadow_run.py'
       - 'shadow/SHADOW_FREEZE_v1.json'
       - '.github/workflows/btc-shadow.yml'
@@ -90,6 +93,19 @@ jobs:
             if [ -z "$existing" ]; then
               gh issue create --title "$title" --body "The prospective BTC macro shadow changed to **${status}**. No model was auto-promoted. Review shadow/promotion_status.json and shadow/scorecard.csv before any architecture change."
             fi
+          fi
+
+      - name: Open data/runtime issue on failed shadow run
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='BTC prospective shadow: DATA_RUNTIME_FAILURE'
+          existing="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "The scheduled BTC prospective shadow failed closed. No forecast/model promotion occurred. Inspect workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
           fi
 
       - name: Upload audit artifact
