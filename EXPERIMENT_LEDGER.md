@@ -49,10 +49,65 @@ Equal-weight frozen ensemble:
 
 `P(up)` is a simple baseline normal-approximation probability, not a fully calibrated posterior probability.
 
+## btc-macro-pit-v1.2 — VALIDATION FAILED / NOT PROMOTED
+
+Status: **COMPLETED / POINT-IN-TIME DATA PASS / MODEL PROMOTION FAIL**
+
+- Frozen manifest canonical SHA256: `6af1b586910fd3b7dc7c9f858b3c412866507a8c7bf4f9c96193c61209a6d4b1`
+- GitHub Actions run: `33467402243`
+- Checked-out run commit: `1501b56dc24fd2978b27470fe8c6c0291e86debe`
+- Result artifact ID: `9785410478`
+- Result artifact ZIP SHA256: `adafdcc103a8d9f0082eaa90f6072495c3d8a9e4e9f60e864dcf09cac2ed3b39`
+- BTC as-of: `2026-08-31`, close `$78,581.29`
+- ALFRED weekly origins: `453`
+- Point-in-time series used: `14`
+- Macro features: `39`
+- Hard invariant: `available_at <= forecast_time`
+- Validation window: `2022-01-01` through `2023-12-31`
+- 2024–2025 results are secondary only because that period had already been consumed by the earlier price/cycle benchmark.
+- Source-only exclusions made before any macro-model metrics were observed: `BAMLH0A0HYM2` and `SP500`.
+
+### Validation comparison — fixed Ridge alpha 50
+
+| Horizon | Price-only MAE | Price+macro MAE | Macro MAE change | Price-only direction | Price+macro direction | Promotion |
+|---:|---:|---:|---:|---:|---:|---|
+| 7d | 0.055923 | 0.063529 | +13.60% worse | 48.08% | 49.04% | FAIL |
+| 30d | 0.127868 | 0.161303 | +26.15% worse | 50.00% | 49.04% | FAIL |
+| 90d | 0.291102 | 0.352876 | +21.22% worse | 54.81% | 55.77% | FAIL |
+| 180d | 0.502666 | 0.641170 | +27.55% worse | 63.46% | 25.96% | FAIL |
+| 365d | 0.543321 | 1.180845 | +117.34% worse | 77.88% | 28.85% | FAIL |
+
+The price+macro Ridge is not promoted because its validation MAE and RMSE are worse at all five horizons and its Brier score is also worse at all five horizons. Small directional improvements at 7d and 90d do not offset the magnitude/probability degradation.
+
+### Unpromoted macro scenario as of 2026-08-31
+
+These numbers are retained for audit only and must **not** be presented as the primary forecast because the macro model failed validation.
+
+| Horizon | Macro forecast price | Macro return | Macro baseline P(up) |
+|---:|---:|---:|---:|
+| 7d | $77,225.07 | -1.73% | 42.57% |
+| 30d | $73,049.57 | -7.04% | 35.45% |
+| 90d | $66,177.99 | -15.78% | 31.89% |
+| 180d | $89,617.79 | +14.04% | 59.75% |
+| 365d | $210,539.67 | +167.93% | 90.92% |
+
+The 365d macro output is a clear extrapolation warning, consistent with the model's failed long-horizon validation. It is not an investable forecast.
+
+### Source availability decisions
+
+- `BAMLH0A0HYM2`: excluded because the live ALFRED history required for 2018+ could not be reconstructed under the current ICE/FRED retention window.
+- `SP500`: excluded because the required historical-vintage requests returned HTTP 400 and FRED explicitly limits the S&P series to ten years of daily history. `NASDAQCOM` remains the equity-risk proxy and provided all 453 requested vintage snapshots.
+- No revised/current-history substitution was allowed for either excluded series.
+
+### Security and reproducibility
+
+The FRED credential was passed to the successful run through a one-time RSA-OAEP handoff. The workflow destroyed the plaintext credential and ephemeral RSA private key after execution. Repository code, model artifacts, PIT data artifacts, and logs do not contain the plaintext credential.
+
 ## Governance for next stage
 
-1. Preserve this benchmark exactly; do not rewrite its artifact or metrics.
-2. Macro/ALFRED architecture must be specified independently of 2024–2025 outcomes.
-3. Use development/validation data for model design and hyperparameters.
-4. Treat 2026+ forecasts as prospective/shadow evidence for any improvements motivated after opening the 2024–2025 holdout.
-5. Never store `FRED_API_KEY` or any other secret in repository contents, artifacts, cache manifests, or logs.
+1. Preserve both completed experiments and their metrics; do not rewrite outcomes.
+2. Do not promote the broad 39-feature macro Ridge.
+3. Any new macro architecture may use development/validation evidence, but it cannot claim 2024–2025 as a pristine final holdout.
+4. Freeze the next architecture before scoring it on later data; use post-2026-08-31 observations prospectively for clean evidence.
+5. Keep the four-year-cycle signal as a regime/sign input rather than using its raw magnitude as a standalone price forecast.
+6. Never store `FRED_API_KEY` or any other plaintext secret in repository contents, artifacts, cache manifests, or logs.
