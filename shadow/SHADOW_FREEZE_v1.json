@@ -1,0 +1,54 @@
+{
+  "btc_source": "Binance Vision spot BTCUSDT 1d official archives",
+  "created_utc": "2026-09-01T04:00:00Z",
+  "experiment_id": "btc-shadow-prospective-v1",
+  "governance": {
+    "2024_2025_holdout_consumed": true,
+    "compare_macro_to_price_ridge_for_incremental_edge": true,
+    "no_auto_promotion": true,
+    "promotion_review_requires_manual_review": true,
+    "prospective_evidence_only_after": "2026-08-31"
+  },
+  "macro_feature_count": 39,
+  "macro_series": [
+    "M2SL",
+    "WALCL",
+    "WTREGEN",
+    "RRPONTSYD",
+    "DFF",
+    "DGS2",
+    "DGS10",
+    "DFII10",
+    "DTWEXBGS",
+    "VIXCLS",
+    "NASDAQCOM",
+    "CPIAUCSL",
+    "UNRATE",
+    "PAYEMS"
+  ],
+  "macro_source": "ALFRED public alfredgraph.csv with exact vintage_date, key-free",
+  "models": {
+    "price_macro_ridge": {"alpha": 50.0},
+    "price_ridge": {"alpha": 50.0}
+  },
+  "price_features": [
+    "ret_7d",
+    "ret_30d",
+    "ret_90d",
+    "ret_180d",
+    "ret_365d",
+    "rv_30d",
+    "rv_90d",
+    "dist_ma_50",
+    "dist_ma_200",
+    "drawdown_from_ath"
+  ],
+  "schedule": "weekly; intended Tuesday 09:15 UTC after Monday BTC daily candle closes",
+  "seed_macro_end": "2026-08-31",
+  "seed_macro_weekly_features_sha256": "df13f1cf959d598f0209a8b225e6650d0df3638d9c2ffb14cf45fc562aab793b",
+  "source_exclusions": {
+    "BAMLH0A0HYM2": "excluded before prospective scoring; current source history insufficient for complete 2018+ PIT reconstruction",
+    "SP500": "excluded before prospective scoring; current FRED/S&P retention prevents complete required vintage reconstruction"
+  },
+  "training_cutoff": "2026-08-31"
+}
