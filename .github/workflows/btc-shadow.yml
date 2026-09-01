@@ -1,0 +1,102 @@
+name: BTC Prospective Shadow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 9 * * 2'   # Tuesday 09:15 UTC; evaluates Monday BTC close with Monday ALFRED vintage.
+  push:
+    branches: [main]
+    paths:
+      - 'shadow_run.py'
+      - 'test_shadow_run.py'
+      - 'shadow/SHADOW_FREEZE_v1.json'
+      - '.github/workflows/btc-shadow.yml'
+
+permissions:
+  contents: write
+  issues: write
+  actions: read
+
+concurrency:
+  group: btc-prospective-shadow
+  cancel-in-progress: false
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Bootstrap frozen PIT seed once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f shadow/seed_macro_weekly_features.csv ]; then
+            mkdir -p shadow /tmp/btc-shadow-seed
+            gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9785410478/zip" > /tmp/btc-shadow-seed/macro.zip
+            unzip -p /tmp/btc-shadow-seed/macro.zip macro_artifacts/macro_weekly_features.csv > shadow/seed_macro_weekly_features.csv
+          fi
+          echo "seed_sha=$(sha256sum shadow/seed_macro_weekly_features.csv | awk '{print $1}')"
+
+      - name: Compile and governance tests
+        run: |
+          python -m py_compile shadow_sources.py shadow_model.py shadow_score.py shadow_run.py test_shadow_run.py
+          python -m unittest -v test_shadow_run.py
+
+      - name: Run frozen weekly shadow
+        run: python shadow_run.py
+
+      - name: Commit prospective state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'btc-shadow-bot'
+          git config user.email 'btc-shadow-bot@users.noreply.github.com'
+          git add shadow/seed_macro_weekly_features.csv shadow/forecasts.csv shadow/macro_snapshots.csv shadow/scorecard.csv shadow/promotion_status.json shadow/last_run.json
+          if git diff --cached --quiet; then
+            echo 'No state change to commit.'
+          else
+            git commit -m "shadow: weekly BTC prospective run $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Open review issue only on positive gate transition
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          status="$(python -c 'import json; print(json.load(open("shadow/promotion_status.json"))["status"])')"
+          changed="$(python -c 'import json; print(str(json.load(open("shadow/promotion_status.json"))["changed"]).lower())')"
+          if [ "$changed" = 'true' ] && { [ "$status" = 'WATCH_POSITIVE' ] || [ "$status" = 'PROMOTION_REVIEW' ]; }; then
+            title="BTC macro shadow: ${status}"
+            existing="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
+            if [ -z "$existing" ]; then
+              gh issue create --title "$title" --body "The prospective BTC macro shadow changed to **${status}**. No model was auto-promoted. Review shadow/promotion_status.json and shadow/scorecard.csv before any architecture change."
+            fi
+          fi
+
+      - name: Upload audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-prospective-shadow-${{ github.run_id }}
+          path: shadow/
+          retention-days: 90
+          if-no-files-found: warn
