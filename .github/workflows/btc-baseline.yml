@@ -14,6 +14,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: btc-baseline-main
+  cancel-in-progress: true
+
 env:
   PYTHONUNBUFFERED: "1"
 
