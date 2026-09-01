@@ -1,0 +1,36 @@
+{
+  "experiment_id": "btc-shadow-prospective-v1.1",
+  "parent_experiment": "btc-shadow-prospective-v1",
+  "change_reason": "Source-transport-only adaptation made before any post-2026-08-31 outcome matured: public ALFRED graph rendering was not reliable from GitHub-hosted runners. Model, alpha, features, scoring and promotion gates are unchanged.",
+  "training_cutoff": "2026-08-31",
+  "btc_source": "Binance Vision spot BTCUSDT 1d official archives",
+  "macro_history_source": "Audited ALFRED PIT seed from btc-macro-pit-v1.2",
+  "macro_live_source": "FRED public fredgraph.csv snapshots physically captured and hashed before the target BTC daily candle closes",
+  "source_timing": {
+    "capture_schedule": "Monday 23:30 UTC",
+    "target_btc_candle_date": "same UTC Monday",
+    "target_btc_close_time": "Tuesday 00:00 UTC",
+    "required_invariant": "macro_capture_time_utc < target_btc_close_time_utc"
+  },
+  "forecast_schedule": "Tuesday 09:15 UTC after official Binance Vision daily archive is expected to be available",
+  "models": {
+    "price_ridge": {"alpha": 50.0},
+    "price_macro_ridge": {"alpha": 50.0}
+  },
+  "price_features": ["ret_7d","ret_30d","ret_90d","ret_180d","ret_365d","rv_30d","rv_90d","dist_ma_50","dist_ma_200","drawdown_from_ath"],
+  "macro_series": ["M2SL","WALCL","WTREGEN","RRPONTSYD","DFF","DGS2","DGS10","DFII10","DTWEXBGS","VIXCLS","NASDAQCOM","CPIAUCSL","UNRATE","PAYEMS"],
+  "macro_feature_count": 39,
+  "seed_macro_weekly_features_sha256": "df13f1cf959d598f0209a8b225e6650d0df3638d9c2ffb14cf45fc562aab793b",
+  "source_exclusions": {
+    "BAMLH0A0HYM2": "excluded before prospective scoring; current source history insufficient for complete 2018+ PIT reconstruction",
+    "SP500": "excluded before prospective scoring; current FRED/S&P retention prevents complete required vintage reconstruction"
+  },
+  "governance": {
+    "2024_2025_holdout_consumed": true,
+    "prospective_evidence_only_after": "2026-08-31",
+    "compare_macro_to_price_ridge_for_incremental_edge": true,
+    "no_auto_promotion": true,
+    "promotion_review_requires_manual_review": true,
+    "source_change_was_not_outcome_driven": true
+  }
+}
