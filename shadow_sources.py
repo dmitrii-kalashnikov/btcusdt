@@ -1,5 +1,5 @@
 from __future__ import annotations
-import hashlib, io, json, math
+import hashlib, io, json, math, time
 from datetime import datetime, timezone
 from pathlib import Path
 import numpy as np
@@ -30,7 +30,18 @@ def load_freeze()->dict:
 def fetch_one(sid:str,vintage:pd.Timestamp,s:requests.Session)->dict:
     v=pd.Timestamp(vintage); v=v.tz_convert('UTC') if v.tzinfo else v.tz_localize('UTC'); vd=v.strftime('%Y-%m-%d')
     q={'id':sid,'vintage_date':vd,'cosd':(v-pd.Timedelta(days=400)).strftime('%Y-%m-%d'),'coed':vd}
-    r=s.get(ALFRED,params=q,timeout=90); r.raise_for_status(); raw=r.content; d=pd.read_csv(io.BytesIO(raw))
+    raw=None; last_error=None
+    for attempt in range(1,5):
+        try:
+            print(f'ALFRED {sid} vintage={vd} attempt={attempt}',flush=True)
+            r=s.get(ALFRED,params=q,timeout=(15,45))
+            r.raise_for_status(); raw=r.content
+            break
+        except requests.RequestException as e:
+            last_error=f'{type(e).__name__}: {e}'
+            if attempt<4: time.sleep(2**attempt)
+    if raw is None: raise RuntimeError(f'ALFRED transport failed after 4 attempts for {sid} vintage={vd}; last={last_error}')
+    d=pd.read_csv(io.BytesIO(raw))
     if d.shape[1]<2: raise RuntimeError(f'ALFRED schema failure {sid}')
     dates=pd.to_datetime(d.iloc[:,0],utc=True,errors='coerce'); vals=pd.to_numeric(d.iloc[:,1].replace('.',pd.NA),errors='coerce')
     ok=dates.notna()&vals.notna()&(dates<=v.normalize())
@@ -39,7 +50,7 @@ def fetch_one(sid:str,vintage:pd.Timestamp,s:requests.Session)->dict:
     return {'series_id':sid,'name':SERIES[sid],'value':float(vals.loc[j]),'observation_date':dates.loc[j].strftime('%Y-%m-%d'),'vintage_date':vd,'source_sha256':sha256(raw)}
 
 def fetch_vintage(origin:pd.Timestamp)->tuple[dict,list[dict]]:
-    s=requests.Session(); s.headers.update({'User-Agent':'btc-shadow-prospective/1.0'}); wide={}; rows=[]; capture=datetime.now(timezone.utc).isoformat()
+    s=requests.Session(); s.headers.update({'User-Agent':'btc-shadow-prospective/1.1','Accept':'text/csv'}); wide={}; rows=[]; capture=datetime.now(timezone.utc).isoformat()
     for sid in SERIES:
         r=fetch_one(sid,origin,s); wide[r['name']]=r['value']; rows.append({'origin_date':pd.Timestamp(origin).strftime('%Y-%m-%d'),'capture_time_utc':capture,'series_id':sid,'value':r['value'],'observation_date':r['observation_date'],'source_sha256':r['source_sha256'],'vintage_date':r['vintage_date']})
     return wide,rows
@@ -58,7 +69,7 @@ def current_macro_features(seed:pd.DataFrame,snap:pd.DataFrame,origin:pd.Timesta
     if a not in h.index or b not in h.index: raise RuntimeError(f'Missing 13w/52w lag origin {a.date()} / {b.date()}')
     o={}
     for n in GROWTH:
-        x,x13,x52=map(float,(h.at[t,n],h.at[a,n],h.at[b,n]));
+        x,x13,x52=map(float,(h.at[t,n],h.at[a,n],h.at[b,n]))
         if min(x,x13,x52)<=0: raise RuntimeError(f'Non-positive growth level {n}')
         o[f'{n}_logchg_13w']=math.log(x/x13); o[f'{n}_logchg_52w']=math.log(x/x52)
     for n in LEVEL:
