@@ -103,11 +103,45 @@ The 365d macro output is a clear extrapolation warning, consistent with the mode
 
 The FRED credential was passed to the successful run through a one-time RSA-OAEP handoff. The workflow destroyed the plaintext credential and ephemeral RSA private key after execution. Repository code, model artifacts, PIT data artifacts, and logs do not contain the plaintext credential.
 
+## leading-signal-diagnostic-v1 — HISTORICAL ANALOG KNN REJECTED
+
+Status: **COMPLETED / DIAGNOSTIC / NOT PROMOTED**
+
+- GitHub Actions run: `33798370429`
+- Commit: `a7119db2c5ef052d4a6ab84472186deb5f116ea4`
+- Result artifact ID: `9910084336`
+- Artifact ZIP SHA256: `00d4418c4f85c5ba654224bd58f5fc9ffcb84c6fef3b33c3181a33e0d686bca2`
+- Data source: official Binance public market-data mirror `data-api.binance.vision`, BTCUSDT 1d.
+- Model: fixed KNN historical analog, `k=15`, inverse-distance weighting, standardized frozen price/cycle feature set.
+- No-leakage rule: at origin index `i` and horizon `h`, training ends at `i-h`, so every fitted forward-return label is fully realized before the forecast origin.
+- This is diagnostic only: 2024–2025 is already consumed and 2026 YTD is not pristine prospective evidence for an architecture designed in September 2026.
+
+### Validation 2022–2023 versus existing price-only baseline
+
+| Horizon | KNN MAE | Price-only MAE | KNN change | KNN direction | Promotion |
+|---:|---:|---:|---:|---:|---|
+| 7d | 0.068434 | 0.055923 | +22.37% worse | 48.57% | FAIL |
+| 30d | 0.225868 | 0.127868 | +76.64% worse | 35.24% | FAIL |
+| 90d | 0.475915 | 0.291102 | +63.49% worse | 55.24% | FAIL |
+| 180d | 0.786472 | 0.502666 | +56.46% worse | 63.81% | FAIL |
+| 365d | 0.625045 | 0.543321 | +15.04% worse | 77.14% | FAIL |
+
+The historical-nearest-neighbor concept does not add enough predictive value in this form. Directional accuracy at long horizons is partly a bull-regime/base-rate effect and does not compensate for materially worse magnitude error.
+
+### Additional diagnostics
+
+On already-consumed 2024–2025 the KNN directional accuracy was 55.24%, 47.62%, 48.57%, 39.05%, and 45.45% for 7/30/90/180/365d respectively, with MAE 0.058606, 0.170663, 0.382225, 0.599853, and 0.936283. It therefore failed to generalize even on the consumed secondary period.
+
+2026 YTD diagnostic directional accuracy was 37.14% (7d), 45.16% (30d), 56.52% (90d), and 30.00% (180d); samples are small and this period is not a clean holdout. Non-overlapping samples become extremely small beyond 30d, so no long-horizon claim is accepted from this diagnostic.
+
+Decision: **REJECT this KNN analog formulation. Do not use it in the user-facing forecast or ensemble.**
+
 ## Governance for next stage
 
-1. Preserve both completed experiments and their metrics; do not rewrite outcomes.
+1. Preserve all completed experiments and failures; do not rewrite outcomes.
 2. Do not promote the broad 39-feature macro Ridge.
-3. Any new macro architecture may use development/validation evidence, but it cannot claim 2024–2025 as a pristine final holdout.
-4. Freeze the next architecture before scoring it on later data; use post-2026-08-31 observations prospectively for clean evidence.
-5. Keep the four-year-cycle signal as a regime/sign input rather than using its raw magnitude as a standalone price forecast.
-6. Never store `FRED_API_KEY` or any other plaintext secret in repository contents, artifacts, cache manifests, or logs.
+3. Do not promote `leading-signal-diagnostic-v1` KNN historical analog formulation.
+4. Any new architecture may use development/validation evidence, but it cannot claim 2024–2025 as a pristine final holdout.
+5. Freeze the next architecture before scoring it on later data; use post-2026-08-31 observations prospectively for clean evidence.
+6. Keep the four-year-cycle signal as a regime/sign input rather than using its raw magnitude as a standalone price forecast.
+7. Never store `FRED_API_KEY` or any other plaintext secret in repository contents, artifacts, cache manifests, or logs.
