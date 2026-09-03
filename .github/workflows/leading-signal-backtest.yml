@@ -1,0 +1,41 @@
+name: BTC Leading Signal Backtest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "leading_signal_backtest.py"
+      - ".github/workflows/leading-signal-backtest.yml"
+      - "btc_baseline.py"
+      - "requirements.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Compile
+        run: python -m py_compile leading_signal_backtest.py
+      - name: Run walk-forward analog benchmark
+        run: python leading_signal_backtest.py
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: leading-signal-backtest-results
+          path: leading_signal_artifacts/
+          if-no-files-found: warn
+          retention-days: 90
