@@ -20,7 +20,8 @@ STRIDE = 7
 
 
 def download_fast() -> pd.DataFrame:
-    url = 'https://api.binance.com/api/v3/klines'
+    # Official Binance public market-data mirror; avoids regional 451 from api.binance.com on CI runners.
+    url = 'https://data-api.binance.vision/api/v3/klines'
     start_ms = int(pd.Timestamp('2017-08-17', tz='UTC').timestamp() * 1000)
     rows = []
     session = requests.Session()
@@ -70,7 +71,7 @@ def origins(frame: pd.DataFrame, start: str, end: str):
     if not idx:
         return []
     t0 = frame.at[idx[0], 'time']
-    return [i for i in idx if (frame.at[i, 'time'] - t0).days % STRIDE == 0]
+    return [i for i in idx if (frame.at[i], 'time') and (frame.at[i, 'time'] - t0).days % STRIDE == 0]
 
 
 def evaluate(frame: pd.DataFrame, split: str, start: str, end: str) -> pd.DataFrame:
