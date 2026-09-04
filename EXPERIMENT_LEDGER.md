@@ -136,12 +136,49 @@ On already-consumed 2024–2025 the KNN directional accuracy was 55.24%, 47.62%,
 
 Decision: **REJECT this KNN analog formulation. Do not use it in the user-facing forecast or ensemble.**
 
+## btc-derivatives-pit-v1 — HISTORICAL DIAGNOSTIC REJECTED
+
+Status: **COMPLETED / DIAGNOSTIC / NOT PROMOTED**
+
+- GitHub Actions run: `33913421193`
+- Commit: `52eff3e76d525f73b5f4ab4524714e30af51dd31`
+- Result artifact ID: `9952310218`
+- Artifact ZIP SHA256: `6919dfddb15e929631c9578d1de3e10be60c4e705c3fb010f61c4b8381cea4ba`
+- Data source: official Binance futures archives/public market data, BTCUSDT.
+- Genuine merged history used: `2022-01-01` through `2026-08-31`, `1704` daily rows.
+- Features: price returns/realized volatility plus OI change, funding level/rolling means/z-score, global/top-trader long-short ratios, and taker buy/sell ratio.
+- Model: fixed Ridge alpha `50`; expanding time-order fit; training labels end at `i-h`; no random shuffle.
+- A deterministic Pandas aggregation failure in the first run was fixed without changing model, feature definitions, sample periods, thresholds, or scoring logic. The unchanged experiment then completed successfully.
+
+### Comparable secondary diagnostic — 2024–2025 (already consumed, not a pristine holdout)
+
+| Horizon | Price-only MAE | Price+derivatives MAE | MAE change | Price-only direction | Price+derivatives direction |
+|---:|---:|---:|---:|---:|---:|
+| 7d | 0.052443 | 0.055457 | +5.75% worse | 48.57% | 48.57% |
+| 30d | 0.095245 | 0.112662 | +18.29% worse | 53.92% | 50.98% |
+| 90d | 0.223205 | 0.251457 | +12.66% worse | 44.09% | 47.31% |
+
+### 2026 YTD diagnostic — not pristine prospective evidence
+
+| Horizon | Price-only MAE | Price+derivatives MAE | MAE change | Price-only direction | Price+derivatives direction |
+|---:|---:|---:|---:|---:|---:|
+| 7d | 0.050770 | 0.057697 | +13.65% worse | 47.06% | 50.00% |
+| 30d | 0.085019 | 0.116016 | +36.46% worse | 48.39% | 35.48% |
+| 90d | 0.152877 | 0.180286 | +17.93% worse | 45.45% | 36.36% |
+
+The 2022–2023 derivative availability window yields unequal common-origin counts between the price-only and extended models (`65 vs 16` at 7d, `62 vs 12` at 30d, `53 vs 4` at 90d), so those headline MAE-change percentages are not treated as an apples-to-apples promotion test. This family therefore has no valid historical promotion claim. On the comparable 2024–2025 and 2026-YTD diagnostics it worsens MAE at every tested horizon.
+
+A fixed crowding event study is retained only as descriptive evidence. It is not promoted because the event definition was inspected after historical outcomes were already available and no pristine unseen block exists for it.
+
+Decision: **REJECT the historical derivatives extension for user-facing predictive weight. Keep current OI/funding/L-S/taker metrics as EXPERIMENTAL live context only. Any redesigned derivatives rule/model requires a frozen post-2026-08-31 prospective test.**
+
 ## Governance for next stage
 
 1. Preserve all completed experiments and failures; do not rewrite outcomes.
 2. Do not promote the broad 39-feature macro Ridge.
 3. Do not promote `leading-signal-diagnostic-v1` KNN historical analog formulation.
-4. Any new architecture may use development/validation evidence, but it cannot claim 2024–2025 as a pristine final holdout.
-5. Freeze the next architecture before scoring it on later data; use post-2026-08-31 observations prospectively for clean evidence.
-6. Keep the four-year-cycle signal as a regime/sign input rather than using its raw magnitude as a standalone price forecast.
-7. Never store `FRED_API_KEY` or any other plaintext secret in repository contents, artifacts, cache manifests, or logs.
+4. Do not promote `btc-derivatives-pit-v1`; derivative live metrics remain descriptive until a later frozen prospective experiment passes.
+5. Any new architecture may use development/validation evidence, but it cannot claim 2024–2025 as a pristine final holdout.
+6. Freeze the next architecture before scoring it on later data; use post-2026-08-31 observations prospectively for clean evidence.
+7. Keep the four-year-cycle signal as a regime/sign input rather than using its raw magnitude as a standalone price forecast.
+8. Never store `FRED_API_KEY` or any other plaintext secret in repository contents, artifacts, cache manifests, or logs.
