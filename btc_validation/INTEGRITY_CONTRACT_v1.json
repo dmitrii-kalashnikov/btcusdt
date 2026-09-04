@@ -1,0 +1,17 @@
+{
+  "overlay_id": "btc-integrity-v1-20260904",
+  "kind": "INTEGRITY_ONLY_NOT_MODEL_PROMOTION",
+  "frozen_file_sha256": {
+    "BASELINE_FREEZE_v2.json": "3215500ea699861773bcb72fceff4d170b3c1cd0b276c60ec7a9c91b958ddc1f",
+    "shadow/SHADOW_FREEZE_v1_2.json": "f7031946f29a319b77900c828eaba61dab38e241af7fa7437d401ea657f34ce9",
+    "shadow/seed_macro_weekly_features.csv": "df13f1cf959d598f0209a8b225e6650d0df3638d9c2ffb14cf45fc562aab793b",
+    "btc_baseline.py": "36a0aefa8824b29de8bb417b167ef0629cf7efe54a7e2d205250a0a71087ce28",
+    "shadow_model.py": "154e359a5711c273548e4f56c0475dd6f372b4a4a4a0470b2214ee1c3c72503f",
+    "MACRO_FREEZE_v1_2.json": "bcd3b901ac1baf5b102854dcab8d96c5c313ee250641e933d30bff581e21dec9"
+  },
+  "source_decimal_contract": "Use exact CSV decimal string; SHA256(series|observation_date|format(Decimal(value),f)|official_url). Never binary-float parse before hash verification.",
+  "paired_comparison_required": true,
+  "duplicate_forecasts_forbidden": true,
+  "legacy_delayed_origin_forecasts": "Retain unchanged as diagnostics; exclude from clean prospective review eligibility.",
+  "forecast_policy": "No model/alpha/feature/horizon/old-prediction mutation; no auto-promotion. New issued-at anchor is a separate preregistered experiment."
+}
