@@ -42,7 +42,7 @@ jobs:
         run: |
           mkdir -p validation_artifacts
           set -o pipefail
-          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity 2>&1 | tee validation_artifacts/regression_tests.txt
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect 2>&1 | tee validation_artifacts/regression_tests.txt
       - name: Paired historical diagnostic replay
         if: github.event_name != 'pull_request'
         env:

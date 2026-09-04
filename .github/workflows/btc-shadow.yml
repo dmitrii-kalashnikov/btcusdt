@@ -54,7 +54,7 @@ jobs:
       - name: Compile and integrity tests
         run: |
           python -m py_compile shadow_sources.py shadow_model.py shadow_score.py shadow_run.py test_shadow_run.py
-          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect
       - name: Run frozen weekly shadow
         run: python shadow_run.py
       - name: Commit prospective state
@@ -65,7 +65,7 @@ jobs:
           git config user.email 'btc-shadow-bot@users.noreply.github.com'
           git add shadow/seed_macro_weekly_features.csv shadow/forecasts.csv shadow/preclose_macro_snapshots.csv shadow/scorecard.csv shadow/promotion_status.json shadow/last_run.json
           git add shadow/issued_*.csv shadow/issued_*.json
-          if [ -f shadow/issued_forecasts.jsonl ]; then git add shadow/issued_forecasts.jsonl; fi
+          if [ ! -f shadow/issued_forecasts.jsonl ]; then :; else git add shadow/issued_forecasts.jsonl; fi
           if ! git diff --cached --quiet; then
             git commit -m "shadow: weekly BTC prospective run $(date -u +%Y-%m-%d)"
             git pull --rebase origin main

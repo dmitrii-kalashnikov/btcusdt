@@ -46,7 +46,11 @@ def assemble(prices,funding,metric_rows,start,end):
     if not prices:raise IntegrityError('No verified futures prices')
     p=pd.concat(prices,ignore_index=True)
     if p.time.duplicated().any():raise IntegrityError('Duplicate monthly price boundary')
-    p=validate_daily(p,require_contiguous=False);p=p.set_index('time').reindex(pd.date_range(start,end,freq='D',tz='UTC'));p.index.name='time'
+    p=validate_daily(p,require_contiguous=False)
+    if p.columns.duplicated().any():raise IntegrityError('Duplicate price columns')
+    calendar=pd.DataFrame({'time':pd.date_range(start,end,freq='D',tz='UTC')})
+    p=calendar.merge(p,on='time',how='left',validate='one_to_one')
+    p=p.set_index('time',verify_integrity=True)
     if funding:
         f=pd.concat(funding,ignore_index=True)
         if f.time.duplicated().any():raise IntegrityError('Duplicate funding timestamp')
@@ -55,7 +59,14 @@ def assemble(prices,funding,metric_rows,start,end):
     m=pd.DataFrame(metric_rows)
     if not m.empty:
         if m.time.duplicated().any():raise IntegrityError('Duplicate metrics date')
-        p=p.join(m.set_index('time'),how='left')
+        expected=['time','metrics_observed_at','oi_btc','global_accounts_ls','top_positions_ls']
+        if m.columns.duplicated().any() or set(m.columns)-set(expected):raise IntegrityError('Unexpected metrics columns')
+        for name in expected:
+            if name not in m:m[name]=pd.NaT if name=='metrics_observed_at' else np.nan
+        left=p.reset_index();right=m[expected].copy()
+        overlap=(set(left.columns)&set(right.columns))-{'time'}
+        if overlap:raise IntegrityError(f'Ambiguous price/metrics fields: {sorted(overlap)}')
+        p=left.merge(right,on='time',how='left',validate='one_to_one').set_index('time',verify_integrity=True)
     else:
         for col in ['oi_btc','global_accounts_ls','top_positions_ls']:p[col]=np.nan
     oi=pd.to_numeric(p.oi_btc,errors='raise').where(p.oi_btc>0)
@@ -83,6 +94,10 @@ def main():
             log.append(item)
             if data is not None:{'klines':prices,'fundingRate':funding,'metrics':ms}[kind].append(data)
     (out/'source_manifest.json').write_text(json.dumps(log,indent=2));failed=[x for x in log if x['status'] in ['SOURCE_FAILURE','SCHEMA_FAILURE']]
+    # Preserve normalized inputs before assembly: a runtime failure must remain replayable.
+    if prices:pd.concat(prices,ignore_index=True).to_csv(out/'normalized_prices.csv',index=False)
+    if funding:pd.concat(funding,ignore_index=True).to_csv(out/'normalized_funding.csv',index=False)
+    pd.DataFrame(ms).to_csv(out/'normalized_metrics.csv',index=False)
     d=assemble(prices,funding,ms,str(start.date()),str(end.date()));d.to_csv(out/'daily.csv',index=False);coverage=[]
     for family,cols in cfg['derivative_families'].items():
         for year,g in d.groupby(d.time.dt.year):
