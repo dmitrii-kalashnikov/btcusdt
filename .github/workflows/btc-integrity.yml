@@ -1,0 +1,74 @@
+name: BTC Integrity QA
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/btc-integrity.yml'
+      - 'btc_validation/**'
+      - 'shadow_sources.py'
+      - 'shadow_score.py'
+      - 'shadow_run.py'
+      - 'shadow_model.py'
+      - 'btc_runtime_guard.py'
+  pull_request:
+    paths:
+      - 'btc_validation/**'
+      - 'shadow_*.py'
+      - 'btc_runtime_guard.py'
+
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: btc-integrity-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Existing tests
+        run: python -m unittest -v test_baseline.py test_shadow_run.py
+      - name: Integrity regression tests
+        run: |
+          if [ -f btc_validation/test_integrity.py ]; then
+            python -m unittest -v btc_validation.test_integrity
+          fi
+      - name: Historical diagnostic replay
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f btc_validation/replay.py ]; then
+            mkdir -p validation_inputs
+            gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9784547743/zip" > validation_inputs/baseline.zip
+            gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9952310218/zip" > validation_inputs/derivatives.zip
+            python -m btc_validation.replay --baseline validation_inputs/baseline.zip --derivatives validation_inputs/derivatives.zip --out validation_artifacts
+          fi
+      - name: Internal source and QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-integrity-${{ github.run_id }}
+          retention-days: 90
+          include-hidden-files: true
+          path: |
+            *.py
+            requirements.txt
+            BASELINE_FREEZE_v2.json
+            MACRO_FREEZE_v1_2.json
+            EXPERIMENT_LEDGER.md
+            shadow/
+            btc_validation/
+            validation_artifacts/
+            .github/workflows/btc-shadow.yml
+            .github/workflows/btc-integrity.yml
