@@ -1,0 +1,21 @@
+{
+  "experiment_id": "btc-issued-anchor-v1-20260904",
+  "purpose": "Separate prospective deployment evidence for unchanged frozen models; never rewrite legacy targets or declare a historical block pristine",
+  "models": ["price_ridge", "price_macro_ridge", "primary_equal_weight_ensemble"],
+  "model_source": "Unchanged shadow_model.py and btc_baseline.py pinned in INTEGRITY_CONTRACT_v1.json",
+  "training_cutoff": "2026-08-31",
+  "horizons_days": [7, 30, 90, 180, 365],
+  "origin_stride_days": 7,
+  "issue_schedule": "Existing Tuesday weekly workflow after valid Monday pre-close packet; no new task",
+  "anchor_rule": "First UTC whole hour at or after actual issuance + 15 minutes; first BTCUSDT spot 1-minute bar OPEN at that timestamp",
+  "forecast": "Record the unchanged model predicted log return before the anchor exists. Evaluate against log(P_anchor_plus_h / P_anchor). Any rebased price is descriptive only until separately validated.",
+  "known_mismatch": "Models were trained on midnight daily-close targets. This deployment delay is a new experimental evaluation, not evidence that old accuracy transfers unchanged.",
+  "publication_proof": "First Git commit introducing exact forecast_id must contain the identical hashed record and have commit time before period_start_utc. Uncommitted, changed or late records cannot count.",
+  "price_source": "https://data-api.binance.vision/api/v3/klines BTCUSDT interval=1m, exact startTime, closed bar required",
+  "missing_source_rule": "No price substitution or missing-as-zero; per-record pending/source-failure status",
+  "original_predictions_immutable": true,
+  "probabilities_user_facing": false,
+  "auto_promotion": false,
+  "decision_weight": 0,
+  "holdout_tuning": "FORBIDDEN"
+}
