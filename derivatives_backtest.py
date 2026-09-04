@@ -70,6 +70,8 @@ def download_metrics():
         if c not in ('create_time','symbol','source_date','time'): m[c]=pd.to_numeric(m[c],errors='coerce')
     m=m.sort_values('time').dropna(subset=['time'])
     daily=m.groupby(m.time.dt.floor('D')).last(numeric_only=False)
+    # `time` is both retained by groupby-last and used as the grouped index; drop the retained copy before reset_index.
+    daily=daily.drop(columns=['time'],errors='ignore')
     daily.index.name='time'; daily=daily.reset_index()
     return daily
 
