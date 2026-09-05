@@ -17,7 +17,7 @@ def run(daily,deriv,cfg):
     for family,extra in cfg['derivative_families'].items():
         for split,a,b in [('validation_selection_safe',cfg['validation_start'],cfg['validation_end']),('consumed_secondary',cfg['secondary_start'],cfg['secondary_end'])]:
             for h in cfg['horizons_days']:
-                a,b=pd.Timestamp(a,tz='UTC'),pd.Timestamp(b,tz='UTC');origins=d[grid&(d.time>=a)&(d.time+pd.Timedelta(days=h)<=b)];used=0
+                a,b=pd.to_datetime(a,utc=True),pd.to_datetime(b,utc=True);origins=d[grid&(d.time>=a)&(d.time+pd.Timedelta(days=h)<=b)];used=0
                 for i,cur in origins.iterrows():
                     target=f'fwd_ret_{h}d';train=d[(d.time+pd.Timedelta(days=h)<=cur.time)&d[target].notna()].dropna(subset=pf+extra)
                     if len(train)<cfg['minimum_training_rows'] or cur[pf+extra].isna().any():continue

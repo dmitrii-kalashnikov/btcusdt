@@ -60,7 +60,8 @@ def metrics_day(raw,date):
     if not required.issubset(m.columns):raise IntegrityError('Unknown metrics schema')
     if not (m.symbol==SYMBOL).all():raise IntegrityError('Wrong derivatives symbol')
     m['time']=pd.to_datetime(m.create_time,utc=True,errors='raise')
-    if m.time.duplicated().any() or not (m.time.dt.normalize()==date).all():raise IntegrityError('Duplicate/wrong-date metrics timestamps')
+    if m.time.duplicated().any() or not (m.time.dt.normalize()==date).all():
+        raise IntegrityError(f'Duplicate/wrong-date metrics timestamps: expected={date}; first={m.time.min()}; last={m.time.max()}; duplicates={int(m.time.duplicated().sum())}; raw_first={m.create_time.iloc[0]!r}; raw_last={m.create_time.iloc[-1]!r}')
     if m.empty:raise IntegrityError('Empty metrics archive')
     r=m.sort_values('time').iloc[-1]
     return {'time':date,'metrics_observed_at':r.time,'oi_btc':pd.to_numeric(r['sum_open_interest'],errors='raise'),'global_accounts_ls':pd.to_numeric(r.get('count_long_short_ratio'),errors='coerce'),'top_positions_ls':pd.to_numeric(r.get('sum_toptrader_long_short_ratio'),errors='coerce')}
@@ -107,7 +108,10 @@ def main():
         kind,d,url=job;payload,manifest=fetch_zip(url)
         if payload is None:return kind,None,manifest
         try:return kind,(metrics_day(payload,d) if kind=='metrics' else parse_archive_csv(payload,kind)),manifest
-        except Exception as exc:return kind,None,manifest|{'status':'SCHEMA_FAILURE','error':f'{type(exc).__name__}: {exc}'}
+        except Exception as exc:
+            rawdir=out/'failed_source_samples';rawdir.mkdir(exist_ok=True)
+            (rawdir/f'{kind}-{d.date()}.csv').write_bytes(payload)
+            return kind,None,manifest|{'status':'SCHEMA_FAILURE','error':f'{type(exc).__name__}: {exc}'}
     prices,funding,ms,log=[],[],[],[]
     with ThreadPoolExecutor(max_workers=8) as pool:
         for kind,data,item in pool.map(one,jobs):
@@ -124,6 +128,8 @@ def main():
             valid=g[cols].notna().all(axis=1);coverage.append({'family':family,'year':int(year),'calendar_days':len(g),'complete_days':int(valid.sum()),'first_complete':str(g.loc[valid,'time'].min().date()) if valid.any() else None})
     status={'status':'SOURCE_FAILURE' if failed else 'RETRIEVAL_COMPLETE_DIAGNOSTIC_ONLY','pit_status':'OFFICIAL_ARCHIVE_AS_RETRIEVED_NOT_ORIGINAL_VINTAGE_PROOF','source_failures':len(failed),'archive_absences':sum(x['status']=='ARCHIVE_NOT_AVAILABLE' for x in log),'daily_sha256':digest((out/'daily.csv').read_bytes()),'coverage':coverage,'promotion_allowed':False}
     (out/'coverage.json').write_text(json.dumps(status,indent=2));print(json.dumps(status,indent=2))
-    if failed:raise IntegrityError(f'{len(failed)} source/schema failures; do not fit this data')
+    if failed:
+        print('FIRST_SOURCE_FAILURES',json.dumps(failed[:3],indent=2))
+        raise IntegrityError(f'{len(failed)} source/schema failures; do not fit this data')
 
 if __name__=='__main__':main()

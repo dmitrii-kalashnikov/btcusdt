@@ -45,11 +45,30 @@ class CalendarPlanningTests(unittest.TestCase):
         self.assertEqual(metrics[-1][1],pd.Timestamp('2026-08-31',tz='UTC'))
         self.assertEqual(len({j[2] for j in jobs}),len(jobs))
     def test_assemble_mixed_bounds(self):
-        p,f,m=FullArchiveCollectorTests().inputs()
+        p,f,m=self.inputs() if hasattr(self,'inputs') else FullArchiveCollectorTests().inputs()
         d=assemble([p],[f],m,'2022-01-01',pd.Timestamp('2022-01-02',tz='UTC'))
         self.assertEqual(len(d),2)
     def test_invalid_calendar_bounds(self):
         for a,b in [('NaT','2022-01-01'),('2022-01-02','2022-01-01'),('2022-01-01 01:00','2022-01-02')]:
             with self.assertRaises(IntegrityError):utc_calendar(a,b)
+
+class DerivativeHorizonTests(unittest.TestCase):
+    def test_both_horizons_are_processed_without_relocalizing_utc(self):
+        from unittest.mock import patch
+        from .derivative_research import run
+        dates=pd.date_range('2021-01-01',periods=410,tz='UTC')
+        d=pd.DataFrame({'time':dates,'close':100.,'rv_30d':.5,'x':np.sin(np.arange(410)/10),
+                        'fwd_ret_7d':.01,'fwd_ret_30d':.02})
+        deriv=pd.DataFrame({'time':dates,'z':np.cos(np.arange(410)/10)})
+        cfg={'price_features':['x'],'derivative_families':{'test':['z']},'origin_anchor':'2021-01-01',
+             'forecast_origin_stride_days':7,'validation_start':'2021-06-01','validation_end':'2021-08-31',
+             'secondary_start':'2021-09-01','secondary_end':'2021-12-31','horizons_days':[7,30],
+             'minimum_training_rows':100,'ridge_alpha':50}
+        with patch('btc_validation.derivative_research.features_and_events',return_value=d):
+            predictions,status=run(d,deriv,cfg)
+        self.assertEqual(len(status),4)
+        self.assertEqual(set(predictions.horizon),{7,30})
+        self.assertTrue(all(x['paired_origins']>0 for x in status))
+        self.assertEqual(len(predictions),2*sum(x['paired_origins'] for x in status))
 
 if __name__=='__main__':unittest.main()
