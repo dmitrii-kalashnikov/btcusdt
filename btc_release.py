@@ -1,5 +1,17 @@
 """Production entry point: verified sources, conditional outlook, no promotion.
 Market rules below are transparent EXPERIMENTAL descriptions, not fitted models.
+
+USER-FACING PRESENTATION CONTRACT:
+The ONLY visible BTC report is existing Google Sheet BTC FINAL REPORT, A1:D28.
+It presents the working view, 7/30/90-day conditional scenarios, separately named
+volatility risk scales, concise macro/flow interpretation and revision triggers.
+The existing A100:F189 import and H250:L285 lookups are hidden implementation
+ranges on the SAME tab. report.csv remains the wire format, not a second report.
+Preserve its semantic label keys: the visible summary looks up labels, not row
+positions. Never replace the compact view with logs, hashes, CI results, raw
+model outputs or the experiment ledger. One confidence line communicates the
+unproven predictive edge. Source dates and a two-hour stale guard remain visible.
+This presentation change does not change algorithms, thresholds or promotion.
 """
 from __future__ import annotations
 import json,re
