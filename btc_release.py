@@ -14,10 +14,11 @@ unproven predictive edge. Source dates and a two-hour stale guard remain visible
 This presentation change does not change algorithms, thresholds or promotion.
 """
 from __future__ import annotations
-import json,re
+import json,re,time
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
+import requests
 import btc_production as app
 import btc_transport as transport
 from btc_validation.core import IntegrityError
@@ -25,6 +26,35 @@ from btc_validation.core import IntegrityError
 BASE_REPORT=app.report_rows
 BASE_FRED=transport.parse_fred_page
 BASE_CAPTURE=app.capture_preclose
+BASE_READER=transport.reader
+
+
+def reader_with_retry(url):
+    """Retry transient transport faults only; no source substitution or stale fill."""
+    # Run 33943564117 exposed a transient PAYEMS Reader HTTP 503. Keep the failure
+    # in Actions, preserve all source validators, and retry the SAME source only.
+    for attempt in range(3):
+        try:
+            return BASE_READER(url)
+        except requests.RequestException as exc:
+            response = getattr(exc, 'response', None)
+            status = getattr(response, 'status_code', None)
+            transient = status in (429, 500, 502, 503, 504) or isinstance(
+                exc, (requests.Timeout, requests.ConnectionError))
+            if not transient or attempt == 2:
+                raise
+            wait = float(2 ** (attempt + 1))
+            retry_after = response.headers.get('Retry-After') if response is not None else None
+            if retry_after is not None:
+                try:
+                    required_wait = float(retry_after)
+                except (TypeError, ValueError):
+                    raise exc
+                if not 0 <= required_wait <= 60:
+                    raise exc
+                wait = max(wait, required_wait)
+            time.sleep(wait)
+    raise AssertionError('unreachable')
 
 
 def fred_with_change(text,sid,now):
@@ -95,6 +125,7 @@ def record_release(path=Path('EXPERIMENT_LEDGER.md'), evidence_path=Path('btc_va
 
 
 def install():
+    transport.reader=reader_with_retry
     transport.parse_fred_page=fred_with_change
     app.report_rows=render
     app.capture_preclose=capture_at_contract_time
