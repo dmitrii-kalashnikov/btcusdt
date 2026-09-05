@@ -4,16 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '15 9 * * 2'
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/btc-shadow.yml'
-      - 'shadow_run.py'
-      - 'shadow_sources.py'
-      - 'shadow_model.py'
-      - 'shadow_score.py'
-      - 'test_shadow_run.py'
-      - 'shadow/SHADOW_FREEZE_v1_2.json'
 
 permissions:
   contents: write
@@ -23,15 +13,21 @@ permissions:
 concurrency:
   group: btc-prospective-shadow
   cancel-in-progress: false
+  queue: max
 
 jobs:
   shadow:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+      - name: Refresh main under shared writer lock
+        run: |
+          git fetch origin main
+          git checkout -B shadow-main origin/main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -49,10 +45,10 @@ jobs:
             unzip -p /tmp/btc-shadow-seed/macro.zip macro_artifacts/macro_weekly_features.csv > shadow/seed_macro_weekly_features.csv
           fi
           sha256sum shadow/seed_macro_weekly_features.csv
-      - name: Compile and governance tests
+      - name: Compile and integrity tests
         run: |
           python -m py_compile shadow_sources.py shadow_model.py shadow_score.py shadow_run.py test_shadow_run.py
-          python -m unittest -v test_shadow_run.py
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect
       - name: Run frozen weekly shadow
         run: python shadow_run.py
       - name: Commit prospective state
@@ -62,12 +58,14 @@ jobs:
           git config user.name 'btc-shadow-bot'
           git config user.email 'btc-shadow-bot@users.noreply.github.com'
           git add shadow/seed_macro_weekly_features.csv shadow/forecasts.csv shadow/preclose_macro_snapshots.csv shadow/scorecard.csv shadow/promotion_status.json shadow/last_run.json
+          git add shadow/issued_*.csv shadow/issued_*.json
+          if [ ! -f shadow/issued_forecasts.jsonl ]; then :; else git add shadow/issued_forecasts.jsonl; fi
           if ! git diff --cached --quiet; then
             git commit -m "shadow: weekly BTC prospective run $(date -u +%Y-%m-%d)"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
-      - name: Open review issue only on positive gate transition
+      - name: Open review only on positive transition
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -79,10 +77,10 @@ jobs:
             title="BTC macro shadow: ${status}"
             existing="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
             if [ -z "$existing" ]; then
-              gh issue create --title "$title" --body "Prospective BTC macro shadow changed to **${status}**. No model was auto-promoted. Review shadow/promotion_status.json and shadow/scorecard.csv."
+              gh issue create --title "$title" --body "Prospective shadow changed to ${status}. No auto-promotion. Check paired origins and issuance proof."
             fi
           fi
-      - name: Open data/runtime issue on failed shadow run
+      - name: Open issue on runtime failure
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
@@ -91,9 +89,9 @@ jobs:
           title='BTC prospective shadow: DATA_RUNTIME_FAILURE'
           existing="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
           if [ -z "$existing" ]; then
-            gh issue create --title "$title" --body "BTC prospective shadow failed closed. No promotion occurred. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+            gh issue create --title "$title" --body "BTC shadow failed closed. No promotion. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
           fi
-      - name: Upload audit artifact
+      - name: Upload internal audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:

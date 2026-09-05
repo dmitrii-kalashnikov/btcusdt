@@ -1,0 +1,72 @@
+name: BTC Integrity QA
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '**.py'
+      - 'btc_validation/**'
+      - '.github/workflows/**'
+
+
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: btc-integrity-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Executed integrity regression tests
+        run: |
+          mkdir -p validation_artifacts
+          set -o pipefail
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect test_production.py test_transport.py test_release.py 2>&1 | tee validation_artifacts/regression_tests.txt
+      - name: Paired historical diagnostic replay
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p validation_inputs
+          gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9784547743/zip" > validation_inputs/baseline.zip
+          gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9952310218/zip" > validation_inputs/derivatives.zip
+          python -m btc_validation.replay --baseline validation_inputs/baseline.zip --derivatives validation_inputs/derivatives.zip --out validation_artifacts
+      - name: Acquire corrected derivatives with source coverage audit
+        if: github.event_name == 'workflow_dispatch'
+        run: python -m btc_validation.collect --out validation_inputs/corrected
+      - name: Separate derivative-family diagnostics
+        if: github.event_name == 'workflow_dispatch'
+        run: python -m btc_validation.derivative_research --baseline validation_inputs/baseline.zip --data validation_inputs/corrected/daily.csv --out validation_artifacts
+      - name: Internal source and QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-integrity-${{ github.run_id }}
+          retention-days: 90
+          include-hidden-files: true
+          path: |
+            *.py
+            requirements.txt
+            BASELINE_FREEZE_v2.json
+            MACRO_FREEZE_v1_2.json
+            EXPERIMENT_LEDGER.md
+            shadow/
+            btc_validation/
+            validation_artifacts/
+            validation_inputs/corrected/
+            .github/workflows/btc-shadow.yml
+            .github/workflows/btc-integrity.yml

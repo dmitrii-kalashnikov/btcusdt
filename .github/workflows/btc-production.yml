@@ -1,0 +1,89 @@
+name: BTC Production Report
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'btc_production.py'
+      - 'btc_transport.py'
+      - 'btc_release.py'
+      - '.github/workflows/btc-production.yml'
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: btc-prospective-shadow
+  cancel-in-progress: false
+  queue: max
+jobs:
+  report:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Refresh main under shared writer lock
+        run: |
+          git fetch origin main
+          git checkout -B production-main origin/main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Release smoke and frozen-contract guard
+        run: |
+          python -m unittest -q test_release.py
+          python -c 'from btc_validation.runtime import check_runtime_contract; check_runtime_contract()'
+      - name: Collect verified sources and render
+        run: GITHUB_SHA="$(git rev-parse HEAD)" python btc_release.py --capture-preclose
+      - name: Publish single canonical report and immutable macro packet
+        run: |
+          git config user.name 'btc-report-bot'
+          git config user.email 'btc-report-bot@users.noreply.github.com'
+          git add live/report.csv live/status.json shadow/preclose_macro_snapshots.csv EXPERIMENT_LEDGER.md
+          if ! git diff --cached --quiet; then
+            git commit -m "report: BTC verified snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push origin HEAD:main
+          fi
+      - name: Verify published payload health
+        run: |
+          python - <<'PY'
+          import json,hashlib,csv
+          from pathlib import Path
+          s=json.loads(Path('live/status.json').read_text())
+          assert hashlib.sha256(Path('live/report.csv').read_bytes()).hexdigest()==s['report_sha256']
+          assert s['decision']=='ABSTAIN' and s['decision_weight']==0 and s['auto_trading'] is False
+          assert not s['critical_failures'], s['critical_failures']
+          assert all(len(r)==6 for r in csv.reader(Path('live/report.csv').open()))
+          print('PRODUCTION_REPORT_CONTRACT_PASS', s['health'], s['report_sha256'])
+          PY
+      - name: Deduplicated failure alert
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='BTC production report: DATA_RUNTIME_FAILURE'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "Critical BTC report failure; no trading signal. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+          fi
+      - name: Internal execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-production-${{ github.run_id }}
+          retention-days: 90
+          path: |
+            live/
+            production_artifacts/
+            btc_production.py
+            btc_transport.py
+            btc_release.py
