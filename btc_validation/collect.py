@@ -12,6 +12,29 @@ import requests
 from .core import IntegrityError,parse_archive_csv,digest,validate_daily
 BASE='https://data.binance.vision/data/futures/um';SYMBOL='BTCUSDT'
 
+def utc_calendar(start, end, freq='D'):
+    """Normalize BOTH endpoints before pandas infers the timezone."""
+    a, b = pd.to_datetime(start, utc=True), pd.to_datetime(end, utc=True)
+    if pd.isna(a) or pd.isna(b) or a != a.normalize() or b != b.normalize() or b < a:
+        raise IntegrityError('Invalid UTC calendar bounds')
+    return pd.date_range(a, b, freq=freq)
+
+
+def build_jobs(start, end):
+    jobs = []
+    for month in utc_calendar(start, end, 'MS'):
+        tag = month.strftime('%Y-%m')
+        jobs.extend([
+            ('klines', month, f'{BASE}/monthly/klines/{SYMBOL}/1d/{SYMBOL}-1d-{tag}.zip'),
+            ('fundingRate', month, f'{BASE}/monthly/fundingRate/{SYMBOL}/{SYMBOL}-fundingRate-{tag}.zip'),
+        ])
+    first_metrics = max(pd.Timestamp('2020-09-10', tz='UTC'), pd.to_datetime(start, utc=True))
+    if first_metrics <= pd.to_datetime(end, utc=True):
+        for d in utc_calendar(first_metrics, end):
+            jobs.append(('metrics', d, f'{BASE}/daily/metrics/{SYMBOL}/{SYMBOL}-metrics-{d.date()}.zip'))
+    return jobs
+
+
 def fetch_zip(url):
     row={'url':url,'retrieved_at_utc':datetime.now(timezone.utc).isoformat()}
     for attempt in range(3):
@@ -48,7 +71,7 @@ def assemble(prices,funding,metric_rows,start,end):
     if p.time.duplicated().any():raise IntegrityError('Duplicate monthly price boundary')
     p=validate_daily(p,require_contiguous=False)
     if p.columns.duplicated().any():raise IntegrityError('Duplicate price columns')
-    calendar=pd.DataFrame({'time':pd.date_range(start,end,freq='D',tz='UTC')})
+    calendar=pd.DataFrame({'time':utc_calendar(start,end)})
     p=calendar.merge(p,on='time',how='left',validate='one_to_one')
     p=p.set_index('time',verify_integrity=True)
     if funding:
@@ -79,10 +102,7 @@ def assemble(prices,funding,metric_rows,start,end):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--out',default='validation_inputs/corrected');args=ap.parse_args();out=Path(args.out);out.mkdir(parents=True,exist_ok=True)
-    cfg=json.loads(Path('btc_validation/RESEARCH_FREEZE_v1.json').read_text());start,end=pd.Timestamp('2020-09-01',tz='UTC'),pd.Timestamp(cfg['history_last_date'],tz='UTC');jobs=[]
-    for month in pd.date_range(start,end,freq='MS'):
-        tag=month.strftime('%Y-%m');jobs += [('klines',month,f'{BASE}/monthly/klines/{SYMBOL}/1d/{SYMBOL}-1d-{tag}.zip'),('fundingRate',month,f'{BASE}/monthly/fundingRate/{SYMBOL}/{SYMBOL}-fundingRate-{tag}.zip')]
-    for d in pd.date_range('2020-09-10',end,freq='D',tz='UTC'):jobs.append(('metrics',d,f'{BASE}/daily/metrics/{SYMBOL}/{SYMBOL}-metrics-{d.date()}.zip'))
+    cfg=json.loads(Path('btc_validation/RESEARCH_FREEZE_v1.json').read_text());start,end=pd.Timestamp('2020-09-01',tz='UTC'),pd.Timestamp(cfg['history_last_date'],tz='UTC');jobs=build_jobs(start,end)
     def one(job):
         kind,d,url=job;payload,manifest=fetch_zip(url)
         if payload is None:return kind,None,manifest

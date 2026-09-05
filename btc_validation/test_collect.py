@@ -3,7 +3,7 @@ import unittest
 import math
 import numpy as np
 import pandas as pd
-from .collect import assemble,metrics_day
+from .collect import assemble,metrics_day,utc_calendar,build_jobs
 from .core import parse_archive_csv,IntegrityError
 
 class FullArchiveCollectorTests(unittest.TestCase):
@@ -31,5 +31,25 @@ class FullArchiveCollectorTests(unittest.TestCase):
         p,f,m=self.inputs();p=p.iloc[[0]]
         d=assemble([p],[f],m,'2022-01-01','2022-01-03')
         self.assertEqual(len(d),3);self.assertEqual(int(d.close.isna().sum()),2)
+
+class CalendarPlanningTests(unittest.TestCase):
+    def test_mixed_naive_and_aware_utc_endpoints(self):
+        actual=utc_calendar('2020-09-10',pd.Timestamp('2020-09-12',tz='UTC'))
+        self.assertEqual(len(actual),3)
+        self.assertEqual(str(actual.tz),'UTC')
+    def test_main_default_job_planning_full_period(self):
+        jobs=build_jobs(pd.Timestamp('2020-09-01',tz='UTC'),pd.Timestamp('2026-08-31',tz='UTC'))
+        self.assertEqual(len([j for j in jobs if j[0]=='klines']),72)
+        metrics=[j for j in jobs if j[0]=='metrics']
+        self.assertEqual(metrics[0][1],pd.Timestamp('2020-09-10',tz='UTC'))
+        self.assertEqual(metrics[-1][1],pd.Timestamp('2026-08-31',tz='UTC'))
+        self.assertEqual(len({j[2] for j in jobs}),len(jobs))
+    def test_assemble_mixed_bounds(self):
+        p,f,m=FullArchiveCollectorTests().inputs()
+        d=assemble([p],[f],m,'2022-01-01',pd.Timestamp('2022-01-02',tz='UTC'))
+        self.assertEqual(len(d),2)
+    def test_invalid_calendar_bounds(self):
+        for a,b in [('NaT','2022-01-01'),('2022-01-02','2022-01-01'),('2022-01-01 01:00','2022-01-02')]:
+            with self.assertRaises(IntegrityError):utc_calendar(a,b)
 
 if __name__=='__main__':unittest.main()
