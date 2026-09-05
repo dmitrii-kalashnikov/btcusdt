@@ -1,0 +1,104 @@
+name: BTC Production Report
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+  push:
+    paths:
+      - 'btc_production.py'
+      - 'test_production.py'
+      - '.github/workflows/btc-production.yml'
+  pull_request:
+    paths:
+      - 'btc_production.py'
+      - 'test_production.py'
+      - '.github/workflows/btc-production.yml'
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: btc-prospective-shadow
+  cancel-in-progress: false
+jobs:
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Refresh main state under shared writer lock
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          git fetch origin main
+          git checkout -B production-main origin/main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Regression and frozen-contract tests
+        run: |
+          mkdir -p production_artifacts
+          set -o pipefail
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect test_production.py 2>&1 | tee production_artifacts/tests.txt
+      - name: Collect sources and build one report
+        env:
+          MAIN_PUBLISH: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$MAIN_PUBLISH" = 'true' ]; then
+            GITHUB_SHA="$(git rev-parse HEAD)" python btc_production.py --capture-preclose
+          else
+            python btc_production.py
+          fi
+      - name: Publish report and verified pre-close state
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'btc-report-bot'
+          git config user.email 'btc-report-bot@users.noreply.github.com'
+          git add live/report.csv live/status.json shadow/preclose_macro_snapshots.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "report: verified BTC source snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push origin HEAD:main
+          fi
+      - name: Assert critical feed health after publication
+        run: |
+          python - <<'PY'
+          import json,hashlib,csv
+          from pathlib import Path
+          s=json.loads(Path('live/status.json').read_text())
+          assert hashlib.sha256(Path('live/report.csv').read_bytes()).hexdigest()==s['report_sha256']
+          assert s['decision']=='ABSTAIN' and s['decision_weight']==0 and s['auto_trading'] is False
+          assert not s['critical_failures'], s['critical_failures']
+          assert all(len(r)==6 for r in csv.reader(Path('live/report.csv').open()))
+          print('PRODUCTION_REPORT_CONTRACT_PASS', s['health'], s['report_sha256'])
+          PY
+      - name: Deduplicated runtime failure alert
+        if: failure() && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title='BTC production report: DATA_RUNTIME_FAILURE'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "Report failed or critical sources unavailable. No trading signal. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+          fi
+      - name: Internal execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-production-${{ github.run_id }}
+          retention-days: 14
+          path: |
+            live/
+            production_artifacts/
+            btc_production.py
+            test_production.py
