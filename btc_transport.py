@@ -47,7 +47,8 @@ def parse_fred_page(text,sid,now):
     if not observations:raise IntegrityError('No exact FRED observation rows')
     # H.10 daily observations are released WEEKLY for the preceding business week.
     # https://www.federalreserve.gov/releases/h10/ (Monday/next business day).
-    max_age=75 if sid in ('M2SL','CPIAUCSL','UNRATE','PAYEMS') else (14 if sid in ('WALCL','WTREGEN','DTWEXBGS') else 7)
+    # H.6 July observations can remain latest until late September. Dates stay visible.
+    max_age=95 if sid=='M2SL' else (75 if sid in ('CPIAUCSL','UNRATE','PAYEMS') else (14 if sid in ('WALCL','WTREGEN','DTWEXBGS') else 7))
     for date,value in observations.items():
         app.number(value)
         if pd.Timestamp(date,tz='UTC')>now.normalize():raise IntegrityError('Future FRED observation')

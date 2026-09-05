@@ -41,6 +41,13 @@ class TransportTests(unittest.TestCase):
         self.assertEqual(t.parse_etf_page(text,NOW)['latest']['total_usdm'],12)
     def test_reader_denies_arbitrary_url(self):
         with self.assertRaises(IntegrityError):t.reader('https://example.com/')
+    def test_m2_publication_lag_before_next_h6_release(self):
+        later=pd.Timestamp('2026-09-21T21:00:00Z')
+        d=t.parse_fred_page('(M2SL)\nJul 2026: 23,218.0','M2SL',later)
+        self.assertEqual(d['observation_date'],'2026-07-01')
+    def test_m2_obsolete_observation_still_rejected(self):
+        with self.assertRaises(IntegrityError):
+            t.parse_fred_page('(M2SL)\nApr 2026: 22,756.7','M2SL',pd.Timestamp('2026-09-21T21:00:00Z'))
     def test_funding_restriction_not_routed_around(self):
         with self.assertRaisesRegex(IntegrityError,'451'):t.funding_unavailable()
 if __name__=='__main__':unittest.main()
