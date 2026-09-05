@@ -4,17 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '15 9 * * 2'
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/btc-shadow.yml'
-      - 'shadow_run.py'
-      - 'shadow_sources.py'
-      - 'shadow_model.py'
-      - 'shadow_score.py'
-      - 'test_shadow_run.py'
-      - 'btc_validation/**'
-      - 'shadow/SHADOW_FREEZE_v1_2.json'
 
 permissions:
   contents: write
@@ -24,6 +13,7 @@ permissions:
 concurrency:
   group: btc-prospective-shadow
   cancel-in-progress: false
+  queue: max
 
 jobs:
   shadow:
@@ -34,6 +24,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Refresh main under shared writer lock
+        run: |
+          git fetch origin main
+          git checkout -B shadow-main origin/main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

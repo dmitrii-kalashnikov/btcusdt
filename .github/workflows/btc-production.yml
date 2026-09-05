@@ -4,18 +4,11 @@ on:
   schedule:
     - cron: '23 * * * *'
   push:
+    branches: [main]
     paths:
       - 'btc_production.py'
-      - 'test_production.py'
       - 'btc_transport.py'
-      - 'test_transport.py'
-      - '.github/workflows/btc-production.yml'
-  pull_request:
-    paths:
-      - 'btc_production.py'
-      - 'test_production.py'
-      - 'btc_transport.py'
-      - 'test_transport.py'
+      - 'btc_release.py'
       - '.github/workflows/btc-production.yml'
 permissions:
   contents: write
@@ -23,8 +16,10 @@ permissions:
 concurrency:
   group: btc-prospective-shadow
   cancel-in-progress: false
+  queue: max
 jobs:
   report:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     env:
@@ -34,8 +29,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Refresh main state under shared writer lock
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Refresh main under shared writer lock
         run: |
           git fetch origin main
           git checkout -B production-main origin/main
@@ -44,35 +38,22 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Regression and frozen-contract tests
+      - name: Release smoke and frozen-contract guard
         run: |
-          mkdir -p production_artifacts
-          set -o pipefail
-          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect test_production.py test_transport.py 2>&1 | tee production_artifacts/tests.txt
-      - name: Collect sources and build one report
-        env:
-          MAIN_PUBLISH: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
-        shell: bash
+          python -m unittest -q test_release.py
+          python -c 'from btc_validation.runtime import check_runtime_contract; check_runtime_contract()'
+      - name: Collect verified sources and render
+        run: GITHUB_SHA="$(git rev-parse HEAD)" python btc_release.py --capture-preclose
+      - name: Publish single canonical report and immutable macro packet
         run: |
-          set -euo pipefail
-          if [ "$MAIN_PUBLISH" = 'true' ]; then
-            GITHUB_SHA="$(git rev-parse HEAD)" python btc_transport.py --capture-preclose
-          else
-            python btc_transport.py
-          fi
-      - name: Publish report and verified pre-close state
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        shell: bash
-        run: |
-          set -euo pipefail
           git config user.name 'btc-report-bot'
           git config user.email 'btc-report-bot@users.noreply.github.com'
-          git add live/report.csv live/status.json shadow/preclose_macro_snapshots.csv
+          git add live/report.csv live/status.json shadow/preclose_macro_snapshots.csv EXPERIMENT_LEDGER.md
           if ! git diff --cached --quiet; then
-            git commit -m "report: verified BTC source snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+            git commit -m "report: BTC verified snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
             git push origin HEAD:main
           fi
-      - name: Assert critical feed health after publication
+      - name: Verify published payload health
         run: |
           python - <<'PY'
           import json,hashlib,csv
@@ -84,27 +65,25 @@ jobs:
           assert all(len(r)==6 for r in csv.reader(Path('live/report.csv').open()))
           print('PRODUCTION_REPORT_CONTRACT_PASS', s['health'], s['report_sha256'])
           PY
-      - name: Deduplicated runtime failure alert
-        if: failure() && github.ref == 'refs/heads/main'
+      - name: Deduplicated failure alert
+        if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
-        shell: bash
         run: |
           title='BTC production report: DATA_RUNTIME_FAILURE'
           existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
           if [ -z "$existing" ]; then
-            gh issue create --title "$title" --body "Report failed or critical sources unavailable. No trading signal. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+            gh issue create --title "$title" --body "Critical BTC report failure; no trading signal. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
           fi
       - name: Internal execution evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: btc-production-${{ github.run_id }}
-          retention-days: 14
+          retention-days: 90
           path: |
             live/
             production_artifacts/
             btc_production.py
-            test_production.py
             btc_transport.py
-            test_transport.py
+            btc_release.py

@@ -2,26 +2,19 @@ name: BTC Integrity QA
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/btc-integrity.yml'
-      - 'btc_validation/**'
-      - 'shadow_sources.py'
-      - 'shadow_score.py'
-      - 'shadow_run.py'
-      - 'shadow_model.py'
   pull_request:
     paths:
+      - '**.py'
       - 'btc_validation/**'
-      - 'shadow_*.py'
-      - '.github/workflows/btc-integrity.yml'
+      - '.github/workflows/**'
+
 
 permissions:
   contents: read
   actions: read
 concurrency:
   group: btc-integrity-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   integrity:
     runs-on: ubuntu-24.04
@@ -42,9 +35,9 @@ jobs:
         run: |
           mkdir -p validation_artifacts
           set -o pipefail
-          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect 2>&1 | tee validation_artifacts/regression_tests.txt
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect test_production.py test_transport.py test_release.py 2>&1 | tee validation_artifacts/regression_tests.txt
       - name: Paired historical diagnostic replay
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -53,10 +46,10 @@ jobs:
           gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9952310218/zip" > validation_inputs/derivatives.zip
           python -m btc_validation.replay --baseline validation_inputs/baseline.zip --derivatives validation_inputs/derivatives.zip --out validation_artifacts
       - name: Acquire corrected derivatives with source coverage audit
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch'
         run: python -m btc_validation.collect --out validation_inputs/corrected
       - name: Separate derivative-family diagnostics
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch'
         run: python -m btc_validation.derivative_research --baseline validation_inputs/baseline.zip --data validation_inputs/corrected/daily.csv --out validation_artifacts
       - name: Internal source and QA evidence
         if: always()

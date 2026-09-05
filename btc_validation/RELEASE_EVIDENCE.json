@@ -1,0 +1,41 @@
+{
+  "timestamp_utc": "2026-09-05T01:47:13.128474+00:00",
+  "base_branch_commit": "7ae62c257368caebbcad7fd56abfcc9d3882d737",
+  "local_unit_tests": 128,
+  "historical_price_days": 3302,
+  "corrected_derivative_calendar_days": 2191,
+  "python": "3.13.5",
+  "deployment_python": "3.12",
+  "exact_paired_replay_max_metric_difference": 2.4424906541753444e-15,
+  "source_artifact_sha256": "4538e2536198f670d3fe6222c51843b1ca54cf97ea67c90e7302faf15239406e",
+  "local_results": {
+    "subperiod_metrics.csv": "8e23804986d0e87f81b9f8fb0a5d9a68a897db5da8b27cf5436f8dd47630fb26",
+    "paired_predictions.csv": "d11fb1c954dd7b352140a12866105c53d24781b5059dcd8ff75663636b344631",
+    "input_coverage.json": "4652076769aba20134b1802c7bc1f75f1bce79491c939cd0105c1d7ac87e4e9a",
+    "risk_predictions.csv": "5751f1edbfc4436f04c4b812da61543a3f5d0c581ef57bbb0948623404dbaa57",
+    "risk_metrics.csv": "222eefe2d8bab3804cfe5c03ec28b82a8caa3535ba3ca62bc0373498d77b1f90",
+    "summary.json": "8bf6ce42ab0f2e0243f8a1daa166451e68cadef60a1ed5ec31279c221fe02c16",
+    "derivative_predictions.csv": "d832aee810cba444333ce2f50ef1f375dcdb9e8c2cc26930dead78fb32f92096",
+    "derivative_metrics.csv": "07741fba89cd0091c7a641af578d68183ffd200e67821e7c98d60d009e734ad3",
+    "paired_metrics.csv": "92b6e783488903d4a9c75fcd7247f59b7555c9f7c292da2f7836bcd7891a4c52",
+    "risk_reliability.csv": "0e2faee1ecce7524b430aa1a81023ed8603ab3df88aee7cbdd231f3a375417ac",
+    "derivative_summary.json": "b1541de0fb1a488c5d20825241323b071c4416749054bc5f1c07e3600a923796"
+  },
+  "derivative_validation": [
+    {"family":"oi_funding","horizon":7,"n":101,"nonoverlap_n":101,"delta_mae_pct":3.552761575637753},
+    {"family":"positioning","horizon":7,"n":57,"nonoverlap_n":57,"delta_mae_pct":6.610444692661743},
+    {"family":"taker","horizon":7,"n":103,"nonoverlap_n":103,"delta_mae_pct":2.348946094220583},
+    {"family":"oi_funding","horizon":30,"n":98,"nonoverlap_n":20,"delta_mae_pct":0.5468867584619508},
+    {"family":"positioning","horizon":30,"n":54,"nonoverlap_n":11,"delta_mae_pct":10.023822447851515},
+    {"family":"taker","horizon":30,"n":100,"nonoverlap_n":20,"delta_mae_pct":-1.2537649839586162}
+  ],
+  "promotion_allowed": false,
+  "decision_weight": 0,
+  "findings": [
+    "Macro return 7d/30d: validation MAE хуже price-only на 2.01% / 4.49%; n=103/100.",
+    "Macro risk 7d: улучшение Brier на validation 0.2145→0.2026 не сохранилось в просмотренном 2024–2025: 0.2438→0.2502.",
+    "OI/funding, positioning и taker проверены отдельно; устойчивое преимущество для DECISION-GRADE не доказано."
+  ],
+  "ledger_marker": "## release-integrity-20260905 — LOCAL REPLAY / NO MODEL PROMOTION",
+  "ledger_entry": "## release-integrity-20260905 — LOCAL REPLAY / NO MODEL PROMOTION\n\nUser-authorized release candidate. Original freezes, seed and old forecast rows remain unchanged. This records completed LOCAL evidence, not a deployment or predictive-performance guarantee.\n\n- Local suite: 128 passed, Python 3.13.5 / NumPy 2.3.5 / pandas 2.2.3 / scikit-learn 1.8.0. Deployment uses existing pinned Python 3.12 dependencies and performs its own release smoke test.\n- Replayed 3,302 BTC daily rows (2017-08-17..2026-08-31), the 14-series PIT seed, and separately reconstructed 2,191 calendar days of corrected derivatives (2020-09-01..2026-08-31). No online download or random split in local replay.\n- Paired return/risk/derivative metrics match archived pinned-environment CI to maximum absolute numeric difference 2.45e-15. Regression assertions, calendar checks, source-byte hashes and retained real-source parsing passed.\n- Baseline comparison covers all 7/30/90/180/365-day horizons. Compact macro/risk and derivative-family ablations remain the preregistered 7/30-day experiments; NOT expanded post hoc to hunt winners.\n- Compact macro return MAE remains +2.01% / +4.49% worse at 7d/30d on selection-safe validation; n=103/100.\n- OI/funding validation MAE +3.55% / +0.55% worse, n=101/98 (30d non-overlap n=20).\n- Positioning validation MAE +6.61% / +10.02% worse, n=57/54 (30d non-overlap n=11).\n- Taker validation MAE +2.35% worse at 7d and -1.25% better at 30d, n=103/100. The small 30d improvement did not retain an edge on consumed 2024-2025 (+0.41% worse); no promotion.\n- Risk: 7d macro Brier improved 0.2145 to 0.2026 on validation but worsened 0.2438 to 0.2502 on consumed 2024-2025. Probabilities remain uncalibrated and hidden.\n- Full historic CI 33934720401 and live-source candidate CI 33936092468 completed successfully before this local release audit. Earlier UTC-boundary, duplicate-archive, Reader formatting and source-health failures are retained in Actions; no failed outcomes deleted.\n- First local normalized-funding replay loader failed on mixed fractional-second ISO strings; the TEST LOADER was corrected to format=ISO8601 and replay passed. No dataset values, horizon, model or threshold changed.\n- All 2024-2025 results remain CONSUMED SECONDARY DIAGNOSTICS. Original archive PIT provenance is not claimed solely from retrospective checksums. Non-overlapping outcomes are not automatically independent. Bootstrap intervals remain diagnostic, not multiple-test-adjusted promotion evidence.\n- Runtime changes: no heavy history on code pushes; one PR regression suite; historical QA only explicit workflow_dispatch/local execution; hourly main report and weekly prospective scorer use a shared non-cancelling queue. Monday capture fallback starts only after original 22:30 UTC capture time.\n- Public report conditional paths and recent macro changes are EXPERIMENTAL, decision weight zero. No algorithms promoted, no trades, no paid provider.\n"
+}
