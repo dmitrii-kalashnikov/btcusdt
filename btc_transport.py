@@ -1,14 +1,10 @@
-"""Public-page transport adapters for production, not model changes.
-
-The hosted runner times out on FRED and cannot use live Binance futures (451).
-Read publicly accessible FRED/Farside pages through the basic, keyless Reader
-service; never relay restricted futures APIs. Futures snapshots use unrestricted
-Binance Vision public archives and are explicitly labelled as delayed archives.
+"""Public-page adapters; no model changes, paid APIs or access-control bypass.
+Public FRED/Farside pages use basic keyless Reader. Restricted live futures APIs
+are never relayed; unrestricted Vision archives are explicitly labelled delayed.
 """
 from __future__ import annotations
-import csv,html,io,re,threading,time
+import html,re,threading,time
 from datetime import datetime
-from pathlib import Path
 import pandas as pd
 import requests
 import btc_production as app
@@ -24,20 +20,21 @@ def reader(url):
     global _LAST
     allowed={f'https://fred.stlouisfed.org/series/{s}' for s in app.shadow.SERIES}|{ETF_ALL}
     if url not in allowed:raise IntegrityError('Reader URL is not allowlisted')
-    # Basic anonymous endpoint: no key, purchase, residential proxy or bypass flags.
     with _LOCK:
         time.sleep(max(0,3.2-(time.monotonic()-_LAST)));_LAST=time.monotonic()
-    r=requests.get(READER+url,timeout=(5,45),headers={'User-Agent':'btc-public-page-reader/1.0','x-no-cache':'true'})
+    headers={'User-Agent':'btc-public-page-reader/1.0','x-no-cache':'true'}
+    if url.endswith('/DFF'):headers['x-target-selector']='body'
+    r=requests.get(READER+url,timeout=(5,45),headers=headers)
     r.raise_for_status()
     if len(r.content)>2_000_000:raise IntegrityError('Oversized reader response')
-    app.evidence(r)  # Retain actual response even when a subsequent schema check fails.
+    app.evidence(r)
     if 'URL Source: '+url not in r.text:raise IntegrityError('Reader original URL mismatch')
     if re.search(r'Warning:.*(?:error|403|401|451)',r.text,re.I):raise IntegrityError('Origin page denied access; not retried through another proxy')
     return r
 
 
 def parse_fred_page(text,sid,now):
-    if f'({sid})' not in text:raise IntegrityError('FRED page series identity mismatch')
+    if f'({sid})' not in text and f'[{sid}]' not in text:raise IntegrityError('FRED page series identity mismatch')
     observations={}
     pattern=r'^\s*(?:\|\s*)?(\d{4}-\d{2}-\d{2}|[A-Z][a-z]{2} \d{4}):?\s*(?:\|\s*)?([-+]?\d[\d,]*(?:\.\d+)?)\s*(?:\||$)'
     for line in text.replace('*','').splitlines():
@@ -48,8 +45,16 @@ def parse_fred_page(text,sid,now):
         if date in observations and observations[date]!=value:raise IntegrityError('Conflicting FRED observations')
         observations[date]=value
     if not observations:raise IntegrityError('No exact FRED observation rows')
-    s=io.StringIO();w=csv.writer(s);w.writerow(['DATE',sid]);w.writerows(sorted(observations.items()))
-    return app.parse_fred(s.getvalue(),sid,now)
+    # H.10 daily observations are released WEEKLY for the preceding business week.
+    # https://www.federalreserve.gov/releases/h10/ (Monday/next business day).
+    max_age=75 if sid in ('M2SL','CPIAUCSL','UNRATE','PAYEMS') else (14 if sid in ('WALCL','WTREGEN','DTWEXBGS') else 7)
+    for date,value in observations.items():
+        app.number(value)
+        if pd.Timestamp(date,tz='UTC')>now.normalize():raise IntegrityError('Future FRED observation')
+    date=max(observations);value=observations[date]
+    if (now.normalize()-pd.Timestamp(date,tz='UTC')).days>max_age:raise IntegrityError(f'Stale FRED series {sid}')
+    return {'series_id':sid,'value':value,'observation_date':date,'delta_13w':None,
+            'source_url':f'https://fred.stlouisfed.org/series/{sid}'}
 
 
 def collect_fred(sid):
@@ -67,8 +72,19 @@ def parse_etf_page(text,now):
         if row and re.fullmatch(r'\d{1,2} [A-Za-z]{3} \d{4}',row[0]):
             if len(row)!=14:raise IntegrityError('Unexpected ETF fund-count schema')
             rows.append(row)
+    if not rows:
+        cells=[x.strip() for x in re.split(r'[\t\r\n]+',text) if x.strip()]
+        header=['Date','IBIT','FBTC','BITB','ARKB','BTCO','EZBC','BRRR','HODL','BTCW','MSBT','GBTC','BTC','Total']
+        if not any(cells[i:i+14]==header for i in range(len(cells))):raise IntegrityError('ETF vertical header mismatch')
+        for i,cell in enumerate(cells):
+            if re.fullmatch(r'\d{1,2} [A-Za-z]{3} \d{4}',cell):
+                values=cells[i+1:i+14]
+                if len(values)!=13:raise IntegrityError('Truncated ETF vertical row')
+                for value in values:app.flow_number(value)
+                next_cell=cells[i+14] if i+14<len(cells) else ''
+                if next_cell!='Total' and not re.fullmatch(r'\d{1,2} [A-Za-z]{3} \d{4}',next_cell):raise IntegrityError('ETF vertical row width mismatch')
+                rows.append([cell]+values)
     if not rows:raise IntegrityError('No ETF date rows')
-    # Lossless conversion of source table cells into the already tested parser.
     text='<table><tr>'+('<th></th>'*13)+'<th>Total</th></tr>'+''.join('<tr>'+''.join('<td>'+html.escape(c)+'</td>' for c in row)+'</tr>' for row in rows)+'</table>'
     return app.parse_etf(text,now)
 
@@ -125,6 +141,9 @@ def main():
                 row[1]='Открытый интерес из дневного архива, BTC';row[4]=feeds['oi']['note']
             if row[1]=='Фьючерсный taker buy/sell, 24 часа' and feeds.get('futures_flow',{}).get('status')=='OK':
                 row[1]='Фьючерсный taker buy/sell, архив суток';row[4]=feeds['futures_flow']['note']
+            if row[1]=='Неполные сессии':
+                row[1]='Неполные ETF-сессии за 30 дней'
+                row[2]=', '.join(d for d in feeds.get('etf',{}).get('partial_sessions',[]) if pd.Timestamp(d,tz='UTC')>=now.normalize()-pd.Timedelta(days=30)) or 'Нет'
             if row[0] in ('ETF','Макро') and row[2]!='НЕТ ДАННЫХ':
                 row[4]+=' | Публичная страница через Reader; даты источника сохранены.'
         return rows

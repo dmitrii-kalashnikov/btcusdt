@@ -30,6 +30,15 @@ class TransportTests(unittest.TestCase):
         self.assertEqual(d['latest']['total_usdm'],12);self.assertEqual(d['latest']['date'],'2026-09-03')
     def test_etf_unknown_schema_fails(self):
         with self.assertRaises(IntegrityError):t.parse_etf_page('| 03 Sep 2026 | 1 |',NOW)
+    def test_h10_weekly_release_is_not_live_daily(self):
+        d=t.parse_fred_page('(DTWEXBGS)\n2026-08-28: 118.7479','DTWEXBGS',NOW)
+        self.assertEqual(d['observation_date'],'2026-08-28')
+    def test_h10_stale_still_rejected(self):
+        with self.assertRaises(IntegrityError):t.parse_fred_page('(DTWEXBGS)\n2026-08-01: 118','DTWEXBGS',NOW)
+    def test_vertical_etf_schema(self):
+        header='\n'.join(['Date','IBIT','FBTC','BITB','ARKB','BTCO','EZBC','BRRR','HODL','BTCW','MSBT','GBTC','BTC','Total'])
+        text=header+'\n03 Sep 2026\t\n'+'\n\t\n'.join(['1']*12+['12'])+'\nTotal\n'
+        self.assertEqual(t.parse_etf_page(text,NOW)['latest']['total_usdm'],12)
     def test_reader_denies_arbitrary_url(self):
         with self.assertRaises(IntegrityError):t.reader('https://example.com/')
     def test_funding_restriction_not_routed_around(self):
