@@ -4,6 +4,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 import pandas as pd
+import requests
 import btc_release as r
 from btc_validation.core import IntegrityError
 NOW=pd.Timestamp('2026-09-05T01:00:00Z')
@@ -45,4 +46,43 @@ class ReleaseTests(unittest.TestCase):
             evidence=Path(tmp)/'e.json';evidence.write_text(json.dumps({'ledger_marker':'unique-marker','ledger_entry':'unique-marker: no promotion'}))
             r.record_release(ledger,evidence);first=ledger.read_bytes();r.record_release(ledger,evidence)
             self.assertEqual(first,ledger.read_bytes());self.assertTrue(ledger.read_text().startswith('old failed experiments\n'))
+
+def http_error(code, after=None):
+    response=requests.Response();response.status_code=code
+    if after is not None:response.headers['Retry-After']=str(after)
+    return requests.HTTPError(f'status {code}',response=response)
+
+class ReaderRetryTests(unittest.TestCase):
+    def test_transient_503_recovers(self):
+        with patch.object(r,'BASE_READER',side_effect=[http_error(503),'OK']) as f,patch.object(r.time,'sleep') as s:
+            self.assertEqual(r.reader_with_retry('same-url'),'OK')
+            self.assertEqual(f.call_count,2);s.assert_called_once_with(2.0)
+    def test_exhausted_503_fails(self):
+        with patch.object(r,'BASE_READER',side_effect=http_error(503)) as f,patch.object(r.time,'sleep'):
+            with self.assertRaises(requests.HTTPError):r.reader_with_retry('same-url')
+            self.assertEqual(f.call_count,3)
+    def test_restriction_not_retried(self):
+        for code in (400,401,403,451):
+            with patch.object(r,'BASE_READER',side_effect=http_error(code)) as f,patch.object(r.time,'sleep') as s:
+                with self.assertRaises(requests.HTTPError):r.reader_with_retry('same-url')
+                self.assertEqual(f.call_count,1);s.assert_not_called()
+    def test_schema_failure_not_retried(self):
+        with patch.object(r,'BASE_READER',side_effect=IntegrityError('schema')) as f,patch.object(r.time,'sleep') as s:
+            with self.assertRaises(IntegrityError):r.reader_with_retry('same-url')
+            self.assertEqual(f.call_count,1);s.assert_not_called()
+    def test_retry_after_respected(self):
+        with patch.object(r,'BASE_READER',side_effect=[http_error(429,8),'OK']),patch.object(r.time,'sleep') as s:
+            self.assertEqual(r.reader_with_retry('same-url'),'OK');s.assert_called_once_with(8.0)
+    def test_long_retry_after_does_not_retry_early(self):
+        with patch.object(r,'BASE_READER',side_effect=http_error(429,300)) as f,patch.object(r.time,'sleep') as s:
+            with self.assertRaises(requests.HTTPError):r.reader_with_retry('same-url')
+            self.assertEqual(f.call_count,1);s.assert_not_called()
+    def test_timeout_recovered(self):
+        with patch.object(r,'BASE_READER',side_effect=[requests.Timeout(),'OK']),patch.object(r.time,'sleep'):
+            self.assertEqual(r.reader_with_retry('same-url'),'OK')
+    def test_bad_retry_after_stops(self):
+        with patch.object(r,'BASE_READER',side_effect=http_error(429,'unknown')) as f,patch.object(r.time,'sleep') as s:
+            with self.assertRaises(requests.HTTPError):r.reader_with_retry('same-url')
+            self.assertEqual(f.call_count,1);s.assert_not_called()
+
 if __name__=='__main__':unittest.main()
