@@ -55,10 +55,15 @@ def fetch_zip(url):
             time.sleep(.5*(2**attempt))
     raise AssertionError('unreachable')
 
-def metrics_day(raw,date):
-    m=pd.read_csv(io.BytesIO(raw));required={'create_time','symbol','sum_open_interest'}
+def metrics_day(raw,date,audit=None):
+    # Compare raw CSV fields, not rounded floats: only EXACT duplicate records may collapse.
+    m=pd.read_csv(io.BytesIO(raw),dtype=str,keep_default_na=False);required={'create_time','symbol','sum_open_interest'}
     if not required.issubset(m.columns):raise IntegrityError('Unknown metrics schema')
     if not (m.symbol==SYMBOL).all():raise IntegrityError('Wrong derivatives symbol')
+    if m.empty:raise IntegrityError('Empty metrics archive')
+    duplicates=int(m.duplicated().sum())
+    if audit is not None:audit.update({'raw_rows':len(m),'identical_duplicate_rows_removed':duplicates})
+    m=m.drop_duplicates()
     m['time']=pd.to_datetime(m.create_time,utc=True,errors='raise')
     if m.time.duplicated().any() or not (m.time.dt.normalize()==date).all():
         raise IntegrityError(f'Duplicate/wrong-date metrics timestamps: expected={date}; first={m.time.min()}; last={m.time.max()}; duplicates={int(m.time.duplicated().sum())}; raw_first={m.create_time.iloc[0]!r}; raw_last={m.create_time.iloc[-1]!r}')
@@ -107,7 +112,7 @@ def main():
     def one(job):
         kind,d,url=job;payload,manifest=fetch_zip(url)
         if payload is None:return kind,None,manifest
-        try:return kind,(metrics_day(payload,d) if kind=='metrics' else parse_archive_csv(payload,kind)),manifest
+        try:return kind,(metrics_day(payload,d,manifest) if kind=='metrics' else parse_archive_csv(payload,kind)),manifest
         except Exception as exc:
             rawdir=out/'failed_source_samples';rawdir.mkdir(exist_ok=True)
             (rawdir/f'{kind}-{d.date()}.csv').write_bytes(payload)
@@ -118,7 +123,6 @@ def main():
             log.append(item)
             if data is not None:{'klines':prices,'fundingRate':funding,'metrics':ms}[kind].append(data)
     (out/'source_manifest.json').write_text(json.dumps(log,indent=2));failed=[x for x in log if x['status'] in ['SOURCE_FAILURE','SCHEMA_FAILURE']]
-    # Preserve normalized inputs before assembly: a runtime failure must remain replayable.
     if prices:pd.concat(prices,ignore_index=True).to_csv(out/'normalized_prices.csv',index=False)
     if funding:pd.concat(funding,ignore_index=True).to_csv(out/'normalized_funding.csv',index=False)
     pd.DataFrame(ms).to_csv(out/'normalized_metrics.csv',index=False)
@@ -126,7 +130,7 @@ def main():
     for family,cols in cfg['derivative_families'].items():
         for year,g in d.groupby(d.time.dt.year):
             valid=g[cols].notna().all(axis=1);coverage.append({'family':family,'year':int(year),'calendar_days':len(g),'complete_days':int(valid.sum()),'first_complete':str(g.loc[valid,'time'].min().date()) if valid.any() else None})
-    status={'status':'SOURCE_FAILURE' if failed else 'RETRIEVAL_COMPLETE_DIAGNOSTIC_ONLY','pit_status':'OFFICIAL_ARCHIVE_AS_RETRIEVED_NOT_ORIGINAL_VINTAGE_PROOF','source_failures':len(failed),'archive_absences':sum(x['status']=='ARCHIVE_NOT_AVAILABLE' for x in log),'daily_sha256':digest((out/'daily.csv').read_bytes()),'coverage':coverage,'promotion_allowed':False}
+    status={'status':'SOURCE_FAILURE' if failed else 'RETRIEVAL_COMPLETE_DIAGNOSTIC_ONLY','pit_status':'OFFICIAL_ARCHIVE_AS_RETRIEVED_NOT_ORIGINAL_VINTAGE_PROOF','source_failures':len(failed),'archive_absences':sum(x['status']=='ARCHIVE_NOT_AVAILABLE' for x in log),'identical_duplicate_rows_removed':sum(x.get('identical_duplicate_rows_removed',0) for x in log),'daily_sha256':digest((out/'daily.csv').read_bytes()),'coverage':coverage,'promotion_allowed':False}
     (out/'coverage.json').write_text(json.dumps(status,indent=2));print(json.dumps(status,indent=2))
     if failed:
         print('FIRST_SOURCE_FAILURES',json.dumps(failed[:3],indent=2))

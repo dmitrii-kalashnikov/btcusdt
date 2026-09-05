@@ -32,6 +32,19 @@ class FullArchiveCollectorTests(unittest.TestCase):
         d=assemble([p],[f],m,'2022-01-01','2022-01-03')
         self.assertEqual(len(d),3);self.assertEqual(int(d.close.isna().sum()),2)
 
+class MetricsDeduplicationTests(unittest.TestCase):
+    def test_identical_records_collapse_with_audit_not_double_counted(self):
+        raw=b'create_time,symbol,sum_open_interest,count_long_short_ratio\n2020-09-10 23:55:00,BTCUSDT,34481.902,1.441144\n2020-09-10 23:55:00,BTCUSDT,34481.902,1.441144\n'
+        audit={};r=metrics_day(raw,pd.Timestamp('2020-09-10',tz='UTC'),audit)
+        self.assertEqual(r['oi_btc'],34481.902)
+        self.assertEqual(audit,{'raw_rows':2,'identical_duplicate_rows_removed':1})
+    def test_conflicting_duplicate_timestamp_rejected(self):
+        raw=b'create_time,symbol,sum_open_interest\n2020-09-10 23:55:00,BTCUSDT,1\n2020-09-10 23:55:00,BTCUSDT,2\n'
+        with self.assertRaises(IntegrityError):metrics_day(raw,pd.Timestamp('2020-09-10',tz='UTC'))
+    def test_precision_difference_not_erased_by_float_conversion(self):
+        raw=b'create_time,symbol,sum_open_interest\n2020-09-10 23:55:00,BTCUSDT,1.0000000000000000001\n2020-09-10 23:55:00,BTCUSDT,1.0000000000000000002\n'
+        with self.assertRaises(IntegrityError):metrics_day(raw,pd.Timestamp('2020-09-10',tz='UTC'))
+
 class CalendarPlanningTests(unittest.TestCase):
     def test_mixed_naive_and_aware_utc_endpoints(self):
         actual=utc_calendar('2020-09-10',pd.Timestamp('2020-09-12',tz='UTC'))
@@ -45,7 +58,7 @@ class CalendarPlanningTests(unittest.TestCase):
         self.assertEqual(metrics[-1][1],pd.Timestamp('2026-08-31',tz='UTC'))
         self.assertEqual(len({j[2] for j in jobs}),len(jobs))
     def test_assemble_mixed_bounds(self):
-        p,f,m=self.inputs() if hasattr(self,'inputs') else FullArchiveCollectorTests().inputs()
+        p,f,m=FullArchiveCollectorTests().inputs()
         d=assemble([p],[f],m,'2022-01-01',pd.Timestamp('2022-01-02',tz='UTC'))
         self.assertEqual(len(d),2)
     def test_invalid_calendar_bounds(self):
