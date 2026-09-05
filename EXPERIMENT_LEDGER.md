@@ -183,3 +183,23 @@ Decision: **NOT PROMOTED.** Current live OI/funding/L/S/taker/basis data remain 
 6. Freeze the next architecture before scoring it on later data; use post-2026-08-31 observations prospectively for clean evidence.
 7. Keep the four-year-cycle signal as a regime/sign input rather than using its raw magnitude as a standalone price forecast.
 8. Never store `FRED_API_KEY` or any other plaintext secret in repository contents, artifacts, cache manifests, or logs.
+
+## release-integrity-20260905 — LOCAL REPLAY / NO MODEL PROMOTION
+
+User-authorized release candidate. Original freezes, seed and old forecast rows remain unchanged. This records completed LOCAL evidence, not a deployment or predictive-performance guarantee.
+
+- Local suite: 128 passed, Python 3.13.5 / NumPy 2.3.5 / pandas 2.2.3 / scikit-learn 1.8.0. Deployment uses existing pinned Python 3.12 dependencies and performs its own release smoke test.
+- Replayed 3,302 BTC daily rows (2017-08-17..2026-08-31), the 14-series PIT seed, and separately reconstructed 2,191 calendar days of corrected derivatives (2020-09-01..2026-08-31). No online download or random split in local replay.
+- Paired return/risk/derivative metrics match archived pinned-environment CI to maximum absolute numeric difference 2.45e-15. Regression assertions, calendar checks, source-byte hashes and retained real-source parsing passed.
+- Baseline comparison covers all 7/30/90/180/365-day horizons. Compact macro/risk and derivative-family ablations remain the preregistered 7/30-day experiments; NOT expanded post hoc to hunt winners.
+- Compact macro return MAE remains +2.01% / +4.49% worse at 7d/30d on selection-safe validation; n=103/100.
+- OI/funding validation MAE +3.55% / +0.55% worse, n=101/98 (30d non-overlap n=20).
+- Positioning validation MAE +6.61% / +10.02% worse, n=57/54 (30d non-overlap n=11).
+- Taker validation MAE +2.35% worse at 7d and -1.25% better at 30d, n=103/100. The small 30d improvement did not retain an edge on consumed 2024-2025 (+0.41% worse); no promotion.
+- Risk: 7d macro Brier improved 0.2145 to 0.2026 on validation but worsened 0.2438 to 0.2502 on consumed 2024-2025. Probabilities remain uncalibrated and hidden.
+- Full historic CI 33934720401 and live-source candidate CI 33936092468 completed successfully before this local release audit. Earlier UTC-boundary, duplicate-archive, Reader formatting and source-health failures are retained in Actions; no failed outcomes deleted.
+- First local normalized-funding replay loader failed on mixed fractional-second ISO strings; the TEST LOADER was corrected to format=ISO8601 and replay passed. No dataset values, horizon, model or threshold changed.
+- All 2024-2025 results remain CONSUMED SECONDARY DIAGNOSTICS. Original archive PIT provenance is not claimed solely from retrospective checksums. Non-overlapping outcomes are not automatically independent. Bootstrap intervals remain diagnostic, not multiple-test-adjusted promotion evidence.
+- Runtime changes: no heavy history on code pushes; one PR regression suite; historical QA only explicit workflow_dispatch/local execution; hourly main report and weekly prospective scorer use a shared non-cancelling queue. Monday capture fallback starts only after original 22:30 UTC capture time.
+- Public report conditional paths and recent macro changes are EXPERIMENTAL, decision weight zero. No algorithms promoted, no trades, no paid provider.
+
