@@ -7,11 +7,15 @@ on:
     paths:
       - 'btc_production.py'
       - 'test_production.py'
+      - 'btc_transport.py'
+      - 'test_transport.py'
       - '.github/workflows/btc-production.yml'
   pull_request:
     paths:
       - 'btc_production.py'
       - 'test_production.py'
+      - 'btc_transport.py'
+      - 'test_transport.py'
       - '.github/workflows/btc-production.yml'
 permissions:
   contents: write
@@ -44,7 +48,7 @@ jobs:
         run: |
           mkdir -p production_artifacts
           set -o pipefail
-          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect test_production.py 2>&1 | tee production_artifacts/tests.txt
+          python -m unittest -v test_baseline.py test_shadow_run.py btc_validation.test_integrity btc_validation.test_collect test_production.py test_transport.py 2>&1 | tee production_artifacts/tests.txt
       - name: Collect sources and build one report
         env:
           MAIN_PUBLISH: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
@@ -52,9 +56,9 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$MAIN_PUBLISH" = 'true' ]; then
-            GITHUB_SHA="$(git rev-parse HEAD)" python btc_production.py --capture-preclose
+            GITHUB_SHA="$(git rev-parse HEAD)" python btc_transport.py --capture-preclose
           else
-            python btc_production.py
+            python btc_transport.py
           fi
       - name: Publish report and verified pre-close state
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -102,3 +106,5 @@ jobs:
             production_artifacts/
             btc_production.py
             test_production.py
+            btc_transport.py
+            test_transport.py
