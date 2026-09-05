@@ -23,7 +23,7 @@ def reader(url):
     with _LOCK:
         time.sleep(max(0,3.2-(time.monotonic()-_LAST)));_LAST=time.monotonic()
     headers={'User-Agent':'btc-public-page-reader/1.0','x-no-cache':'true'}
-    if url.endswith('/DFF'):headers['x-target-selector']='body'
+    if url.endswith('/DFF'):headers['x-respond-with']='markdown'
     r=requests.get(READER+url,timeout=(5,45),headers=headers)
     r.raise_for_status()
     if len(r.content)>2_000_000:raise IntegrityError('Oversized reader response')

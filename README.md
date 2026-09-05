@@ -1,38 +1,88 @@
-# BTC Forecast Lab — price/cycle baseline
+# BTC production monitor and forecast lab
 
-Leakage-safe Bitcoin forecasting benchmark used before macro/on-chain factors are admitted.
+Read-only market monitoring plus frozen experimental forecasting. No orders,
+paid market-data subscription, auto-promotion or claim of a profitable strategy.
+The one user-facing destination is the existing `BTC FINAL REPORT` Google tab.
+Internal GitHub artifacts are execution evidence, not additional user reports.
 
-## Frozen experiment
+## Production chain
 
-`BASELINE_FREEZE_v2.json` fixes the rules before holdout scoring:
+`BTC Production Report` runs hourly at minute 23 UTC. It validates the frozen
+contract and regression suite, collects public sources, writes `live/report.csv`
+and `live/status.json`, verifies their hash and schema, and publishes to main.
+A shared writer lock serializes it with the weekly shadow workflow. On main,
+the report runner refreshes origin/main before collecting to avoid stale state.
+No report-only commit re-triggers itself.
 
-- Development: through 2021-12-31
-- Validation: 2022-01-01 through 2023-12-31
-- Locked holdout: 2024-01-01 through 2025-12-31
-- Forecast-origin stride: 7 days
-- Horizons: 7 / 30 / 90 / 180 / 365 days
-- Models: expanding constant mean, momentum, 4-calendar-year cycle analog, fixed-alpha price Ridge, fixed equal-weight ensemble
-- Hard leakage rule: for origin `t` and horizon `h`, every fitted training row `s` must satisfy `s + h <= t`
-- Holdout is never used to tune features, coefficients, alpha, cycle definition, or ensemble weights.
+The existing Google tab imports that single CSV using IMPORTDATA. Google has its
+own approximately hourly refresh, independent of GitHub scheduling. An expiry
+serial in the CSV supports a formula-based two-hour freshness warning; neither
+GitHub cron nor Google import is a real-time SLA. Manual writers must not replace
+the managed import range.
 
-Freeze SHA256: `2cef61955f200a63bb3341a39590275e3d8eae0dd79824fba901e0e8ee341fb1`
+Critical sources are live BTCUSDT spot, closed-candle price/flow data, the frozen
+forecast file, ETF flows and all 14 required FRED series. A critical failure is
+published explicitly and makes the workflow fail; it is never filled with stale
+values or zeros. Optional source absence is PARTIAL, not an all-sources PASS.
+Runtime failure issues are deduplicated.
 
-## Market data
+## Source semantics
 
-The workflow downloads official Binance Vision BTCUSDT spot daily archives. Archive SHA256 companions are checked whenever Binance publishes them. The script validates continuous 24/7 daily coverage and OHLC invariants before forecasting.
+- Spot: official public Binance market-data API, BTCUSDT, denominated in USDT.
+- Macro: exact observation rows from public FRED series pages through basic
+  anonymous Jina Reader, without a purchased key. The response hash identifies
+  Reader output, not the original HTML. Missing/ambiguous data fail validation.
+  DFF uses full Markdown without readability filtering to retain its data table.
+  H.10 dollar-index observations are released weekly for the preceding week;
+  the report shows observation dates rather than pretending they are live.
+- ETF: public Farside fund table; partial rows and missing cells are not zero.
+  Three/five/twenty-session sums require complete consecutive source rows.
+- OI/futures flow: checksum-verified unrestricted Binance Vision daily archives;
+  explicitly delayed, not rolling live observations or a substitute exchange.
+- Live futures funding: unavailable on this host after HTTP 451. The restriction
+  is respected; no proxy workaround, invented rate or silent venue substitution.
+- True liquidation maps, on-chain flows and Coinbase premium are not connected.
 
-## Outputs
+Basic Reader is a free external dependency, not a guaranteed-availability service.
+Official interface references: https://jina.ai/reader/ and
+https://github.com/jina-ai/reader . H.10 publication schedule:
+https://www.federalreserve.gov/releases/h10/ .
 
-The GitHub Actions artifact `btc-baseline-results` contains:
+## Prospective forecasts
 
-- `btc_daily.csv`
-- `data_manifest.json`
-- `predictions.csv`
-- `benchmark_metrics.csv`
-- `benchmark_metrics_nonoverlap.csv`
-- `prospective_forecast.csv`
-- `run_summary.json`
+The weekly shadow schedule remains Tuesday 09:15 UTC. In the Monday 20:00–24:00
+UTC capture window, the report collector can append one complete 14-series
+macro packet before BTC daily close. Existing packets are immutable. A missing
+packet blocks a new forecast; it is not recreated retrospectively.
 
-## FRED / ALFRED
+Frozen historical forecasts retain their original origin prices and dates.
+Uncalibrated p_up is not exposed as an actionable probability. New issued-shadow
+records use a future target anchor after issuance and require first-publication
+proof before being counted. No automatic promotion is enabled. The report's
+ABSTAIN / zero decision weight is deliberate until a reviewed successor has
+credible prospective evidence. Volatility scales are descriptive scenarios,
+not calibrated confidence intervals or target prices.
 
-No FRED key is stored in this repository. Macro point-in-time ingestion remains a separate stage. The price/cycle benchmark must be beaten on the locked holdout before macro factors are promoted.
+## Research and actual QA evidence
+
+Development: through 2021-12-31. Validation: 2022–2023. The originally locked
+2024–2025 holdout has ALREADY BEEN CONSUMED and is now secondary diagnostics;
+re-running it does not make it unseen. Features, alpha, calendar cycle definition
+and frozen ensemble weights must not be tuned on that period.
+
+The historical training rule is s + h <= t; missing calendar days are never
+compressed into shorter horizons. Only exact raw-string duplicate archive rows
+may collapse. Conflicting timestamps, including different high-precision numeric
+strings, are rejected. Missing funding stays missing, not zero.
+
+Full historical integrity run 33934720401 completed successfully on commit
+745ca3d0d1f7488e08e3d9ea5ce236a08bdf5cd2: 74 integrity tests, corrected official
+archive collection and all three derivative-family diagnostics. Zero source or
+schema failures; 72,663 exact duplicate records removed with a source audit.
+Artifact 9959819883 SHA256:
+4538e2536198f670d3fe6222c51843b1ca54cf97ea67c90e7302faf15239406e.
+This is evidence of execution/integrity, not evidence of predictive edge.
+
+Frozen BASELINE_FREEZE_v2.json byte SHA256:
+3215500ea699861773bcb72fceff4d170b3c1cd0b276c60ec7a9c91b958ddc1f.
+Old predictions and the frozen model files remain unchanged.
