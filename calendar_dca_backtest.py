@@ -5,32 +5,33 @@ This script is deliberately isolated from the frozen forecasting/promotion stack
 It does not alter model features, splits, thresholds, forecasts, or promotion state.
 
 Question: for one fixed-size BTC purchase per month, which combination of
-ordinal week-of-month (1..4), weekday, and local clock hour historically bought
-most BTC?
+ordinal week-of-month (1..4), weekday, and current Merida clock hour historically
+bought most BTC?
 
 Source: official Binance Vision spot BTCUSDT 1h klines.
 Execution price proxy: hourly candle OPEN (appropriate for an automated order
 scheduled at the start of the local hour; fees/slippage excluded).
-Timezone: America/Merida using IANA tz rules, including historical DST.
+Timezone: fixed UTC-06:00, matching Merida's current year-round clock. This is
+intentional: the output is a schedule to use now, so historical candles are
+mapped to today's Merida clock rather than Mexico's pre-2023 DST regime.
 """
 
 from __future__ import annotations
 
+import calendar
 import csv
 import io
 import json
-import math
 import statistics
 import time
 import urllib.request
 import zipfile
 from collections import defaultdict
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
+from datetime import datetime, timedelta, timezone
 
 SYMBOL = "BTCUSDT"
 INTERVAL = "1h"
-TZ = ZoneInfo("America/Merida")
+TZ = timezone(timedelta(hours=-6))
 START_YM = (2018, 1)
 END_YM = (2026, 8)
 BUY_USD = 100.0
@@ -47,8 +48,12 @@ def month_iter(start, end):
             m = 1
 
 
+def next_month(y, m):
+    return (y + 1, 1) if m == 12 else (y, m + 1)
+
+
 def fetch_bytes(url, retries=4):
-    req = urllib.request.Request(url, headers={"User-Agent": "btc-calendar-dca-research/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "btc-calendar-dca-research/1.1"})
     last = None
     for i in range(retries):
         try:
@@ -79,21 +84,32 @@ def parse_zip(blob):
     return out
 
 
-def load_month(y, m):
+def load_daily(y, m, d):
+    name = f"{SYMBOL}-{INTERVAL}-{y:04d}-{m:02d}-{d:02d}.zip"
+    url = f"{BASE}/daily/klines/{SYMBOL}/{INTERVAL}/{name}"
+    return parse_zip(fetch_bytes(url))
+
+
+def load_utc_month(y, m):
     name = f"{SYMBOL}-{INTERVAL}-{y:04d}-{m:02d}.zip"
     monthly = f"{BASE}/monthly/klines/{SYMBOL}/{INTERVAL}/{name}"
     try:
         return parse_zip(fetch_bytes(monthly))
     except Exception:
-        # Current/recent month may not yet have a monthly bundle. Fall back to daily files.
-        import calendar
+        # Recent month may not yet have a monthly bundle. Fall back to daily files.
         rows = []
-        ndays = calendar.monthrange(y, m)[1]
-        for d in range(1, ndays + 1):
-            dname = f"{SYMBOL}-{INTERVAL}-{y:04d}-{m:02d}-{d:02d}.zip"
-            url = f"{BASE}/daily/klines/{SYMBOL}/{INTERVAL}/{dname}"
-            rows.extend(parse_zip(fetch_bytes(url)))
+        for d in range(1, calendar.monthrange(y, m)[1] + 1):
+            rows.extend(load_daily(y, m, d))
         return rows
+
+
+def load_local_month(y, m):
+    # A UTC-06 local month ends six hours into the next UTC month, so append
+    # next month's UTC day 1 and filter after conversion.
+    rows = load_utc_month(y, m)
+    ny, nm = next_month(y, m)
+    rows.extend(load_daily(ny, nm, 1))
+    return rows
 
 
 def period_label(dt):
@@ -117,22 +133,19 @@ def rank_rows(rows):
 
 
 def main():
-    # key = (ordinal_week, weekday[Mon=0], local_hour)
+    # key = (ordinal_week, weekday[Mon=0], current-Merida hour)
     buys = defaultdict(list)
     month_count = 0
     candle_count = 0
-    source_months = []
 
     for y, m in month_iter(START_YM, END_YM):
-        rows = load_month(y, m)
-        source_months.append(f"{y:04d}-{m:02d}")
+        rows = load_local_month(y, m)
         month_count += 1
         candle_count += len(rows)
         seen = set()
         for dt_utc, price in rows:
             local = dt_utc.astimezone(TZ)
             if (local.year, local.month) != (y, m):
-                # UTC month files contain edge hours that may map to adjacent local month.
                 continue
             ordinal_week = (local.day - 1) // 7 + 1
             if ordinal_week > 4:
@@ -152,7 +165,6 @@ def main():
             for h in range(24):
                 key = (w, wd, h)
                 obs = buys.get(key, [])
-                # Every first-fourth weekday/hour should exist once per local month.
                 if len(obs) != expected_months:
                     raise RuntimeError(f"incomplete combo {key}: {len(obs)} != {expected_months}")
                 per = defaultdict(float)
@@ -205,7 +217,7 @@ def main():
         })
     robust.sort(key=lambda r:(r['robust_score'], r['worst_era_pct_rank'], -r['btc']))
 
-    # Candidate previously proposed to user: first Monday around 14:00 local.
+    # Candidate previously proposed to user: first Monday around 14:00 current Merida time.
     proposed=[]
     for h in [13,14,15]:
         k=(1,0,h)
@@ -217,7 +229,6 @@ def main():
             'era_pct_ranks':{p:period_ranks[p][k]['pct_rank'] for p in period_ranks},
         })
 
-    # Best within Monday-only and first-week-only subsets.
     monday = [r for r in ranked_all if r['weekday_num']==0]
     monday.sort(key=lambda r:r['btc'], reverse=True)
     first_week = [r for r in ranked_all if r['week']==1]
@@ -232,7 +243,7 @@ def main():
     result = {
         'status':'RESEARCH_ONLY_NOT_FORECAST_SIGNAL',
         'source':'official Binance Vision spot BTCUSDT 1h klines',
-        'timezone':'America/Merida',
+        'timezone':'fixed UTC-06:00 (current Merida clock)',
         'period':'2018-01-01 through 2026-08-31',
         'months':month_count,
         'candles_loaded':candle_count,
