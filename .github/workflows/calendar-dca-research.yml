@@ -1,0 +1,23 @@
+name: BTC Calendar DCA Research
+
+on:
+  push:
+    paths:
+      - 'calendar_dca_backtest.py'
+      - '.github/workflows/calendar-dca-research.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run research-only calendar DCA backtest
+        run: python calendar_dca_backtest.py
