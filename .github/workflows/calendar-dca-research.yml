@@ -20,5 +20,5 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run research-only calendar DCA backtest
-        # Research-only; current-Merida UTC-6 clock with deterministic gap execution.
+        # Research-only; fixed current-Merida UTC-6 clock; exchange downtime executes on reopen.
         run: python calendar_dca_backtest.py
