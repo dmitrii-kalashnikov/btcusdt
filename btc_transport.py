@@ -91,8 +91,20 @@ def parse_etf_page(text,now):
 
 
 def collect_etf():
-    r=reader(ETF_ALL);data=parse_etf_page(r.text,app.utcnow())
-    return data|{'source':app.evidence(r,data['latest']['date'])|{'original_url':ETF_ALL,'transport':'PUBLIC_PAGE_READER','hash_scope':'reader_response_bytes_not_original_html'}}
+    # Reader rendering can transiently return an incomplete/alternate representation
+    # while the authoritative Farside table schema is unchanged. Retry the SAME
+    # allowlisted source once; never substitute another provider or stale value.
+    last_error=None
+    for attempt in range(2):
+        r=reader(ETF_ALL)
+        try:
+            data=parse_etf_page(r.text,app.utcnow())
+            return data|{'source':app.evidence(r,data['latest']['date'])|{'original_url':ETF_ALL,'transport':'PUBLIC_PAGE_READER','hash_scope':'reader_response_bytes_not_original_html'}}
+        except IntegrityError as exc:
+            last_error=exc
+            if attempt==1:raise
+            time.sleep(1)
+    raise last_error or IntegrityError('ETF source unavailable')
 
 
 def archive(kind):
@@ -133,9 +145,10 @@ def main():
     app.collect_oi=collect_oi;app.collect_futures_flow=collect_futures_flow;app.collect_funding=funding_unavailable
     original=app.report_rows
     def render(feeds,now,meta):
-        required=('spot','price_context','spot_flow','outlook','etf')+tuple('fred_'+sid for sid in app.shadow.SERIES)
-        meta['critical_failures']=[k for k in required if feeds.get(k,{}).get('status')!='OK']
-        if meta['critical_failures']:meta['health']='DATA_FAILURE'
+        # Core report health is owned by btc_production.main. ETF, macro and delayed
+        # derivatives are important context but are not allowed to take the entire
+        # current-price report offline. Their dependent rows fail closed individually
+        # and overall health remains PARTIAL when any optional source is unavailable.
         rows=original(feeds,now,meta)
         for row in rows:
             if row[1]=='Открытый интерес, BTC' and feeds.get('oi',{}).get('status')=='OK':
