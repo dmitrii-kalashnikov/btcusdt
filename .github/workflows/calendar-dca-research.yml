@@ -20,4 +20,5 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run research-only calendar DCA backtest
+        # Research-only; does not modify frozen forecasting governance.
         run: python calendar_dca_backtest.py
