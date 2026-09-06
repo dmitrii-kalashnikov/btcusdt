@@ -10,7 +10,7 @@ Binance Vision BTCUSDT spot 1h klines. Execution proxy is hourly OPEN. Historica
 candles are mapped to fixed UTC-06:00 (Merida's current year-round clock), not
 Mexico's former DST clock. If Binance has no candle at a scheduled hour because
 of an exchange/data gap, execution moves to the first available hourly open
-within 6 hours; the fallback count is reported.
+within 48 hours; the fallback count is reported.
 """
 from __future__ import annotations
 import calendar, csv, io, json, statistics, time, urllib.request, zipfile
@@ -33,7 +33,7 @@ def month_iter(start,end):
 def next_month(y,m): return (y+1,1) if m==12 else (y,m+1)
 
 def fetch_bytes(url,retries=4):
-    req=urllib.request.Request(url,headers={'User-Agent':'btc-calendar-dca-research/1.2'})
+    req=urllib.request.Request(url,headers={'User-Agent':'btc-calendar-dca-research/1.3'})
     last=None
     for i in range(retries):
         try:
@@ -104,9 +104,9 @@ def main():
             day=occurrence_day(y,m,w,wd)
             target=datetime(y,m,day,h,tzinfo=TZ)
             mp=month_maps[(y,m)]; actual=target; price=mp.get(actual); delay=0
-            while price is None and delay<6:
+            while price is None and delay<48:
                 delay+=1; actual=target+timedelta(hours=delay); price=mp.get(actual)
-            if price is None: raise RuntimeError(f'no execution within 6h: {target.isoformat()}')
+            if price is None: raise RuntimeError(f'no execution within 48h: {target.isoformat()}')
             if delay:
                 fallbacks+=1; fallback_total+=1; max_delay=max(max_delay,delay)
             b=BUY_USD/price; total+=b; p=period_label(target); per[p]+=b; counts[p]+=1
@@ -146,7 +146,7 @@ def main():
     result={'status':'RESEARCH_ONLY_NOT_FORECAST_SIGNAL','source':'official Binance Vision spot BTCUSDT 1h klines',
             'timezone':'fixed UTC-06:00 (current Merida clock)','period':'2018-01-01 through 2026-08-31',
             'months':len(months),'candles_loaded':candles_loaded,'candidates':len(ranked),
-            'purchase_rule':'$100 once/month at scheduled hourly OPEN; if missing, first available OPEN <=6h; fees/slippage excluded',
+            'purchase_rule':'$100 once/month at scheduled hourly OPEN; if exchange/data gap, first available OPEN <=48h; fees/slippage excluded',
             'fallback_executions_across_all_candidates':fallback_total,'max_fallback_delay_hours':max_delay,
             'best_full_sample':compact(best),'worst_full_sample':compact(worst),'median_btc':median,
             'best_vs_median_pct':(best['btc']/median-1)*100,'best_vs_worst_pct':(best['btc']/worst['btc']-1)*100,
