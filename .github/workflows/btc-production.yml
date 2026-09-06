@@ -1,4 +1,5 @@
 name: BTC Production Report
+
 on:
   workflow_dispatch:
   schedule:
@@ -10,13 +11,15 @@ on:
       - 'btc_transport.py'
       - 'btc_release.py'
       - '.github/workflows/btc-production.yml'
+
 permissions:
   contents: write
   issues: write
+
 concurrency:
   group: btc-prospective-shadow
   cancel-in-progress: false
-  queue: max
+
 jobs:
   report:
     if: github.ref == 'refs/heads/main'
@@ -44,7 +47,7 @@ jobs:
           python -c 'from btc_validation.runtime import check_runtime_contract; check_runtime_contract()'
       - name: Collect verified sources and render
         run: GITHUB_SHA="$(git rev-parse HEAD)" python btc_release.py --capture-preclose
-      - name: Publish single canonical report and immutable macro packet
+      - name: Publish canonical report and immutable macro packet
         run: |
           git config user.name 'btc-report-bot'
           git config user.email 'btc-report-bot@users.noreply.github.com'
@@ -56,13 +59,13 @@ jobs:
       - name: Verify published payload health
         run: |
           python - <<'PY'
-          import json,hashlib,csv
+          import json, hashlib, csv
           from pathlib import Path
-          s=json.loads(Path('live/status.json').read_text())
-          assert hashlib.sha256(Path('live/report.csv').read_bytes()).hexdigest()==s['report_sha256']
-          assert s['decision']=='ABSTAIN' and s['decision_weight']==0 and s['auto_trading'] is False
+          s = json.loads(Path('live/status.json').read_text())
+          assert hashlib.sha256(Path('live/report.csv').read_bytes()).hexdigest() == s['report_sha256']
+          assert s['decision'] == 'ABSTAIN' and s['decision_weight'] == 0 and s['auto_trading'] is False
           assert not s['critical_failures'], s['critical_failures']
-          assert all(len(r)==6 for r in csv.reader(Path('live/report.csv').open()))
+          assert all(len(r) == 6 for r in csv.reader(Path('live/report.csv').open()))
           print('PRODUCTION_REPORT_CONTRACT_PASS', s['health'], s['report_sha256'])
           PY
       - name: Deduplicated failure alert
@@ -80,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: btc-production-${{ github.run_id }}
-          retention-days: 90
+          retention-days: 14
           path: |
             live/
             production_artifacts/
