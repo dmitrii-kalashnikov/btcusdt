@@ -2,8 +2,8 @@
   "auto_promoted": false,
   "changed": false,
   "previous_status": "INSUFFICIENT_DATA",
-  "reason": "Prospective evidence has not reached the minimum review sample.",
-  "review_policy": "Never auto-promote. PROMOTION_REVIEW only opens a human review.",
+  "reason": "Delayed-origin diagnostics cannot satisfy clean prospective review. Original forecasts remain immutable.",
+  "review_policy": "Separate issued-before-target-start evidence required; never auto-promote.",
   "status": "INSUFFICIENT_DATA",
-  "updated_utc": "2026-09-01T14:12:30.688656+00:00"
+  "updated_utc": "2026-09-08T13:41:37.505052+00:00"
 }

@@ -1,0 +1,73 @@
+{
+  "experiment_id": "btc-issued-anchor-v1-20260904",
+  "issued_rows": 15,
+  "completed_rows": 0,
+  "distinct_feature_origins": 1,
+  "evidence_failures": 0,
+  "status": "EXPERIMENTAL_NO_AUTO_PROMOTION",
+  "decision_grade": false,
+  "probabilities_calibrated": false,
+  "row_status": [
+    {
+      "forecast_id": "issued-v1::2026-09-07::7::price_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::7::price_macro_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::7::primary_equal_weight_ensemble",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::30::price_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::30::price_macro_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::30::primary_equal_weight_ensemble",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::90::price_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::90::price_macro_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::90::primary_equal_weight_ensemble",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::180::price_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::180::price_macro_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::180::primary_equal_weight_ensemble",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::365::price_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::365::price_macro_ridge",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    },
+    {
+      "forecast_id": "issued-v1::2026-09-07::365::primary_equal_weight_ensemble",
+      "status": "AWAITING_PUBLICATION_PROOF"
+    }
+  ],
+  "updated_at_utc": "2026-09-08T13:41:37.567034+00:00"
+}
