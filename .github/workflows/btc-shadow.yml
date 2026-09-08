@@ -59,6 +59,22 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+      - name: Recheck publication evidence after immutable forecast commit
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from btc_validation.issued import load_records, save_state
+          state = save_state(load_records())
+          assert state['evidence_failures'] == 0, state
+          assert not any(x['status'] == 'AWAITING_PUBLICATION_PROOF' for x in state['row_status']), state
+          print('POST_COMMIT_PUBLICATION_CHECK_PASS', state['issued_rows'], state['completed_rows'])
+          PY
+          git add shadow/issued_status.json shadow/issued_scorecard.csv shadow/issued_outcomes.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "audit: refresh unchanged issued forecasts after publication"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - name: Open review only on positive transition
         env:
           GH_TOKEN: ${{ github.token }}

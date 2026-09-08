@@ -10,6 +10,10 @@ on:
       - 'btc_production.py'
       - 'btc_transport.py'
       - 'btc_release.py'
+      - 'btc_context_runner.py'
+      - 'btc_wide_context.py'
+      - 'research/institution_context.json'
+      - 'research/WIDE_CONTEXT_LEDGER_ENTRY.md'
       - '.github/workflows/btc-production.yml'
 
 permissions:
@@ -43,10 +47,10 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Release smoke and frozen-contract guard
         run: |
-          python -m unittest -q test_release.py
+          python -m unittest -q test_release.py test_wide_context.py
           python -c 'from btc_validation.runtime import check_runtime_contract; check_runtime_contract()'
       - name: Collect verified sources and render
-        run: GITHUB_SHA="$(git rev-parse HEAD)" python btc_release.py --capture-preclose
+        run: GITHUB_SHA="$(git rev-parse HEAD)" python btc_context_runner.py --capture-preclose
       - name: Publish canonical report and immutable macro packet
         run: |
           set -euo pipefail
@@ -68,6 +72,7 @@ jobs:
           assert s['decision'] == 'ABSTAIN' and s['decision_weight'] == 0 and s['auto_trading'] is False
           assert not s['critical_failures'], s['critical_failures']
           assert all(len(r) == 6 for r in csv.reader(Path('live/report.csv').open()))
+          assert s['sources']['wide_context']['decision_weight'] == 0
           print('PRODUCTION_REPORT_CONTRACT_PASS', s['health'], s['report_sha256'])
           PY
       - name: Deduplicated failure alert
@@ -92,3 +97,6 @@ jobs:
             btc_production.py
             btc_transport.py
             btc_release.py
+            btc_wide_context.py
+            btc_context_runner.py
+            research/
