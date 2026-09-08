@@ -1,0 +1,22 @@
+{
+  "schema": "institution-context-v1",
+  "decision_weight": 0,
+  "collection_mode": "MANUALLY_VERIFIED_SEC_DISCLOSURE_NOT_AUTOMATIC_FULL_FILINGS_FEED",
+  "events": [{
+    "institution": "Strategy Inc",
+    "period_start": "2026-08-31",
+    "period_end": "2026-09-07",
+    "filing_date": "2026-09-08",
+    "observed_by_agent_utc": "2026-09-08T17:34:55+00:00",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526384402/mstr-20260831.htm",
+    "btc_purchased": 0,
+    "btc_sold": 0,
+    "atm_share_sales": 0,
+    "strc_repurchase_usd_millions": 176.3,
+    "btc_held": 845050,
+    "usd_reserve_billions": 5.10,
+    "usd_cash_billions": 1.44,
+    "summary_ru": "За 31 августа — 7 сентября: покупок и продаж BTC не было, размещений акций через текущую программу не было. На выкуп STRC потрачено 176,3 млн долларов из денежных средств. В собственности 845 050 BTC.",
+    "interpretation_ru": "В этот период компания не создавала прямого спроса на BTC. Отдельно раскрыты резерв 5,10 млрд долларов для дивидендов и процентов и денежные средства 1,44 млрд для более широких целей. Это не доказательство будущих покупок, банкротства или вынужденной продажи BTC. Следующее раскрытие нужно проверять заново."
+  }]
+}
