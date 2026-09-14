@@ -1,10 +1,10 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-09-14T19:29:57.365784+00:00",
-  "code_sha": "891810e803ff571d8d8b27888bac7d74095a70dc",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/34887124515",
-  "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
+  "generated_at_utc": "2026-09-14T23:14:03.729731+00:00",
+  "code_sha": "96f94327810ccbc9e7ada7020ec0a2b7ce70fdcb",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/34907788238",
+  "preclose_status": "COMPLETE_PACKET_CAPTURED_BEFORE_CLOSE",
   "decision": "ABSTAIN",
   "auto_trading": false,
   "decision_weight": 0,
@@ -105,20 +105,23 @@
     ],
     "updated_at_utc": "2026-09-08T17:42:19.790008+00:00"
   },
-  "context_unavailable": [],
-  "report_sha256": "36efe0dac38614ddeede3f13d04859f30a72ee313c336202060a15639953107c",
+  "context_unavailable": [
+    "IORB",
+    "SOFR_MINUS_IORB"
+  ],
+  "report_sha256": "69386959213bc79ff14ffbfe1f2c664ba36ef484860c6670da6f99e1de233dc0",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 79152.01,
-      "change_24h_pct": 2.438,
+      "price": 78438.67,
+      "change_24h_pct": 2.238,
       "low_24h": 76388.72,
-      "high_24h": 79325.0,
+      "high_24h": 79600.0,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-09-14T19:29:07.954050+00:00",
-        "observed_at_utc": "2026-09-14T19:29:07.011000+00:00",
-        "sha256": "a95032a38ba36faf05962dfca82cb260ab8eda5749cac91ddc17a81a488decc7"
+        "retrieved_at_utc": "2026-09-14T23:13:14.783643+00:00",
+        "observed_at_utc": "2026-09-14T23:13:14.011000+00:00",
+        "sha256": "2a6cc7579298d551336cee9b8c30ae2d6716e05e595f3c23fd6a6f04a3fb5686"
       }
     },
     "price_context": {
@@ -132,20 +135,20 @@
       "high_20d": 82300.0,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-09-14T19:29:08.093440+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:14.944644+00:00",
         "observed_at_utc": "2026-09-14T00:00:00+00:00",
-        "sha256": "221487bb4dfc9763ee078dc12850b7b5b22e85eea1af575b66edc0d4e4a2c9d4"
+        "sha256": "522d6d3afb5231d8478d0cbf57d7712c312861418ccc8bb9d810c93055d06531"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 1.227747671927342,
-      "imbalance": 0.10223225673054143,
+      "buy_sell_ratio": 1.1546543646270588,
+      "imbalance": 0.07177687854071546,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-09-14T19:29:07.955020+00:00",
-        "observed_at_utc": "2026-09-14T19:00:00+00:00",
-        "sha256": "7f8c60c7536b6c84942ddbca8f6d8c3352ab67ff6f9a16e30b8e8ab802514a3d"
+        "retrieved_at_utc": "2026-09-14T23:13:14.784655+00:00",
+        "observed_at_utc": "2026-09-14T23:00:00+00:00",
+        "sha256": "76132ec3399c4e19e1122c5b45d12af42427ae5d8363257471d3597aad4af8bb"
       }
     },
     "oi": {
@@ -153,7 +156,7 @@
       "oi_btc": 104897.336,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-09-13.zip",
-        "retrieved_at_utc": "2026-09-14T19:29:08.049912+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:15.541707+00:00",
         "observed_at_utc": "2026-09-13T23:55:00+00:00",
         "sha256": "4812704101c83de01c373c15f6f816c1305371559a8344fca8248f3d24e45701",
         "archive_sha256": "f68c61a27db1ff683fa4e061c70899e35eed02e3f0f2870a12fc40e5536f87e9",
@@ -170,7 +173,7 @@
       "buy_sell_ratio": 0.94427021719904,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-09-13.zip",
-        "retrieved_at_utc": "2026-09-14T19:29:08.290149+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:15.549773+00:00",
         "observed_at_utc": "2026-09-14T00:00:00+00:00",
         "sha256": "66c794d9448d2393be4fb6f49fe0b67288040422aeead8dc23eafa28c3f9b292",
         "archive_sha256": "23453e431faf9fe8ca98f3f7471529684aba676847672d9cf4bef02b118bd9e5",
@@ -771,9 +774,9 @@
       ],
       "source": {
         "url": "https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/",
-        "retrieved_at_utc": "2026-09-14T19:29:15.982986+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:32.144354+00:00",
         "observed_at_utc": "2026-09-11",
-        "sha256": "d94b5f13a961f901739d4c0fe0faba7ce3933eb82ecf57c9b561c84dd3fbd1cb",
+        "sha256": "ff56a2c2201ceab5be075b11e724db272246215d7da64092e40c6067b302a813",
         "original_url": "https://farside.co.uk/bitcoin-etf-flow-all-data/",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1051,7 +1054,7 @@
       "change_previous": 102.79999999999927,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/M2SL",
-        "retrieved_at_utc": "2026-09-14T19:29:14.788474+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:20.563387+00:00",
         "observed_at_utc": "2026-07-01",
         "sha256": "470ecbab2e3a0a4fc959bcf259b3162a3d00530c0dba91e1bd1759657ef84a3e",
         "original_url": "https://fred.stlouisfed.org/series/M2SL",
@@ -1070,9 +1073,9 @@
       "change_previous": 3415.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WALCL",
-        "retrieved_at_utc": "2026-09-14T19:29:18.189405+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:24.588508+00:00",
         "observed_at_utc": "2026-09-09",
-        "sha256": "6eea68e82fa7abd0c4333e4b5b6f347bb6b17e911af31333e7da4a526dda6d82",
+        "sha256": "623deb2ac5c69ba62bd077cdd0cd6d292b28d4910ef08454cf04bf46390b2acb",
         "original_url": "https://fred.stlouisfed.org/series/WALCL",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1089,7 +1092,7 @@
       "change_previous": -84600.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WTREGEN",
-        "retrieved_at_utc": "2026-09-14T19:29:23.279993+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:27.019234+00:00",
         "observed_at_utc": "2026-09-09",
         "sha256": "e0ccdad29baf28b940f33406fdee187c7debc947e2725232e246accf10575ae8",
         "original_url": "https://fred.stlouisfed.org/series/WTREGEN",
@@ -1108,9 +1111,9 @@
       "change_previous": -3.835,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/RRPONTSYD",
-        "retrieved_at_utc": "2026-09-14T19:29:24.575511+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:30.687022+00:00",
         "observed_at_utc": "2026-09-14",
-        "sha256": "720e8cccd9f44e65d31b12add0871c7227f5523015a217ce5e7292b6f9360b37",
+        "sha256": "13b968c56f458bda2126d059ee05ba27959ba51d72aecc8ed7ed807b6d3a44e0",
         "original_url": "https://fred.stlouisfed.org/series/RRPONTSYD",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1120,16 +1123,16 @@
       "status": "OK",
       "series_id": "DFF",
       "value": "3.63",
-      "observation_date": "2026-09-10",
+      "observation_date": "2026-09-11",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/DFF",
-      "previous_date": "2026-09-09",
+      "previous_date": "2026-09-10",
       "change_previous": 0.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DFF",
-        "retrieved_at_utc": "2026-09-14T19:29:29.376509+00:00",
-        "observed_at_utc": "2026-09-10",
-        "sha256": "dac7caabb6233b1b87a9442b33e19f64b0310862514ef7d6458fbcf6c89f9933",
+        "retrieved_at_utc": "2026-09-14T23:13:34.973804+00:00",
+        "observed_at_utc": "2026-09-11",
+        "sha256": "3176774828bf98f1a088116f8ec90b3ce54b72edb420dcfb379234e8afdae01d",
         "original_url": "https://fred.stlouisfed.org/series/DFF",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1138,17 +1141,17 @@
     "fred_DGS2": {
       "status": "OK",
       "series_id": "DGS2",
-      "value": "4.56",
-      "observation_date": "2026-09-10",
+      "value": "4.63",
+      "observation_date": "2026-09-11",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/DGS2",
-      "previous_date": "2026-09-09",
-      "change_previous": 0.1299999999999999,
+      "previous_date": "2026-09-10",
+      "change_previous": 0.07000000000000028,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DGS2",
-        "retrieved_at_utc": "2026-09-14T19:29:30.195418+00:00",
-        "observed_at_utc": "2026-09-10",
-        "sha256": "3243042c90f772b08cc32da8500b96c50f5425cf1e2792550a2d89c303247ace",
+        "retrieved_at_utc": "2026-09-14T23:13:37.008033+00:00",
+        "observed_at_utc": "2026-09-11",
+        "sha256": "6b38d08f42a5d7029595546d4bd848ae7ed23d7078428c7cc0838bc95555b775",
         "original_url": "https://fred.stlouisfed.org/series/DGS2",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1157,17 +1160,17 @@
     "fred_DGS10": {
       "status": "OK",
       "series_id": "DGS10",
-      "value": "4.95",
-      "observation_date": "2026-09-10",
+      "value": "4.96",
+      "observation_date": "2026-09-11",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "previous_date": "2026-09-09",
-      "change_previous": 0.1200000000000001,
+      "previous_date": "2026-09-10",
+      "change_previous": 0.009999999999999787,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DGS10",
-        "retrieved_at_utc": "2026-09-14T19:29:33.700759+00:00",
-        "observed_at_utc": "2026-09-10",
-        "sha256": "e432aa8aaaac874ce3677314f4accf776bec1cd779a63e01d9e126a7fa8a6409",
+        "retrieved_at_utc": "2026-09-14T23:13:39.865449+00:00",
+        "observed_at_utc": "2026-09-11",
+        "sha256": "b5aab5842eb4a8ac7360e6a6063e6429033daacf906348172f71835de6de54e9",
         "original_url": "https://fred.stlouisfed.org/series/DGS10",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1176,17 +1179,17 @@
     "fred_DFII10": {
       "status": "OK",
       "series_id": "DFII10",
-      "value": "2.55",
-      "observation_date": "2026-09-10",
+      "value": "2.60",
+      "observation_date": "2026-09-11",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/DFII10",
-      "previous_date": "2026-09-09",
-      "change_previous": 0.08999999999999986,
+      "previous_date": "2026-09-10",
+      "change_previous": 0.050000000000000266,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DFII10",
-        "retrieved_at_utc": "2026-09-14T19:29:37.304326+00:00",
-        "observed_at_utc": "2026-09-10",
-        "sha256": "ba70728c63a4db0a230a7df1b7980d7b78ff0f0fad6ab07c0626879c4a97b75b",
+        "retrieved_at_utc": "2026-09-14T23:13:43.543599+00:00",
+        "observed_at_utc": "2026-09-11",
+        "sha256": "d523ca323f37f54716a7b97c089d8b76d075dd02df2e6e2861afd779122e6a29",
         "original_url": "https://fred.stlouisfed.org/series/DFII10",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1195,17 +1198,17 @@
     "fred_DTWEXBGS": {
       "status": "OK",
       "series_id": "DTWEXBGS",
-      "value": "118.0732",
-      "observation_date": "2026-09-04",
+      "value": "118.2126",
+      "observation_date": "2026-09-11",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/DTWEXBGS",
-      "previous_date": "2026-09-03",
-      "change_previous": -0.05379999999999541,
+      "previous_date": "2026-09-10",
+      "change_previous": 0.13389999999999702,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DTWEXBGS",
-        "retrieved_at_utc": "2026-09-14T19:29:39.684775+00:00",
-        "observed_at_utc": "2026-09-04",
-        "sha256": "c4cc7b8420283fcffccc90b42d85e53ec78c5760cdab0993f7d52bddfd30a1b5",
+        "retrieved_at_utc": "2026-09-14T23:13:46.316785+00:00",
+        "observed_at_utc": "2026-09-11",
+        "sha256": "9f50a9065002e6bdbbb6809237f2dfaed67a9637399447e25c22c0d93969e721",
         "original_url": "https://fred.stlouisfed.org/series/DTWEXBGS",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1222,9 +1225,9 @@
       "change_previous": -2.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/VIXCLS",
-        "retrieved_at_utc": "2026-09-14T19:29:45.971671+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:49.896711+00:00",
         "observed_at_utc": "2026-09-11",
-        "sha256": "0942347c49c12aeea9924abc4dad8ea63d1facbc6fc509d7e2d594bbaa939cf7",
+        "sha256": "5734d3b15118cda9f758e2a7f4c516643dfd5a6c1a1d3582f47322eab42015f6",
         "original_url": "https://fred.stlouisfed.org/series/VIXCLS",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1241,7 +1244,7 @@
       "change_previous": 251.3199999999997,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/NASDAQCOM",
-        "retrieved_at_utc": "2026-09-14T19:29:46.381729+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:53.166062+00:00",
         "observed_at_utc": "2026-09-11",
         "sha256": "9f3df56fec64b34da5bc9e2427623747c086797aa6a1b7e094db21c46f48a3a3",
         "original_url": "https://fred.stlouisfed.org/series/NASDAQCOM",
@@ -1260,9 +1263,9 @@
       "change_previous": 1.3179999999999836,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/CPIAUCSL",
-        "retrieved_at_utc": "2026-09-14T19:29:49.422485+00:00",
+        "retrieved_at_utc": "2026-09-14T23:13:58.286843+00:00",
         "observed_at_utc": "2026-08-01",
-        "sha256": "2c730ae6ea8ca505be092551cd7f15dad475f5eeb86022940031ac00d30bd2c3",
+        "sha256": "5980a062f3f5e9628674c269bf1338fd31d995467702710b9be46432792ed58d",
         "original_url": "https://fred.stlouisfed.org/series/CPIAUCSL",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1279,9 +1282,9 @@
       "change_previous": 0.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/UNRATE",
-        "retrieved_at_utc": "2026-09-14T19:29:53.264603+00:00",
+        "retrieved_at_utc": "2026-09-14T23:14:03.657903+00:00",
         "observed_at_utc": "2026-08-01",
-        "sha256": "fc7d6765c46f5b00638bbf4a7d80781c7b5d5c700cbccff3f59b3a6a6b05ac30",
+        "sha256": "efdb241fff005e62fc2db66c0db2927f4f3a22332494a3e80e8449c4a2ecd50c",
         "original_url": "https://fred.stlouisfed.org/series/UNRATE",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1298,16 +1301,16 @@
       "change_previous": 162.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/PAYEMS",
-        "retrieved_at_utc": "2026-09-14T19:29:57.364900+00:00",
+        "retrieved_at_utc": "2026-09-14T23:14:03.729050+00:00",
         "observed_at_utc": "2026-08-01",
-        "sha256": "b4a501d7ca9b4980b416bd915d6437a0a52cf406db42dd2081baf0bb6cfaa18d",
+        "sha256": "57a5536f23895a2c367a0a92fc9dac36da24873b90a7bc4509c648eadd5b775e",
         "original_url": "https://fred.stlouisfed.org/series/PAYEMS",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
       }
     },
     "wide_context": {
-      "status": "OK",
+      "status": "UNAVAILABLE",
       "measurements": {
         "WRESBAL": {
           "status": "OK",
@@ -1348,9 +1351,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WRESBAL",
-            "retrieved_at_utc": "2026-09-14T19:30:02.923472+00:00",
+            "retrieved_at_utc": "2026-09-14T23:14:08.682622+00:00",
             "observed_at_utc": "2026-09-09",
-            "sha256": "391c847604efb85077abcdc8574babf5d0ef35b04cb582b073bb30cadf2d0cca"
+            "sha256": "51881e324e358fe16a26f668f6b91649863fc306019a1853fcd6eb6398a48e74"
           },
           "source_url": "https://fred.stlouisfed.org/series/WRESBAL",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1385,7 +1388,7 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/SOFR",
-            "retrieved_at_utc": "2026-09-14T19:30:00.918500+00:00",
+            "retrieved_at_utc": "2026-09-14T23:14:08.534578+00:00",
             "observed_at_utc": "2026-09-11",
             "sha256": "eb082a422c9243edfeb3ce7895e7a530cc5afe83b9d8c77053b8c580a573a259"
           },
@@ -1394,51 +1397,8 @@
           "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "IORB": {
-          "status": "OK",
-          "observation_date": "2026-09-14",
-          "value": 3.65,
-          "n": 5,
-          "change_previous": 0.0,
-          "previous_date": "2026-09-13",
-          "windows": {
-            "4": {
-              "from": "2026-09-10",
-              "to": "2026-09-14",
-              "change": 0.0
-            }
-          },
-          "z_prior_60_observations": null,
-          "history": [
-            [
-              "2026-09-10",
-              3.65
-            ],
-            [
-              "2026-09-11",
-              3.65
-            ],
-            [
-              "2026-09-12",
-              3.65
-            ],
-            [
-              "2026-09-13",
-              3.65
-            ],
-            [
-              "2026-09-14",
-              3.65
-            ]
-          ],
-          "source": {
-            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/IORB",
-            "retrieved_at_utc": "2026-09-14T19:30:05.751641+00:00",
-            "observed_at_utc": "2026-09-14",
-            "sha256": "583dac5d667a8e0a9139f0f4835e809a833b2d8bae5e56aafe7b22db9f54152e"
-          },
-          "source_url": "https://fred.stlouisfed.org/series/IORB",
-          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
-          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
+          "status": "UNAVAILABLE",
+          "error": "ValueError: Future observation"
         },
         "NFCI": {
           "status": "OK",
@@ -1479,9 +1439,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/NFCI",
-            "retrieved_at_utc": "2026-09-14T19:30:07.695635+00:00",
+            "retrieved_at_utc": "2026-09-14T23:14:09.051937+00:00",
             "observed_at_utc": "2026-09-04",
-            "sha256": "98c52092965d839c0cfd609e9486ead405ec5d103cd8c94a332b7b48cedd692b"
+            "sha256": "3d817c85b48a7e0d957b8a6174dc9d05ec37f878b10ffb255e044b7f1485a176"
           },
           "source_url": "https://fred.stlouisfed.org/series/NFCI",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1526,7 +1486,7 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/ANFCI",
-            "retrieved_at_utc": "2026-09-14T19:30:10.297279+00:00",
+            "retrieved_at_utc": "2026-09-14T23:14:13.562402+00:00",
             "observed_at_utc": "2026-09-04",
             "sha256": "2e4e8af116fc3c9f98c2e5305f1291236bf5c4758d6ed0d05ca7288e0f0e9850"
           },
@@ -1536,12 +1496,18 @@
         },
         "T10YIE": {
           "status": "OK",
-          "observation_date": "2026-09-11",
-          "value": 2.36,
-          "n": 4,
-          "change_previous": -0.040000000000000036,
-          "previous_date": "2026-09-10",
-          "windows": {},
+          "observation_date": "2026-09-14",
+          "value": 2.37,
+          "n": 5,
+          "change_previous": 0.010000000000000231,
+          "previous_date": "2026-09-11",
+          "windows": {
+            "4": {
+              "from": "2026-09-08",
+              "to": "2026-09-14",
+              "change": 0.0
+            }
+          },
           "z_prior_60_observations": null,
           "history": [
             [
@@ -1559,13 +1525,17 @@
             [
               "2026-09-11",
               2.36
+            ],
+            [
+              "2026-09-14",
+              2.37
             ]
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/T10YIE",
-            "retrieved_at_utc": "2026-09-14T19:30:11.384759+00:00",
-            "observed_at_utc": "2026-09-11",
-            "sha256": "9452bd5b92025bb619f2d666c6acc91c92549ef25776add00acfc0d0debde3d3"
+            "retrieved_at_utc": "2026-09-14T23:14:18.121617+00:00",
+            "observed_at_utc": "2026-09-14",
+            "sha256": "cd7acfec580d94ced18e421d19c55da6ddcb80db7694fb251b8639f87f458877"
           },
           "source_url": "https://fred.stlouisfed.org/series/T10YIE",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1600,9 +1570,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DCOILWTICO",
-            "retrieved_at_utc": "2026-09-14T19:30:15.414602+00:00",
+            "retrieved_at_utc": "2026-09-14T23:14:13.914782+00:00",
             "observed_at_utc": "2026-09-09",
-            "sha256": "2f22d5866184c74c0a6fc2917d0f9e6296e9397ccfb2a6476f502b526d5cf5cd"
+            "sha256": "8cd6c25fa1e6c5b725db9ebb9dcea15173cc38ddab0c567d7862e78f24643f76"
           },
           "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1610,46 +1580,36 @@
         },
         "DEXJPUS": {
           "status": "OK",
-          "observation_date": "2026-09-04",
-          "value": 156.11,
-          "n": 5,
-          "change_previous": 0.7200000000000273,
-          "previous_date": "2026-09-03",
-          "windows": {
-            "4": {
-              "from": "2026-08-31",
-              "to": "2026-09-04",
-              "change": -3.6299999999999955
-            }
-          },
+          "observation_date": "2026-09-11",
+          "value": 153.71,
+          "n": 4,
+          "change_previous": -0.3499999999999943,
+          "previous_date": "2026-09-10",
+          "windows": {},
           "z_prior_60_observations": null,
           "history": [
             [
-              "2026-08-31",
-              159.74
+              "2026-09-08",
+              154.24
             ],
             [
-              "2026-09-01",
-              160.03
+              "2026-09-09",
+              153.5
             ],
             [
-              "2026-09-02",
-              158.79
+              "2026-09-10",
+              154.06
             ],
             [
-              "2026-09-03",
-              155.39
-            ],
-            [
-              "2026-09-04",
-              156.11
+              "2026-09-11",
+              153.71
             ]
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DEXJPUS",
-            "retrieved_at_utc": "2026-09-14T19:30:16.139936+00:00",
-            "observed_at_utc": "2026-09-04",
-            "sha256": "6df9d42ad3af253eba181df38ccc7af861cbb15947e82968ce9cb00af076e4d0"
+            "retrieved_at_utc": "2026-09-14T23:14:14.251120+00:00",
+            "observed_at_utc": "2026-09-11",
+            "sha256": "8fd8e9145d3e7f80bc906729220b7efb927073945f4dda1f77acf433464960ba"
           },
           "source_url": "https://fred.stlouisfed.org/series/DEXJPUS",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1684,7 +1644,7 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/SP500",
-            "retrieved_at_utc": "2026-09-14T19:30:21.105940+00:00",
+            "retrieved_at_utc": "2026-09-14T23:14:14.615731+00:00",
             "observed_at_utc": "2026-09-11",
             "sha256": "4f520a85b3f4359f9707f3d97ebb6fe68fdb7470f339029a045aeee4032c566c"
           },
@@ -1693,9 +1653,8 @@
           "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "SOFR_MINUS_IORB": {
-          "status": "OK",
-          "observation_date": "2026-09-11",
-          "basis_points": -2.9999999999999805
+          "status": "UNAVAILABLE",
+          "error": "Both same-date rate histories are required"
         }
       },
       "institution_packet": {
