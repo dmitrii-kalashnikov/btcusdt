@@ -1,25 +1,25 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-09-22T13:29:56.967875+00:00",
-  "code_sha": "6cd4e1000e6f5572495239ad1d3f05df5ec77892",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/35733706745",
+  "generated_at_utc": "2026-09-22T18:10:32.241429+00:00",
+  "code_sha": "28d4cb67fb8b4c0cccfa7c45c4bf5c2a27eddbc0",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/35765295715",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
   "decision_weight": 0,
   "shadow": {
-    "archive_latest_date": "2026-09-14",
-    "btc_latest_close": 78189.21,
-    "completed_rows_total": 6,
-    "data_as_of_utc": "2026-09-15T00:00:00+00:00",
+    "archive_latest_date": "2026-09-21",
+    "btc_latest_close": 86620.0,
+    "completed_rows_total": 9,
+    "data_as_of_utc": "2026-09-22T00:00:00+00:00",
     "experiment_id": "btc-shadow-prospective-v1.2",
-    "forecast_rows_total": 45,
+    "forecast_rows_total": 60,
     "governance": "shadow-only; no auto-promotion",
     "integrity_overlay": "btc-integrity-v1-20260904",
     "issuance_audit": {
       "decision_grade": false,
-      "delayed_origin_rows": 45,
+      "delayed_origin_rows": 60,
       "eligible_prospective_rows": 0,
       "evaluation_class": "DELAYED_ORIGIN_DIAGNOSTIC",
       "probabilities_calibrated": false
@@ -28,15 +28,15 @@
     "macro_series_verified": 14,
     "macro_source_status": "PRECLOSE_PACKET_PASS",
     "new_forecast_origin_appended": true,
-    "origin_date": "2026-09-14",
+    "origin_date": "2026-09-21",
     "promotion_status": "INSUFFICIENT_DATA",
-    "run_capture_utc": "2026-09-15T14:22:30.417682+00:00"
+    "run_capture_utc": "2026-09-22T14:05:19.391925+00:00"
   },
   "issued": {
     "experiment_id": "btc-issued-anchor-v1-20260904",
-    "issued_rows": 30,
+    "issued_rows": 45,
     "completed_rows": 3,
-    "distinct_feature_origins": 2,
+    "distinct_feature_origins": 3,
     "evidence_failures": 0,
     "status": "EXPERIMENTAL_NO_AUTO_PROMOTION",
     "decision_grade": false,
@@ -149,24 +149,84 @@
       {
         "forecast_id": "issued-v1::2026-09-14::365::primary_equal_weight_ensemble",
         "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::7::price_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::7::price_macro_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::7::primary_equal_weight_ensemble",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::30::price_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::30::price_macro_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::30::primary_equal_weight_ensemble",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::90::price_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::90::price_macro_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::90::primary_equal_weight_ensemble",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::180::price_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::180::price_macro_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::180::primary_equal_weight_ensemble",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::365::price_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::365::price_macro_ridge",
+        "status": "PENDING_OUTCOME"
+      },
+      {
+        "forecast_id": "issued-v1::2026-09-21::365::primary_equal_weight_ensemble",
+        "status": "PENDING_OUTCOME"
       }
     ],
-    "updated_at_utc": "2026-09-15T14:22:34.914822+00:00"
+    "updated_at_utc": "2026-09-22T14:05:25.472093+00:00"
   },
   "context_unavailable": [],
-  "report_sha256": "e32c49fe4d71f2e83507b9425dfed7532d6c64a500566e8d7f90ccfa1b16240b",
+  "report_sha256": "b7fca40ac26e93d265780a3b18462cc343c44d19dcf3ed20e28da718622ae878",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 85752.46,
-      "change_24h_pct": 0.877,
-      "low_24h": 84778.0,
+      "price": 86515.47,
+      "change_24h_pct": 0.676,
+      "low_24h": 85114.0,
       "high_24h": 87395.67,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-09-22T13:29:09.478713+00:00",
-        "observed_at_utc": "2026-09-22T13:29:09.012000+00:00",
-        "sha256": "9e6f9722bd87872599e8ac931e174d865cad3895dd15defcca7ab5862cd307aa"
+        "retrieved_at_utc": "2026-09-22T18:09:44.930732+00:00",
+        "observed_at_utc": "2026-09-22T18:09:44.012000+00:00",
+        "sha256": "8105477de36e90da4146237a3060c25fcd6e543634bba60006718a2a594079ba"
       }
     },
     "price_context": {
@@ -180,20 +240,20 @@
       "high_20d": 87395.67,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-09-22T13:29:09.635942+00:00",
+        "retrieved_at_utc": "2026-09-22T18:09:45.096341+00:00",
         "observed_at_utc": "2026-09-22T00:00:00+00:00",
-        "sha256": "568010538b70b3860b10eb533a7a7985815b70bee39bb4bd1e1e0ed2cb9b4035"
+        "sha256": "c12f1fd4d01f5ee40d187642461712d8a6ecc2c92baad1ca035607dff8ce9e05"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 0.9044709874820419,
-      "imbalance": -0.05016039264754558,
+      "buy_sell_ratio": 0.8652002260152358,
+      "imbalance": -0.07227094019431193,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-09-22T13:29:09.479653+00:00",
-        "observed_at_utc": "2026-09-22T13:00:00+00:00",
-        "sha256": "85e4dbc73eee8b2b94646ed665fb83f727bbc8b4ae33dc853c9b74918ce7db99"
+        "retrieved_at_utc": "2026-09-22T18:09:44.930870+00:00",
+        "observed_at_utc": "2026-09-22T18:00:00+00:00",
+        "sha256": "d1f5e27b0b8c0cd0e3e5dec27e192a24be71e1d75f516f6cb74225ea457273da"
       }
     },
     "oi": {
@@ -201,7 +261,7 @@
       "oi_btc": 109189.231,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-09-21.zip",
-        "retrieved_at_utc": "2026-09-22T13:29:09.917145+00:00",
+        "retrieved_at_utc": "2026-09-22T18:09:44.889791+00:00",
         "observed_at_utc": "2026-09-21T23:55:00+00:00",
         "sha256": "f4e2bdf6a8ecba487edd9ba3568b650fdad286596f219ddf4b579c2023b39fa0",
         "archive_sha256": "17817043b3844a6730aeda32377682d3d62cec6ee66b226019ae15fc7f33ebeb",
@@ -218,7 +278,7 @@
       "buy_sell_ratio": 1.1006546509506268,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-09-21.zip",
-        "retrieved_at_utc": "2026-09-22T13:29:09.972084+00:00",
+        "retrieved_at_utc": "2026-09-22T18:09:45.267961+00:00",
         "observed_at_utc": "2026-09-22T00:00:00+00:00",
         "sha256": "640ab621db52971d247888f9c5e13eb08a39e7feb228acd2a3bf0986869707ff",
         "archive_sha256": "fd1e013d3d81b3c0d7d215faa710a079f81bcb1c9864be09b387e142294f4155",
@@ -819,9 +879,9 @@
       ],
       "source": {
         "url": "https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/",
-        "retrieved_at_utc": "2026-09-22T13:29:17.724882+00:00",
+        "retrieved_at_utc": "2026-09-22T18:09:51.669159+00:00",
         "observed_at_utc": "2026-09-21",
-        "sha256": "2ebc6d0439d1d4ba90bcca66888d5b244986d3c331f51865d0f0d210c2a7e200",
+        "sha256": "21ecdfad700a4a6032813538828fb68ddc24021c25e23c8f68059d25d839dea6",
         "original_url": "https://farside.co.uk/bitcoin-etf-flow-all-data/",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -829,19 +889,19 @@
     },
     "outlook": {
       "status": "OK",
-      "origin": "2026-09-14",
+      "origin": "2026-09-21",
       "rows": [
         {
-          "forecast_id": "2026-09-14::7::price_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::7::price_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 7,
-          "due_date": "2026-09-21",
+          "due_date": "2026-09-28",
           "model": "price_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.0022287363513213,
-          "forecast_price": 78363.66747224847,
+          "spot": 86620.0,
+          "predicted_log_return": 0.0049621276298559,
+          "forecast_price": 87050.88767097204,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -849,16 +909,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::7::price_macro_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::7::price_macro_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 7,
-          "due_date": "2026-09-21",
+          "due_date": "2026-09-28",
           "model": "price_macro_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": -0.0240216828646846,
-          "forecast_price": 76333.353236547,
+          "spot": 86620.0,
+          "predicted_log_return": -0.0282482314565015,
+          "forecast_price": 84207.37481842891,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -866,16 +926,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::7::primary_equal_weight_ensemble",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::7::primary_equal_weight_ensemble",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 7,
-          "due_date": "2026-09-21",
+          "due_date": "2026-09-28",
           "model": "primary_equal_weight_ensemble",
-          "spot": 78189.21,
-          "predicted_log_return": -0.0200474190973515,
-          "forecast_price": 76637.3257499292,
+          "spot": 86620.0,
+          "predicted_log_return": 0.0191840933998208,
+          "forecast_price": 88297.76794340655,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -883,16 +943,16 @@
           "source": "scheduled_primary_price_cycle_v2"
         },
         {
-          "forecast_id": "2026-09-14::30::price_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::30::price_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 30,
-          "due_date": "2026-10-14",
+          "due_date": "2026-10-21",
           "model": "price_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.0357671878803405,
-          "forecast_price": 81036.43321890141,
+          "spot": 86620.0,
+          "predicted_log_return": 0.0274189760930586,
+          "forecast_price": 89027.89182073185,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -900,16 +960,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::30::price_macro_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::30::price_macro_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 30,
-          "due_date": "2026-10-14",
+          "due_date": "2026-10-21",
           "model": "price_macro_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": -0.0717179036368499,
-          "forecast_price": 72778.00313856849,
+          "spot": 86620.0,
+          "predicted_log_return": -0.1079531716551708,
+          "forecast_price": 77756.14350905093,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -917,16 +977,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::30::primary_equal_weight_ensemble",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::30::primary_equal_weight_ensemble",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 30,
-          "due_date": "2026-10-14",
+          "due_date": "2026-10-21",
           "model": "primary_equal_weight_ensemble",
-          "spot": 78189.21,
-          "predicted_log_return": 0.0152587162284198,
-          "forecast_price": 79391.42577646062,
+          "spot": 86620.0,
+          "predicted_log_return": 0.0349563105826281,
+          "forecast_price": 89701.46008608404,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -934,16 +994,16 @@
           "source": "scheduled_primary_price_cycle_v2"
         },
         {
-          "forecast_id": "2026-09-14::90::price_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::90::price_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 90,
-          "due_date": "2026-12-13",
+          "due_date": "2026-12-20",
           "model": "price_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.1467548005486451,
-          "forecast_price": 90548.57608625817,
+          "spot": 86620.0,
+          "predicted_log_return": 0.1470118159594751,
+          "forecast_price": 100337.8058580895,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -951,16 +1011,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::90::price_macro_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::90::price_macro_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 90,
-          "due_date": "2026-12-13",
+          "due_date": "2026-12-20",
           "model": "price_macro_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": -0.2073862842987757,
-          "forecast_price": 63544.81304191004,
+          "spot": 86620.0,
+          "predicted_log_return": -0.2355919481588012,
+          "forecast_price": 68438.72282595329,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -968,16 +1028,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::90::primary_equal_weight_ensemble",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::90::primary_equal_weight_ensemble",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 90,
-          "due_date": "2026-12-13",
+          "due_date": "2026-12-20",
           "model": "primary_equal_weight_ensemble",
-          "spot": 78189.21,
-          "predicted_log_return": 0.0400639957746439,
-          "forecast_price": 81385.38034739956,
+          "spot": 86620.0,
+          "predicted_log_return": 0.0496794387526836,
+          "forecast_price": 91031.91638573146,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -985,16 +1045,16 @@
           "source": "scheduled_primary_price_cycle_v2"
         },
         {
-          "forecast_id": "2026-09-14::180::price_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::180::price_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 180,
-          "due_date": "2027-03-13",
+          "due_date": "2027-03-20",
           "model": "price_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.2832733108870509,
-          "forecast_price": 103793.66825266588,
+          "spot": 86620.0,
+          "predicted_log_return": 0.2586235912318257,
+          "forecast_price": 112185.5645956068,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -1002,16 +1062,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::180::price_macro_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::180::price_macro_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 180,
-          "due_date": "2027-03-13",
+          "due_date": "2027-03-20",
           "model": "price_macro_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.1024486688484935,
-          "forecast_price": 86624.29572688646,
+          "spot": 86620.0,
+          "predicted_log_return": 0.0531936035038914,
+          "forecast_price": 91352.38028921248,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -1019,16 +1079,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::180::primary_equal_weight_ensemble",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::180::primary_equal_weight_ensemble",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 180,
-          "due_date": "2027-03-13",
+          "due_date": "2027-03-20",
           "model": "primary_equal_weight_ensemble",
-          "spot": 78189.21,
-          "predicted_log_return": 0.1631955894517844,
-          "forecast_price": 92049.57107232529,
+          "spot": 86620.0,
+          "predicted_log_return": 0.2116497231791843,
+          "forecast_price": 107037.63043740642,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -1036,16 +1096,16 @@
           "source": "scheduled_primary_price_cycle_v2"
         },
         {
-          "forecast_id": "2026-09-14::365::price_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::365::price_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 365,
-          "due_date": "2027-09-14",
+          "due_date": "2027-09-21",
           "model": "price_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.5056700649831443,
-          "forecast_price": 129645.23045741666,
+          "spot": 86620.0,
+          "predicted_log_return": 0.4329622737399649,
+          "forecast_price": 133552.2797140143,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -1053,16 +1113,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::365::price_macro_ridge",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::365::price_macro_ridge",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 365,
-          "due_date": "2027-09-14",
+          "due_date": "2027-09-21",
           "model": "price_macro_ridge",
-          "spot": 78189.21,
-          "predicted_log_return": 0.9149056940712748,
-          "forecast_price": 195202.4748752572,
+          "spot": 86620.0,
+          "predicted_log_return": 0.8540082454837552,
+          "forecast_price": 203474.15233654037,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -1070,16 +1130,16 @@
           "source": "scheduled_frozen_shadow_v1"
         },
         {
-          "forecast_id": "2026-09-14::365::primary_equal_weight_ensemble",
-          "origin_date": "2026-09-14",
-          "capture_time_utc": "2026-09-15T14:22:30.332058+00:00",
-          "spot_date": "2026-09-14",
+          "forecast_id": "2026-09-21::365::primary_equal_weight_ensemble",
+          "origin_date": "2026-09-21",
+          "capture_time_utc": "2026-09-22T14:05:19.296753+00:00",
+          "spot_date": "2026-09-21",
           "horizon_days": 365,
-          "due_date": "2027-09-14",
+          "due_date": "2027-09-21",
           "model": "primary_equal_weight_ensemble",
-          "spot": 78189.21,
-          "predicted_log_return": 0.266514140720514,
-          "forecast_price": 102068.66766823256,
+          "spot": 86620.0,
+          "predicted_log_return": 0.2626262854169968,
+          "forecast_price": 112635.50899685892,
           "status": "PENDING",
           "actual_price": "",
           "actual_log_return": "",
@@ -1091,17 +1151,17 @@
     "fred_M2SL": {
       "status": "OK",
       "series_id": "M2SL",
-      "value": "23218.0",
-      "observation_date": "2026-07-01",
+      "value": "23342.8",
+      "observation_date": "2026-08-01",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/M2SL",
-      "previous_date": "2026-06-01",
-      "change_previous": 102.79999999999927,
+      "previous_date": "2026-07-01",
+      "change_previous": 124.89999999999782,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/M2SL",
-        "retrieved_at_utc": "2026-09-22T13:29:16.179899+00:00",
-        "observed_at_utc": "2026-07-01",
-        "sha256": "b2a9e0b9aff5b1fd46cc9e7402e50ae571b2cd465e0d9258fba602987a6b8d55",
+        "retrieved_at_utc": "2026-09-22T18:09:50.716295+00:00",
+        "observed_at_utc": "2026-08-01",
+        "sha256": "44d3c68897dad8022a860d72d60baf781adf2ea8c63b8fc5fce0c5513f3fa214",
         "original_url": "https://fred.stlouisfed.org/series/M2SL",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1118,9 +1178,9 @@
       "change_previous": 5929.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WALCL",
-        "retrieved_at_utc": "2026-09-22T13:29:21.627968+00:00",
+        "retrieved_at_utc": "2026-09-22T18:09:55.037047+00:00",
         "observed_at_utc": "2026-09-16",
-        "sha256": "8cae9b5009d46abdfdf3f7a56947a30019ac25540e4c781f64e0f26feaadc488",
+        "sha256": "9fd8873749cb11df3cdac72f67a6bfe94e9920ab2583c3d9c00eef51a4aacc6e",
         "original_url": "https://fred.stlouisfed.org/series/WALCL",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1137,7 +1197,7 @@
       "change_previous": -6307.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WTREGEN",
-        "retrieved_at_utc": "2026-09-22T13:29:27.227819+00:00",
+        "retrieved_at_utc": "2026-09-22T18:09:57.549291+00:00",
         "observed_at_utc": "2026-09-16",
         "sha256": "8559a1ba8e5c4cbb542acbaac500c72ab3522bc44469072e05a414d1f853052a",
         "original_url": "https://fred.stlouisfed.org/series/WTREGEN",
@@ -1148,17 +1208,17 @@
     "fred_RRPONTSYD": {
       "status": "OK",
       "series_id": "RRPONTSYD",
-      "value": "0.582",
-      "observation_date": "2026-09-21",
+      "value": "0.453",
+      "observation_date": "2026-09-22",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/RRPONTSYD",
-      "previous_date": "2026-09-18",
-      "change_previous": 0.006000000000000005,
+      "previous_date": "2026-09-21",
+      "change_previous": -0.12899999999999995,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/RRPONTSYD",
-        "retrieved_at_utc": "2026-09-22T13:29:24.840954+00:00",
-        "observed_at_utc": "2026-09-21",
-        "sha256": "d650d9ddabe887608a93308a949ba3faa7425066ef937cd5b6bac2985d42efb9",
+        "retrieved_at_utc": "2026-09-22T18:10:00.536727+00:00",
+        "observed_at_utc": "2026-09-22",
+        "sha256": "f47129fb7bdf3719347dd0a2751b043b59918a01bdd8e4d2fee01f4ecd7fdd53",
         "original_url": "https://fred.stlouisfed.org/series/RRPONTSYD",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1175,7 +1235,7 @@
       "change_previous": 0.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DFF",
-        "retrieved_at_utc": "2026-09-22T13:29:28.614882+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:05.101282+00:00",
         "observed_at_utc": "2026-09-18",
         "sha256": "9f0720098fb1a95dd5990f287aa263f53a2b90b8a5bf49269bce1e543d200118",
         "original_url": "https://fred.stlouisfed.org/series/DFF",
@@ -1194,9 +1254,9 @@
       "change_previous": 0.08999999999999986,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DGS2",
-        "retrieved_at_utc": "2026-09-22T13:29:30.507286+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:07.338052+00:00",
         "observed_at_utc": "2026-09-18",
-        "sha256": "561abecfae30719d0bab54528e693cdcb19354f461c6311b6fe28163e14b271a",
+        "sha256": "50ebb4ef83beac7bbc62f9855530e36a58875cf7b844407b63027ee51bde293d",
         "original_url": "https://fred.stlouisfed.org/series/DGS2",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1213,7 +1273,7 @@
       "change_previous": 0.0699999999999994,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DGS10",
-        "retrieved_at_utc": "2026-09-22T13:29:34.701021+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:10.949822+00:00",
         "observed_at_utc": "2026-09-18",
         "sha256": "879bc3e0188d50fd4a62d2b29d54e421dfdd24453c6082d02c8a643577e52c0c",
         "original_url": "https://fred.stlouisfed.org/series/DGS10",
@@ -1232,7 +1292,7 @@
       "change_previous": 0.07000000000000028,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DFII10",
-        "retrieved_at_utc": "2026-09-22T13:29:38.077330+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:14.963700+00:00",
         "observed_at_utc": "2026-09-18",
         "sha256": "2b7a9509cd4bc511ea59cbd73b1a4fdb6b504bf89e9f1d2304f398f9f7bd53d3",
         "original_url": "https://fred.stlouisfed.org/series/DFII10",
@@ -1251,7 +1311,7 @@
       "change_previous": 0.16440000000000055,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DTWEXBGS",
-        "retrieved_at_utc": "2026-09-22T13:29:41.883228+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:16.272667+00:00",
         "observed_at_utc": "2026-09-18",
         "sha256": "7d59e4269f7c10689bdd1a071313780da0f7bc7d2863425b51acbbe435b1653e",
         "original_url": "https://fred.stlouisfed.org/series/DTWEXBGS",
@@ -1262,17 +1322,17 @@
     "fred_VIXCLS": {
       "status": "OK",
       "series_id": "VIXCLS",
-      "value": "14.81",
-      "observation_date": "2026-09-18",
+      "value": "14.87",
+      "observation_date": "2026-09-21",
       "delta_13w": null,
       "source_url": "https://fred.stlouisfed.org/series/VIXCLS",
-      "previous_date": "2026-09-17",
-      "change_previous": -0.629999999999999,
+      "previous_date": "2026-09-18",
+      "change_previous": 0.05999999999999872,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/VIXCLS",
-        "retrieved_at_utc": "2026-09-22T13:29:44.566537+00:00",
-        "observed_at_utc": "2026-09-18",
-        "sha256": "4372ad81b053e41ab19966adaa3cf8d85e600993b1e68d6a205b746140782695",
+        "retrieved_at_utc": "2026-09-22T18:10:20.254173+00:00",
+        "observed_at_utc": "2026-09-21",
+        "sha256": "f7b8937dcdfbd39eefd6ae0069884bf8dd5e7167694dbeb4aba65a943b9768db",
         "original_url": "https://fred.stlouisfed.org/series/VIXCLS",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1289,7 +1349,7 @@
       "change_previous": 599.5400000000009,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/NASDAQCOM",
-        "retrieved_at_utc": "2026-09-22T13:29:55.271110+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:23.336014+00:00",
         "observed_at_utc": "2026-09-21",
         "sha256": "e0f645ce377d533780e4512fbfbfec9afc0dfe30b55356b3075bd7a5c8d937b4",
         "original_url": "https://fred.stlouisfed.org/series/NASDAQCOM",
@@ -1308,7 +1368,7 @@
       "change_previous": 1.3179999999999836,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/CPIAUCSL",
-        "retrieved_at_utc": "2026-09-22T13:29:50.548510+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:27.446604+00:00",
         "observed_at_utc": "2026-08-01",
         "sha256": "3273ecbfa912c64766057a6206b38d41e10805a13734446089e67dbdbd0785dc",
         "original_url": "https://fred.stlouisfed.org/series/CPIAUCSL",
@@ -1327,9 +1387,9 @@
       "change_previous": 0.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/UNRATE",
-        "retrieved_at_utc": "2026-09-22T13:29:55.623834+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:29.861247+00:00",
         "observed_at_utc": "2026-08-01",
-        "sha256": "38fd2269553714204dd986f270600c164727a9d4e026dfe25dd269f1ffc09812",
+        "sha256": "822d6f0cea544c7abedfddb0e671c908ce1533d51912a615190eb44251995f79",
         "original_url": "https://fred.stlouisfed.org/series/UNRATE",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
@@ -1346,7 +1406,7 @@
       "change_previous": 162.0,
       "source": {
         "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/PAYEMS",
-        "retrieved_at_utc": "2026-09-22T13:29:56.966944+00:00",
+        "retrieved_at_utc": "2026-09-22T18:10:32.240784+00:00",
         "observed_at_utc": "2026-08-01",
         "sha256": "5989dffdaabba0197637c04ee2f48c57fc28bf682601fb330bf28059f171fec2",
         "original_url": "https://fred.stlouisfed.org/series/PAYEMS",
@@ -1396,9 +1456,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WRESBAL",
-            "retrieved_at_utc": "2026-09-22T13:30:00.248871+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:35.637062+00:00",
             "observed_at_utc": "2026-09-16",
-            "sha256": "e23f6de05c60c33c156a260fe540813d8bcbcfc74e2e45f949c9a34cbaaaa1f1"
+            "sha256": "103305241471c59025cbd16bd056f3647e868ae6f5eeafb4add23a42e9178f71"
           },
           "source_url": "https://fred.stlouisfed.org/series/WRESBAL",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1443,9 +1503,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/SOFR",
-            "retrieved_at_utc": "2026-09-22T13:30:00.141516+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:36.548702+00:00",
             "observed_at_utc": "2026-09-21",
-            "sha256": "2e2020a0a1123fa18a95191c75f186636c99e3f5c4f80fd22d4ceb33b2f259a8"
+            "sha256": "7edefd0f6ec06d6c7850f4f88acfe354aafa71a68ea1a39379d95b7cefadac1a"
           },
           "source_url": "https://fred.stlouisfed.org/series/SOFR",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1490,9 +1550,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/IORB",
-            "retrieved_at_utc": "2026-09-22T13:30:04.558168+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:39.792418+00:00",
             "observed_at_utc": "2026-09-22",
-            "sha256": "3b9e650490906d875f42135dad2cb584dafec1d08124d344be864c63c8919780"
+            "sha256": "5cddec925da65df8b60d0c9144de9d76c0289c8336814564b6668e9d90c8fbcf"
           },
           "source_url": "https://fred.stlouisfed.org/series/IORB",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1537,7 +1597,7 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/NFCI",
-            "retrieved_at_utc": "2026-09-22T13:30:05.338728+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:41.307488+00:00",
             "observed_at_utc": "2026-09-11",
             "sha256": "75a88d565c9db01b2c3d5c6bde72564338b46ec42fbc41a3c14353123a1c0c95"
           },
@@ -1584,9 +1644,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/ANFCI",
-            "retrieved_at_utc": "2026-09-22T13:30:09.939004+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:46.987881+00:00",
             "observed_at_utc": "2026-09-11",
-            "sha256": "87c90b1d0605fdfd85ff561e444caa317ef48cc201dacda87da91ba57489b160"
+            "sha256": "f8c748e6dbb34a61d044e4db16a889ae8e0e9e499960d6dfeae920bb1fb0d65d"
           },
           "source_url": "https://fred.stlouisfed.org/series/ANFCI",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1631,7 +1691,7 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/T10YIE",
-            "retrieved_at_utc": "2026-09-22T13:30:05.768751+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:41.559004+00:00",
             "observed_at_utc": "2026-09-21",
             "sha256": "e7c645a13db90fb493bf24dc7dc17a823bf34d2b8accd45ddfa7a18b6ecd0c07"
           },
@@ -1678,9 +1738,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DCOILWTICO",
-            "retrieved_at_utc": "2026-09-22T13:30:10.273344+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:41.885270+00:00",
             "observed_at_utc": "2026-09-15",
-            "sha256": "494d230ad51834e46b8e26f4c1aa77d5c761f583f44c250efe8ef51b6022c3f0"
+            "sha256": "c94c2ee82df2f09458e463cc6274758183ae37fd5a4547dc71bea3feb1cfaebd"
           },
           "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1725,9 +1785,9 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DEXJPUS",
-            "retrieved_at_utc": "2026-09-22T13:30:13.940787+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:47.914346+00:00",
             "observed_at_utc": "2026-09-18",
-            "sha256": "51b5b628f831385b629ea1eec4b3afd8825cb823d994d428bab47eb2af44170d"
+            "sha256": "0ab339a9f350a4e3faf86b81e5d3e8b8049667316a56544a1d2f4fbd92eb134a"
           },
           "source_url": "https://fred.stlouisfed.org/series/DEXJPUS",
           "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
@@ -1772,7 +1832,7 @@
           ],
           "source": {
             "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/SP500",
-            "retrieved_at_utc": "2026-09-22T13:30:14.095803+00:00",
+            "retrieved_at_utc": "2026-09-22T18:10:50.471051+00:00",
             "observed_at_utc": "2026-09-21",
             "sha256": "75bafcb7ca7b7e12846a91a5c73db77d028112d6e0cb223e2415ffdfaca11bd4"
           },
