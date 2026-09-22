@@ -1,15 +1,15 @@
 {
-  "archive_latest_date": "2026-09-14",
-  "btc_latest_close": 78189.21,
-  "completed_rows_total": 6,
-  "data_as_of_utc": "2026-09-15T00:00:00+00:00",
+  "archive_latest_date": "2026-09-21",
+  "btc_latest_close": 86620.0,
+  "completed_rows_total": 9,
+  "data_as_of_utc": "2026-09-22T00:00:00+00:00",
   "experiment_id": "btc-shadow-prospective-v1.2",
-  "forecast_rows_total": 45,
+  "forecast_rows_total": 60,
   "governance": "shadow-only; no auto-promotion",
   "integrity_overlay": "btc-integrity-v1-20260904",
   "issuance_audit": {
     "decision_grade": false,
-    "delayed_origin_rows": 45,
+    "delayed_origin_rows": 60,
     "eligible_prospective_rows": 0,
     "evaluation_class": "DELAYED_ORIGIN_DIAGNOSTIC",
     "probabilities_calibrated": false
@@ -18,7 +18,7 @@
   "macro_series_verified": 14,
   "macro_source_status": "PRECLOSE_PACKET_PASS",
   "new_forecast_origin_appended": true,
-  "origin_date": "2026-09-14",
+  "origin_date": "2026-09-21",
   "promotion_status": "INSUFFICIENT_DATA",
-  "run_capture_utc": "2026-09-15T14:22:30.417682+00:00"
+  "run_capture_utc": "2026-09-22T14:05:19.391925+00:00"
 }
