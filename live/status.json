@@ -1,9 +1,9 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-10-18T11:23:58.847890+00:00",
-  "code_sha": "3ae3d6c2e8af3c2d88b967f08fe3b72f64110dfe",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39122991105",
+  "generated_at_utc": "2026-10-18T14:43:07.497870+00:00",
+  "code_sha": "d65ca2d8c6b340c92a911a68ce074b583f0f81c2",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39137158481",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
@@ -225,19 +225,19 @@
     "SP500",
     "SOFR_MINUS_IORB"
   ],
-  "report_sha256": "3b348b4d5609162c7e1441616c55a631fe56323cc336deb73879a5975cbe3928",
+  "report_sha256": "df1129664b51ddffc3fe3000ee69cfcb98a6bdac6979466153055b457d40a470",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 82129.7,
-      "change_24h_pct": 0.668,
+      "price": 81111.13,
+      "change_24h_pct": -0.565,
       "low_24h": 80819.66,
       "high_24h": 82295.47,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-10-18T11:23:14.610291+00:00",
-        "observed_at_utc": "2026-10-18T11:23:14.009000+00:00",
-        "sha256": "137d0774e49d417b5414fd69387314522535de62af1e235603d29c31536e8c0c"
+        "retrieved_at_utc": "2026-10-18T14:42:23.026643+00:00",
+        "observed_at_utc": "2026-10-18T14:42:22.010000+00:00",
+        "sha256": "62c21edbf4cf20ebae0d1260b55ef78e5e2ee87865641aa7c3e42d6a54966ec9"
       }
     },
     "price_context": {
@@ -251,20 +251,20 @@
       "high_20d": 87220.0,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-10-18T11:23:14.811127+00:00",
+        "retrieved_at_utc": "2026-10-18T14:42:23.169197+00:00",
         "observed_at_utc": "2026-10-18T00:00:00+00:00",
-        "sha256": "e405923ae7caa3e7ba18d799548188d30cf3f9a7288a1133b79c77f1e7de36b5"
+        "sha256": "a588e2724673aa74640aec894cd3b4f5c218305b5843ddb774890d78fcf76d45"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 1.2350974949922708,
-      "imbalance": 0.10518444744312316,
+      "buy_sell_ratio": 1.1759301516804104,
+      "imbalance": 0.08085284885847298,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-10-18T11:23:14.611398+00:00",
-        "observed_at_utc": "2026-10-18T11:00:00+00:00",
-        "sha256": "1598ce59d7b0be07f3ab48daec43816541cf38efd7b67c6ed4557dbc636fc2d6"
+        "retrieved_at_utc": "2026-10-18T14:42:23.026012+00:00",
+        "observed_at_utc": "2026-10-18T14:00:00+00:00",
+        "sha256": "21142e67b2fad3f52237fb4034145c6a62baf6aecd07f908802ad7960ae386f2"
       }
     },
     "oi": {
@@ -272,7 +272,7 @@
       "oi_btc": 94267.08,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-17.zip",
-        "retrieved_at_utc": "2026-10-18T11:23:14.650152+00:00",
+        "retrieved_at_utc": "2026-10-18T14:42:23.213204+00:00",
         "observed_at_utc": "2026-10-17T23:55:00+00:00",
         "sha256": "09bd2934452104a858d00091226c3073d64d72d422b4830d1f1f7ca94cd414cf",
         "archive_sha256": "d79099270ab554a4ad24e4e1c1d4cb621a712ef1a59b2bb051900619e754cb24",
@@ -289,7 +289,7 @@
       "buy_sell_ratio": 0.922509503813312,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-10-17.zip",
-        "retrieved_at_utc": "2026-10-18T11:23:14.656841+00:00",
+        "retrieved_at_utc": "2026-10-18T14:42:23.046322+00:00",
         "observed_at_utc": "2026-10-18T00:00:00+00:00",
         "sha256": "ff02112afbb41d9ca70d0ac5aece70511df9e94a50d3985e334fecee26320b01",
         "archive_sha256": "b5f974928a7cdb94fccf6164a4eaf31496c5fe04546c8ecd6484bc97220055bf",
@@ -889,9 +889,9 @@
       ],
       "source": {
         "url": "https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/",
-        "retrieved_at_utc": "2026-10-18T11:23:30.648027+00:00",
+        "retrieved_at_utc": "2026-10-18T14:42:39.252199+00:00",
         "observed_at_utc": "2026-10-16",
-        "sha256": "cef604c9d1f4d647595d02ffe377749309b4e1c5dec86ba43877d3d83b485720",
+        "sha256": "e8c323d31c21393a89cdc71cf406dbb1c219fc4a48a9c0adf772308f4fe1db69",
         "original_url": "https://farside.co.uk/bitcoin-etf-flow-all-data/",
         "transport": "PUBLIC_PAGE_READER",
         "hash_scope": "reader_response_bytes_not_original_html"
