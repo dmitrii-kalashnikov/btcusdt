@@ -1,9 +1,9 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-10-21T15:23:13.715139+00:00",
-  "code_sha": "234466680e465525182fe5b52c6755a159fe410d",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39624978650",
+  "generated_at_utc": "2026-10-21T19:26:12.030255+00:00",
+  "code_sha": "8c2a9f0542949494c41cfe70269c72f259c66639",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39661441519",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
@@ -225,19 +225,19 @@
     "SP500",
     "SOFR_MINUS_IORB"
   ],
-  "report_sha256": "300e475ac13cdfe110029f60ecfc81c59a02cb8d58609b5f2521a276a3b89c01",
+  "report_sha256": "b71fcc067055b449e6ecc7b3904a06e9b819bb8a74140c4a167b9983acee8532",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 84448.0,
-      "change_24h_pct": 2.479,
-      "low_24h": 82337.54,
-      "high_24h": 84828.0,
+      "price": 84408.01,
+      "change_24h_pct": 2.432,
+      "low_24h": 82393.77,
+      "high_24h": 84898.0,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-10-21T15:22:29.345221+00:00",
-        "observed_at_utc": "2026-10-21T15:22:29.006000+00:00",
-        "sha256": "7c03c51c177bc9a1c7f5df8c18e1cfb0816e6674dce478a20d5da8e5d3da299b"
+        "retrieved_at_utc": "2026-10-21T19:25:25.957719+00:00",
+        "observed_at_utc": "2026-10-21T19:25:25.008000+00:00",
+        "sha256": "0c684135602e9d56a487c5b5bf82f5d8815e9c89789b59c734d65d0adfaa4c77"
       }
     },
     "price_context": {
@@ -251,20 +251,20 @@
       "high_20d": 87220.0,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-10-21T15:22:29.508768+00:00",
+        "retrieved_at_utc": "2026-10-21T19:25:26.087710+00:00",
         "observed_at_utc": "2026-10-21T00:00:00+00:00",
-        "sha256": "6e087ed9848a12f0f4758a9d37b0e6ab3f71799e4b21102c7d30301b8c817938"
+        "sha256": "3a8e13607bfc7cfa52c6e9bac3327848a155f1760ed99a039fca9c528d13847e"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 1.1596720397603182,
-      "imbalance": 0.07393346620259926,
+      "buy_sell_ratio": 1.0757466249091363,
+      "imbalance": 0.03649126728675374,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-10-21T15:22:29.345070+00:00",
-        "observed_at_utc": "2026-10-21T15:00:00+00:00",
-        "sha256": "f21b83ab8ee1fd4bcbccf7dd7ba056d2e818fe7a5fe8323e9c9fa9ef868692f8"
+        "retrieved_at_utc": "2026-10-21T19:25:25.957928+00:00",
+        "observed_at_utc": "2026-10-21T19:00:00+00:00",
+        "sha256": "d1921a589bb7f1fb55120d58c0ca092422d03a0f8b65904f2d5a2f22908b2dc0"
       }
     },
     "oi": {
@@ -272,7 +272,7 @@
       "oi_btc": 94818.828,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip",
-        "retrieved_at_utc": "2026-10-21T15:22:29.856977+00:00",
+        "retrieved_at_utc": "2026-10-21T19:25:26.285505+00:00",
         "observed_at_utc": "2026-10-20T23:55:00+00:00",
         "sha256": "8ce281384fd0239ffcb16b9a7019581b3a5c0e6b7dca652fde6c897056883270",
         "archive_sha256": "bc7bde46301d87d8f161454715547913f9b5a984b127d5bce809cbcbe535ae06",
@@ -289,7 +289,7 @@
       "buy_sell_ratio": 1.0183871847655563,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-10-20.zip",
-        "retrieved_at_utc": "2026-10-21T15:22:29.845903+00:00",
+        "retrieved_at_utc": "2026-10-21T19:25:26.281355+00:00",
         "observed_at_utc": "2026-10-21T00:00:00+00:00",
         "sha256": "0476986f7f5e5e2311c6b0ff09786c4bc31f22e3213d619efa867f165ddf676c",
         "archive_sha256": "5503278ed1c5d7eb1ad3710ab4dc7112db7ea34ef3a0ce1b02844d74186b297c",
@@ -299,7 +299,7 @@
     },
     "etf": {
       "status": "UNAVAILABLE",
-      "error": "IntegrityError: Origin page denied access; not retried through another proxy"
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/"
     },
     "outlook": {
       "status": "OK",
@@ -564,98 +564,98 @@
     },
     "fred_M2SL": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/M2SL"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_WALCL": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WALCL"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_WTREGEN": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WTREGEN"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_RRPONTSYD": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/RRPONTSYD"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_DFF": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DFF"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_DGS2": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DGS2"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_DGS10": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DGS10"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_DFII10": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DFII10"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_DTWEXBGS": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DTWEXBGS"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_VIXCLS": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/VIXCLS"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_NASDAQCOM": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/NASDAQCOM"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_CPIAUCSL": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/CPIAUCSL"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_UNRATE": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/UNRATE"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "fred_PAYEMS": {
       "status": "UNAVAILABLE",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/PAYEMS"
+      "error": "IntegrityError: FRED page series identity mismatch"
     },
     "wide_context": {
       "status": "UNAVAILABLE",
       "measurements": {
         "WRESBAL": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WRESBAL"
+          "error": "ValueError: Page series identity mismatch"
         },
         "SOFR": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/SOFR"
+          "error": "ValueError: Page series identity mismatch"
         },
         "IORB": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/IORB"
+          "error": "ValueError: Page series identity mismatch"
         },
         "NFCI": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/NFCI"
+          "error": "ValueError: Page series identity mismatch"
         },
         "ANFCI": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/ANFCI"
+          "error": "ValueError: Page series identity mismatch"
         },
         "T10YIE": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/T10YIE"
+          "error": "ValueError: Page series identity mismatch"
         },
         "DCOILWTICO": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DCOILWTICO"
+          "error": "ValueError: Page series identity mismatch"
         },
         "DEXJPUS": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DEXJPUS"
+          "error": "ValueError: Page series identity mismatch"
         },
         "SP500": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/SP500"
+          "error": "ValueError: Page series identity mismatch"
         },
         "SOFR_MINUS_IORB": {
           "status": "UNAVAILABLE",
