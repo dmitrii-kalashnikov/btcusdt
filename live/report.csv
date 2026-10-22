@@ -1,40 +1,40 @@
 Блок,Показатель,Значение,На дату UTC,Статус / смысл,Источник
-Система,expiry_merida_serial,46316.8111385559,,,
-Система,Обновление UTC,2026-10-21 23:28:02,,,
-Система,Состояние источников,PARTIAL,,OK ≠ доказанная точность модели,https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39693474836
+Система,expiry_merida_serial,46317.04439498305,,,
+Система,Обновление UTC,2026-10-22 05:03:55,,,
+Система,Состояние источников,PARTIAL,,OK ≠ доказанная точность модели,https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39725767233
 Решение,Допуск к торговому сигналу,ABSTAIN,,Преимущество не доказано; вес экспериментальных моделей = 0. Автоторговли нет.,
 Обзор,Состояние потоков,ПРОТИВОРЕЧИВЫЕ ПОТОКИ,,Направления ETF за 3 сессии и спотового taker flow расходятся. Доказанного преимущества для сделки нет.,
-Сценарии,PRIMARY — условный рабочий сценарий,"Наблюдение в границах 79,800–87,220 USDT; 1–7 дней",2026-10-21T23:28:02.371230+00:00,Границы — минимум/максимум 20 закрытых суток. Это не обещание удержания диапазона. Без подтверждения потоками направление не назначается.,
-Сценарии,SECONDARY — условие усиления спроса,"Закрытие дня выше 87,220; 7–30 дней",2026-10-21T23:28:02.371230+00:00,Дополнительно ETF 3D и 5D > 0 и спотовый taker buy/sell > 1. Экспериментальная гипотеза; вес решения 0.,
-Сценарии,TAIL — условие ухудшения,"Закрытие дня ниже 79,800; 1–30 дней",2026-10-21T23:28:02.371230+00:00,Дополнительно ETF 3D < 0 и спотовый taker buy/sell < 1. Метки сценариев не являются вероятностями или доказанным ранжированием.,
-Рынок,"BTCUSDT, USDT",84369.74,2026-10-21T23:27:16.005000+00:00,Текущая котировка Binance; не USD,https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT
-Рынок,Изменение за 24 часа,'+1.75%,2026-10-21T23:27:16.005000+00:00,"Факт, не прогноз",https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT
-Рынок,Диапазон за 24 часа,"82,635.32 – 84,898.00",2026-10-21T23:27:16.005000+00:00,USDT,https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT
-Рынок,MA50 / MA200,"81,610 / 72,690",2026-10-21T00:00:00+00:00,Только закрытые дневные свечи; не сигнал,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
-Риск,Реализованная волатильность 20 дней,26.0% годовых,2026-10-21T00:00:00+00:00,"Описательная оценка, не прогноз вероятности",https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
-Риск,7 дней: масштаб ±1σ,"81,391 – 87,457",2026-10-21T23:28:02.371230+00:00,USDT; нулевой дрейф и постоянная волатильность. Не целевая цена и не калиброванный интервал.,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
-Риск,30 дней: масштаб ±1σ,"78,320 – 90,887",2026-10-21T23:28:02.371230+00:00,USDT; нулевой дрейф и постоянная волатильность. Не целевая цена и не калиброванный интервал.,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
-Риск,90 дней: масштаб ±1σ,"74,168 – 95,975",2026-10-21T23:28:02.371230+00:00,USDT; нулевой дрейф и постоянная волатильность. Не целевая цена и не калиброванный интервал.,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
-Потоки,"Спотовый taker buy/sell, 24 закрытых часа",0.991,2026-10-21T23:00:00+00:00,Проверено; не заменяется другим рынком,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26
+Сценарии,PRIMARY — условный рабочий сценарий,"Наблюдение в границах 79,800–87,220 USDT; 1–7 дней",2026-10-22T05:03:55.726536+00:00,Границы — минимум/максимум 20 закрытых суток. Это не обещание удержания диапазона. Без подтверждения потоками направление не назначается.,
+Сценарии,SECONDARY — условие усиления спроса,"Закрытие дня выше 87,220; 7–30 дней",2026-10-22T05:03:55.726536+00:00,Дополнительно ETF 3D и 5D > 0 и спотовый taker buy/sell > 1. Экспериментальная гипотеза; вес решения 0.,
+Сценарии,TAIL — условие ухудшения,"Закрытие дня ниже 79,800; 1–30 дней",2026-10-22T05:03:55.726536+00:00,Дополнительно ETF 3D < 0 и спотовый taker buy/sell < 1. Метки сценариев не являются вероятностями или доказанным ранжированием.,
+Рынок,"BTCUSDT, USDT",82940.01,2026-10-22T05:03:11.007000+00:00,Текущая котировка Binance; не USD,https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT
+Рынок,Изменение за 24 часа,'+0.08%,2026-10-22T05:03:11.007000+00:00,"Факт, не прогноз",https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT
+Рынок,Диапазон за 24 часа,"82,635.32 – 84,898.00",2026-10-22T05:03:11.007000+00:00,USDT,https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT
+Рынок,MA50 / MA200,"81,743 / 72,774",2026-10-22T00:00:00+00:00,Только закрытые дневные свечи; не сигнал,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
+Риск,Реализованная волатильность 20 дней,25.7% годовых,2026-10-22T00:00:00+00:00,"Описательная оценка, не прогноз вероятности",https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
+Риск,7 дней: масштаб ±1σ,"80,037 – 85,948",2026-10-22T05:03:55.726536+00:00,USDT; нулевой дрейф и постоянная волатильность. Не целевая цена и не калиброванный интервал.,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
+Риск,30 дней: масштаб ±1σ,"77,043 – 89,288",2026-10-22T05:03:55.726536+00:00,USDT; нулевой дрейф и постоянная волатильность. Не целевая цена и не калиброванный интервал.,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
+Риск,90 дней: масштаб ±1σ,"72,994 – 94,241",2026-10-22T05:03:55.726536+00:00,USDT; нулевой дрейф и постоянная волатильность. Не целевая цена и не калиброванный интервал.,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401
+Потоки,"Спотовый taker buy/sell, 24 закрытых часа",0.837,2026-10-22T05:00:00+00:00,Проверено; не заменяется другим рынком,https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26
 Потоки,"Фьючерсный taker buy/sell, архив суток",1.018,2026-10-21T00:00:00+00:00,"Последние полные сутки из доступного архива, не скользящие 24 часа live API.",https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-10-20.zip
 Потоки,"Открытый интерес из дневного архива, BTC","94,818.83",2026-10-20T23:55:00+00:00,Последний доступный дневной архив Binance; не live API. Время наблюдения указано отдельно.,https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-10-20.zip
 Потоки,Последний завершённый funding,НЕТ ДАННЫХ,,"IntegrityError: Live Binance futures API returns HTTP 451 on hosting. Access restriction respected; no proxy, substitute venue or invented funding rate.",
-ETF,"Последняя полная сессия, млн USD",23.2,2026-10-20,Только полностью заполненные фонды; частичный нулевой total не считается нулевым потоком | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
-ETF,"Сумма за 3 сессий, млн USD",467.5,2026-10-20,Без замены пропусков нулём | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
-ETF,"Сумма за 5 сессий, млн USD",211.2,2026-10-20,Без замены пропусков нулём | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
-ETF,"Сумма за 20 сессий, млн USD",555.8,2026-10-20,Без замены пропусков нулём | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
-ETF,Неполные ETF-сессии за 30 дней,2026-10-21,,"Исключены из итогов, пока не опубликованы все фонды | Публичная страница через Reader; даты источника сохранены.",https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
-Макро,"Активы ФРС, млн USD",НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/WALCL
-Макро,"TGA, млн USD",НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/WTREGEN
-Макро,"RRP, млрд USD",НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/RRPONTSYD
-Макро,"Реальная доходность 10Y, %",НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/DFII10
-Макро,Широкий индекс USD,НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/DTWEXBGS
-Макро,VIX,НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/VIXCLS
-Макро,"M2, млрд USD",НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/M2SL
-Макро,"Безработица, %",НЕТ ДАННЫХ,,IntegrityError: FRED page series identity mismatch,https://fred.stlouisfed.org/series/UNRATE
+ETF,"Последняя полная сессия, млн USD",524.8,2026-10-21,Только полностью заполненные фонды; частичный нулевой total не считается нулевым потоком | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
+ETF,"Сумма за 3 сессий, млн USD",1074.7,2026-10-21,Без замены пропусков нулём | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
+ETF,"Сумма за 5 сессий, млн USD",997.4,2026-10-21,Без замены пропусков нулём | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
+ETF,"Сумма за 20 сессий, млн USD",733.7,2026-10-21,Без замены пропусков нулём | Публичная страница через Reader; даты источника сохранены.,https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
+ETF,Неполные ETF-сессии за 30 дней,Нет,,"Исключены из итогов, пока не опубликованы все фонды | Публичная страница через Reader; даты источника сохранены.",https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/
+Макро,"Активы ФРС, млн USD",НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WALCL,https://fred.stlouisfed.org/series/WALCL
+Макро,"TGA, млн USD",НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WTREGEN,https://fred.stlouisfed.org/series/WTREGEN
+Макро,"RRP, млрд USD",НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/RRPONTSYD,https://fred.stlouisfed.org/series/RRPONTSYD
+Макро,"Реальная доходность 10Y, %",НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DFII10,https://fred.stlouisfed.org/series/DFII10
+Макро,Широкий индекс USD,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DTWEXBGS,https://fred.stlouisfed.org/series/DTWEXBGS
+Макро,VIX,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/VIXCLS,https://fred.stlouisfed.org/series/VIXCLS
+Макро,"M2, млрд USD",НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/M2SL,https://fred.stlouisfed.org/series/M2SL
+Макро,"Безработица, %",НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/UNRATE,https://fred.stlouisfed.org/series/UNRATE
 Модели,Зафиксированный прогноз,2026-09-21,,ЭКСПЕРИМЕНТ: старый исходный день и исходные цены сохранены; не пересчитаны от текущего рынка.,
 Модели,7д: базовая / цена / цена+макро,"88,298 / 87,051 / 84,207",2026-09-28,"Горизонт истёк; не текущий сигнал; USDT, закрытие указанного дня UTC",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/forecasts.csv
-Модели,30д: базовая / цена / цена+макро,"89,701 / 89,028 / 77,756",2026-10-21,"ЭКСПЕРИМЕНТ, вес 0; USDT, закрытие указанного дня UTC",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/forecasts.csv
+Модели,30д: базовая / цена / цена+макро,"89,701 / 89,028 / 77,756",2026-10-21,"Горизонт истёк; не текущий сигнал; USDT, закрытие указанного дня UTC",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/forecasts.csv
 Модели,90д: базовая / цена / цена+макро,"91,032 / 100,338 / 68,439",2026-12-20,"ЭКСПЕРИМЕНТ, вес 0; USDT, закрытие указанного дня UTC",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/forecasts.csv
 Модели,180д: базовая / цена / цена+макро,"107,038 / 112,186 / 91,352",2027-03-20,"ЭКСПЕРИМЕНТ, вес 0; USDT, закрытие указанного дня UTC",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/forecasts.csv
 Модели,365д: базовая / цена / цена+макро,"112,636 / 133,552 / 203,474",2027-09-21,"ЭКСПЕРИМЕНТ, вес 0; USDT, закрытие указанного дня UTC",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/forecasts.csv
@@ -43,7 +43,7 @@ ETF,Неполные ETF-сессии за 30 дней,2026-10-21,,"Исключ
 Проверки,Чистые будущие исходы,3,,"Считаются только прогнозы, опубликованные до начала оцениваемого интервала.",https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/shadow/issued_status.json
 Ограничения,Не подключено,Истинная карта ликвидаций; ончейн-потоки; Coinbase premium,,"Не выводятся из стакана, OI или движения цены.",
 Ограничения,Вероятность роста / доходность стратегии,НЕ ДОКАЗАНЫ,,2024–2025 уже просмотрены. Технический PASS не означает статистическое преимущество.,
-Система,Версия кода,0341d56bce4cace6c9e79496092b15415c618ddd,,Каждый опубликованный срез сохраняется в истории Git.,https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39693474836
+Система,Версия кода,1f882bf81dcb71f8ef894ea9f894f79aac6df6bb,,Каждый опубликованный срез сохраняется в истории Git.,https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/39725767233
 Система,Обновление отчёта,"Каждый час, минута 23 UTC",,GitHub собирает ежечасно; Google IMPORTDATA проверяет изменения раз в час при открытом документе. Нет гарантии обновления закрытой таблицы.,
 Макро,"Эффективная ставка ФРС, %",НЕТ ДАННЫХ,,Последний опубликованный срез; не прогноз.,
 Макро,"Доходность 2Y, %",НЕТ ДАННЫХ,,Последний опубликованный срез; не прогноз.,
@@ -54,15 +54,15 @@ ETF,Неполные ETF-сессии за 30 дней,2026-10-21,,"Исключ
 Валидация,Исторический результат,Macro return 7d/30d: validation MAE хуже price-only на 2.01% / 4.49%; n=103/100.,2022–2025,Повторный расчёт ранее просмотренных данных; не новый holdout. DECISION-GRADE отсутствует.,https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/EXPERIMENT_LEDGER.md
 Валидация,Исторический результат,Macro risk 7d: улучшение Brier на validation 0.2145→0.2026 не сохранилось в просмотренном 2024–2025: 0.2438→0.2502.,2022–2025,Повторный расчёт ранее просмотренных данных; не новый holdout. DECISION-GRADE отсутствует.,https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/EXPERIMENT_LEDGER.md
 Валидация,Исторический результат,"OI/funding, positioning и taker проверены отдельно; устойчивое преимущество для DECISION-GRADE не доказано.",2022–2025,Повторный расчёт ранее просмотренных данных; не новый holdout. DECISION-GRADE отсутствует.,https://github.com/dmitrii-kalashnikov/btcusdt/blob/main/EXPERIMENT_LEDGER.md
-Широкий рынок,Банковские резервы США,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/WRESBAL
-Широкий рынок,Стоимость краткосрочного обеспеченного кредита,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/SOFR
-Широкий рынок,Процент ФРС на банковские резервы,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/IORB
-Широкий рынок,Финансовые условия США,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/NFCI
-Широкий рынок,Финансовые условия с поправкой на экономику,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/ANFCI
-Широкий рынок,Инфляционная компенсация в облигациях,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/T10YIE
-Широкий рынок,Нефть WTI,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/DCOILWTICO
-Широкий рынок,Доллар к иене,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/DEXJPUS
-Широкий рынок,Рынок акций США,НЕТ ДАННЫХ,,ValueError: Page series identity mismatch,https://fred.stlouisfed.org/series/SP500
+Широкий рынок,Банковские резервы США,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WRESBAL,https://fred.stlouisfed.org/series/WRESBAL
+Широкий рынок,Стоимость краткосрочного обеспеченного кредита,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/SOFR,https://fred.stlouisfed.org/series/SOFR
+Широкий рынок,Процент ФРС на банковские резервы,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/IORB,https://fred.stlouisfed.org/series/IORB
+Широкий рынок,Финансовые условия США,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/NFCI,https://fred.stlouisfed.org/series/NFCI
+Широкий рынок,Финансовые условия с поправкой на экономику,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/ANFCI,https://fred.stlouisfed.org/series/ANFCI
+Широкий рынок,Инфляционная компенсация в облигациях,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/T10YIE,https://fred.stlouisfed.org/series/T10YIE
+Широкий рынок,Нефть WTI,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DCOILWTICO,https://fred.stlouisfed.org/series/DCOILWTICO
+Широкий рынок,Доллар к иене,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DEXJPUS,https://fred.stlouisfed.org/series/DEXJPUS
+Широкий рынок,Рынок акций США,НЕТ ДАННЫХ,,HTTPError: 403 Client Error: Forbidden for url: https://r.jina.ai/https://fred.stlouisfed.org/series/SP500,https://fred.stlouisfed.org/series/SP500
 Широкий рынок,Стоимость фондирования относительно ставки ФРС,НЕТ СОПОСТАВИМЫХ ДАННЫХ,,Сравнение только на одной дате; само по себе не доказывает дефицит денег или направление BTC.,https://www.newyorkfed.org/markets/reference-rates/sofr
 Крупные держатели,Strategy: распределение капитала,"За 31 августа — 7 сентября: покупок и продаж BTC не было, размещений акций через текущую программу не было. На выкуп STRC потрачено 176,3 млн долларов из денежных средств. В собственности 845 050 BTC.",2026-09-07,"STALE_DISCLOSURE; опубликовано 2026-09-08. В этот период компания не создавала прямого спроса на BTC. Отдельно раскрыты резерв 5,10 млрд долларов для дивидендов и процентов и денежные средства 1,44 млрд для более широких целей. Это не доказательство будущих покупок, банкротства или вынужденной продажи BTC. Следующее раскрытие нужно проверять заново.",https://www.sec.gov/Archives/edgar/data/1050446/000119312526384402/mstr-20260831.htm
-Широкий рынок,Полнота и пределы расширенного анализа,"Это наблюдения, не проверенные предсказатели. Банковские резервы не равны всем деньгам в экономике. Снижение резервов не доказывает банковский кризис; нефть и иена не имеют постоянного знака влияния на BTC. Новые ряды не входят в исходный пакет из 14 макропоказателей.",2026-10-21T23:28:02.371230+00:00,"НЕ ПОДКЛЮЧЕНЫ: глобальная денежная масса с историей публикаций, позиции банков/CME, опционы, проверенные потоки стейблкоинов, крупные продажи майнеров и государств. Это не нули.",
+Широкий рынок,Полнота и пределы расширенного анализа,"Это наблюдения, не проверенные предсказатели. Банковские резервы не равны всем деньгам в экономике. Снижение резервов не доказывает банковский кризис; нефть и иена не имеют постоянного знака влияния на BTC. Новые ряды не входят в исходный пакет из 14 макропоказателей.",2026-10-22T05:03:55.726536+00:00,"НЕ ПОДКЛЮЧЕНЫ: глобальная денежная масса с историей публикаций, позиции банков/CME, опционы, проверенные потоки стейблкоинов, крупные продажи майнеров и государств. Это не нули.",
