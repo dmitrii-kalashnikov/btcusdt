@@ -1,9 +1,9 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-11-15T22:59:19.742887+00:00",
-  "code_sha": "790b4f027d2508959efdab22d269824638050187",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/43772189165",
+  "generated_at_utc": "2026-11-16T02:52:44.493808+00:00",
+  "code_sha": "eee6c7f03d7bd6c04c51365b2709a450d2cca77d",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/43794658281",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
@@ -225,46 +225,46 @@
     "SP500",
     "SOFR_MINUS_IORB"
   ],
-  "report_sha256": "d5f8f89eb4e70d7a2fc6ddd1576797e52f2811df78dc688c0e147c104a0aa2b0",
+  "report_sha256": "8d237de080e5cb88087617630672da57d132baa200614404781dd22383b62342",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 65210.01,
-      "change_24h_pct": 2.717,
-      "low_24h": 62006.0,
+      "price": 65012.01,
+      "change_24h_pct": 0.526,
+      "low_24h": 63777.0,
       "high_24h": 66132.01,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-11-15T22:58:35.432163+00:00",
-        "observed_at_utc": "2026-11-15T22:58:35.013000+00:00",
-        "sha256": "6524163a274882ae2122e2c23171b04c27cc549bc4c7845f54229b19ac3bd5b0"
+        "retrieved_at_utc": "2026-11-16T02:52:00.189872+00:00",
+        "observed_at_utc": "2026-11-16T02:52:00.012000+00:00",
+        "sha256": "36b8beb9fdcdaeb7ccc2cd29039ccb6566cc88cffbe3ba53929143b0b0e63627"
       }
     },
     "price_context": {
       "status": "OK",
-      "rv20": 0.492437166521573,
-      "close": 64150.0,
-      "ma50": 80225.4104,
-      "ma200": 73030.61725,
-      "return_30d_pct": -22.00221944113222,
-      "low_20d": 63320.0,
+      "rv20": 0.506683146785539,
+      "close": 65351.05,
+      "ma50": 79843.76939999999,
+      "ma200": 72978.4725,
+      "return_30d_pct": -19.928276002001578,
+      "low_20d": 62006.0,
       "high_20d": 81971.0,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-11-15T22:58:35.620166+00:00",
-        "observed_at_utc": "2026-11-15T00:00:00+00:00",
-        "sha256": "539795b54cf99a547f11a84c5b739b07fd9fa3cc508a4afcb146bcb9d352c9fd"
+        "retrieved_at_utc": "2026-11-16T02:52:00.366189+00:00",
+        "observed_at_utc": "2026-11-16T00:00:00+00:00",
+        "sha256": "96d5ff7a14a563b96143ffcdb83e12c4e42d616d7461804ae556f0ef9103add9"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 0.873971118275296,
-      "imbalance": -0.06725230741052951,
+      "buy_sell_ratio": 0.8388301683563579,
+      "imbalance": -0.0876480244979361,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-11-15T22:58:35.451466+00:00",
-        "observed_at_utc": "2026-11-15T22:00:00+00:00",
-        "sha256": "4a189d269e52cd78034036a85e65a99ff466945852f1111eb0490f832b99c762"
+        "retrieved_at_utc": "2026-11-16T02:52:00.182974+00:00",
+        "observed_at_utc": "2026-11-16T02:00:00+00:00",
+        "sha256": "613b99e4995653a362e4d03844bb28c733acbbbcd16b61ee126b539aab81c40a"
       }
     },
     "oi": {
@@ -272,7 +272,7 @@
       "oi_btc": 97950.511,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-11-14.zip",
-        "retrieved_at_utc": "2026-11-15T22:58:35.204403+00:00",
+        "retrieved_at_utc": "2026-11-16T02:52:00.127882+00:00",
         "observed_at_utc": "2026-11-14T23:55:00+00:00",
         "sha256": "7494443125c020a18658f621dcd8039167c0e1c886c996b2dc28a91405da65f3",
         "archive_sha256": "b1a670b377fc1385cc1f732de0aec4ef28b439edca465b1cf43dd993a13a3fbf",
@@ -289,7 +289,7 @@
       "buy_sell_ratio": 0.9150522617046873,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-11-14.zip",
-        "retrieved_at_utc": "2026-11-15T22:58:35.199379+00:00",
+        "retrieved_at_utc": "2026-11-16T02:52:00.117686+00:00",
         "observed_at_utc": "2026-11-15T00:00:00+00:00",
         "sha256": "4e62cc9e2736d63460e03a809d8cf8a277a9ff5769bd92c2ac000a63aeda5324",
         "archive_sha256": "8fafb79e98136b8bf5a634fc5a9363e5660c00769a09699190ccc27b05004383",
