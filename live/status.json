@@ -1,9 +1,9 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-11-24T12:43:39.046815+00:00",
-  "code_sha": "0c411ffd8eaf22887c7ffff8faaf6fedac5601be",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/45396096042",
+  "generated_at_utc": "2026-11-24T23:07:07.649413+00:00",
+  "code_sha": "2f4e0c4f4999c4e4518d7d33a42915ebed268889",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/45506940977",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
@@ -225,19 +225,19 @@
     "SP500",
     "SOFR_MINUS_IORB"
   ],
-  "report_sha256": "acc1ddd0180369e901cfdbcfa4f14c9adfd8968ebe37e9957a23b2ba2abe5666",
+  "report_sha256": "1c687090a5af452a06ed017061348a73b6a768fc7a8bbe126a9a3a6c3f37a837",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 60424.82,
-      "change_24h_pct": -1.25,
-      "low_24h": 59390.86,
-      "high_24h": 64603.12,
+      "price": 60043.93,
+      "change_24h_pct": -2.144,
+      "low_24h": 59260.0,
+      "high_24h": 61682.01,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-11-24T12:42:54.537604+00:00",
-        "observed_at_utc": "2026-11-24T12:42:54.013000+00:00",
-        "sha256": "b8204ccf2e32a17165ebdd5890b25b38031adee1e42b29c4ddc59ea598ef7b8f"
+        "retrieved_at_utc": "2026-11-24T23:06:23.155022+00:00",
+        "observed_at_utc": "2026-11-24T23:06:23+00:00",
+        "sha256": "952a997733f9560a6b2b6fd6150a91f4c6743a0f3e6b56558c9da98a7b44e29e"
       }
     },
     "price_context": {
@@ -251,20 +251,20 @@
       "high_20d": 81196.01,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-11-24T12:42:54.669198+00:00",
+        "retrieved_at_utc": "2026-11-24T23:06:23.275958+00:00",
         "observed_at_utc": "2026-11-24T00:00:00+00:00",
-        "sha256": "d2b692964b7f476be0674488f74860389497ec404fcd125fa1699d049c450d58"
+        "sha256": "667085daf6c921d7033e891c5179dcecbed1d972e2ce5f65a76020a1163ac51f"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 1.0172846939321147,
-      "imbalance": 0.008568296772441747,
+      "buy_sell_ratio": 1.0796188485682578,
+      "imbalance": 0.038285308205911195,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-11-24T12:42:54.542368+00:00",
-        "observed_at_utc": "2026-11-24T12:00:00+00:00",
-        "sha256": "038e3d7868c78199b0b4bafc0cf9564fe0616ec484f1db5ab6208ee486176a6a"
+        "retrieved_at_utc": "2026-11-24T23:06:23.153590+00:00",
+        "observed_at_utc": "2026-11-24T23:00:00+00:00",
+        "sha256": "9b878b5d0902a48f236b74b4ed5e532555f835e753c144b8a1c8dc2a163663e9"
       }
     },
     "oi": {
@@ -272,7 +272,7 @@
       "oi_btc": 93306.802,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-11-23.zip",
-        "retrieved_at_utc": "2026-11-24T12:42:54.833500+00:00",
+        "retrieved_at_utc": "2026-11-24T23:06:23.417937+00:00",
         "observed_at_utc": "2026-11-23T23:55:00+00:00",
         "sha256": "475f33362feb8c0f66d5a2435239eb26d7d8822f89802825beec66b4b704d0f1",
         "archive_sha256": "10f2ded61a83570ba7d69e46235bbbfd60aadb4e8dc4c2bbfa32e3e971c498a5",
@@ -289,7 +289,7 @@
       "buy_sell_ratio": 1.042650413157958,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-11-23.zip",
-        "retrieved_at_utc": "2026-11-24T12:42:54.837384+00:00",
+        "retrieved_at_utc": "2026-11-24T23:06:23.414665+00:00",
         "observed_at_utc": "2026-11-24T00:00:00+00:00",
         "sha256": "9e73f4edeef479c315e14a962316fd879907eaab3d8db83e0e0148d62592f287",
         "archive_sha256": "2d48cebc1ee9cd42e6fc67fbb4121235755641bf2fc0b1d0a0fa903d3ce8c835",
