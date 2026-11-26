@@ -1,9 +1,9 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-11-26T11:06:40.663851+00:00",
-  "code_sha": "e57d9372e9824bc806669f25182dcfc8c14aca50",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/45807354143",
+  "generated_at_utc": "2026-11-26T20:17:51.153877+00:00",
+  "code_sha": "ebf364727f283f6ca103f1708125d1a58997cb9c",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/45889856684",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
@@ -225,19 +225,19 @@
     "SP500",
     "SOFR_MINUS_IORB"
   ],
-  "report_sha256": "8329a6d66306c2ad130f0f92b4f9d6079e074b957d26d1e429725d0b308543c0",
+  "report_sha256": "3497ab607880372427ce334dd4e7c3222bc83ef314aaf2ad124c78cc5ecefe6f",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 60500.73,
-      "change_24h_pct": 2.892,
-      "low_24h": 57300.38,
+      "price": 60697.78,
+      "change_24h_pct": 1.025,
+      "low_24h": 59795.23,
       "high_24h": 61622.38,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-11-26T11:05:56.415375+00:00",
-        "observed_at_utc": "2026-11-26T11:05:56.001000+00:00",
-        "sha256": "6973a3a70039774f5167a92d20d0bc20c43d72d10829c7eb24035c792775c354"
+        "retrieved_at_utc": "2026-11-26T20:17:06.819513+00:00",
+        "observed_at_utc": "2026-11-26T20:17:06.004000+00:00",
+        "sha256": "dd35f2a2138393f7214e3889b30be9a3db5828b81afa51026b763b3915b767b0"
       }
     },
     "price_context": {
@@ -251,20 +251,20 @@
       "high_20d": 76416.24,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-11-26T11:05:56.561861+00:00",
+        "retrieved_at_utc": "2026-11-26T20:17:07.006060+00:00",
         "observed_at_utc": "2026-11-26T00:00:00+00:00",
-        "sha256": "11a9a00dd3de42819dc3f768a3804553f9e4993fc149f07e5c56a5f5dd232020"
+        "sha256": "e32e1be74196b1d33a3d28300d5bedbd9b7adda5b4abc8eebee2d66d50f3526f"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 1.0689629895848873,
-      "imbalance": 0.033332152354607354,
+      "buy_sell_ratio": 1.086924263765062,
+      "imbalance": 0.04165185353120588,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-11-26T11:05:56.409144+00:00",
-        "observed_at_utc": "2026-11-26T11:00:00+00:00",
-        "sha256": "922bd59e1e91b6241aa6f0b9898734a1e948744cde7bfa8155c19ef20acd4590"
+        "retrieved_at_utc": "2026-11-26T20:17:06.843818+00:00",
+        "observed_at_utc": "2026-11-26T20:00:00+00:00",
+        "sha256": "0510ee0ff29bb8c4876de57f039cd3435df4567f0006c63de76f24d83024270b"
       }
     },
     "oi": {
@@ -272,7 +272,7 @@
       "oi_btc": 96979.219,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-11-25.zip",
-        "retrieved_at_utc": "2026-11-26T11:05:56.533593+00:00",
+        "retrieved_at_utc": "2026-11-26T20:17:06.601989+00:00",
         "observed_at_utc": "2026-11-25T23:55:00+00:00",
         "sha256": "976bbdde07e6515af49ce7600c7429386c870f5a1c103451fcceae3cf5031890",
         "archive_sha256": "684191e7f454f90778e3fb1344610729b6e3586553ab1b0575b293b991d6b9da",
@@ -289,7 +289,7 @@
       "buy_sell_ratio": 0.9962914361996721,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-11-25.zip",
-        "retrieved_at_utc": "2026-11-26T11:05:56.161383+00:00",
+        "retrieved_at_utc": "2026-11-26T20:17:06.626888+00:00",
         "observed_at_utc": "2026-11-26T00:00:00+00:00",
         "sha256": "4084bbfd2153f1f8862cdd9b9125cfedbc9f533285728ed901091ee928691cd1",
         "archive_sha256": "5ec3ecb8968d52cd23587ba1ab9b8e57120453007f188035f1a068964dba6882",
