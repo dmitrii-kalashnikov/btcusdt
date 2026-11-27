@@ -1,9 +1,9 @@
 {
   "health": "PARTIAL",
   "critical_failures": [],
-  "generated_at_utc": "2026-11-27T12:47:37.721944+00:00",
-  "code_sha": "25ded386b72e408c70634aa382c75938457af54a",
-  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/46001426855",
+  "generated_at_utc": "2026-11-27T22:08:14.535410+00:00",
+  "code_sha": "9902029bf134b2652affa42d4f2c4a6bd27a62e1",
+  "run_url": "https://github.com/dmitrii-kalashnikov/btcusdt/actions/runs/46074599538",
   "preclose_status": "NOT_IN_MONDAY_CAPTURE_WINDOW",
   "decision": "ABSTAIN",
   "auto_trading": false,
@@ -214,30 +214,22 @@
     "updated_at_utc": "2026-09-22T14:05:25.472093+00:00"
   },
   "context_unavailable": [
-    "WRESBAL",
-    "SOFR",
     "IORB",
-    "NFCI",
-    "ANFCI",
-    "T10YIE",
-    "DCOILWTICO",
-    "DEXJPUS",
-    "SP500",
     "SOFR_MINUS_IORB"
   ],
-  "report_sha256": "c30eda9affe5000ac7bbf04f588180d3194133154504116ed6a06a1cb19a3336",
+  "report_sha256": "72e8aa53e29cb135fdda4f2c0fe4e7cfcab53df46a32f5871d655dde88c339bd",
   "sources": {
     "spot": {
       "status": "OK",
-      "price": 61580.01,
-      "change_24h_pct": 1.047,
-      "low_24h": 59915.0,
+      "price": 59715.73,
+      "change_24h_pct": -1.544,
+      "low_24h": 58792.37,
       "high_24h": 62248.91,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
-        "retrieved_at_utc": "2026-11-27T12:46:50.691819+00:00",
-        "observed_at_utc": "2026-11-27T12:46:50.001000+00:00",
-        "sha256": "33be603a1ae7c2ea98cdd8bb371c9ea7520478185ec0e1d78a8718a1e1c7ad95"
+        "retrieved_at_utc": "2026-11-27T22:07:25.698936+00:00",
+        "observed_at_utc": "2026-11-27T22:07:25.001000+00:00",
+        "sha256": "3dd63a580c3512cd5e11f881de9b33d2ad489d757f0e1abb4738fe8a54dfb9ab"
       }
     },
     "price_context": {
@@ -251,20 +243,20 @@
       "high_20d": 76249.99,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=401",
-        "retrieved_at_utc": "2026-11-27T12:46:50.810508+00:00",
+        "retrieved_at_utc": "2026-11-27T22:07:25.908870+00:00",
         "observed_at_utc": "2026-11-27T00:00:00+00:00",
-        "sha256": "2cf8fded2e7862062e23a6095f81d1914bae7dd347b607fc3658b1919804722a"
+        "sha256": "315882acdf1cba917232cfb380dc5ce5392aa611c1c7e3c1eb4b97d22ca2ba82"
       }
     },
     "spot_flow": {
       "status": "OK",
-      "buy_sell_ratio": 1.0486493622551238,
-      "imbalance": 0.02374704190548807,
+      "buy_sell_ratio": 1.0023785896601431,
+      "imbalance": 0.0011878820880455662,
       "source": {
         "url": "https://data-api.binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=26",
-        "retrieved_at_utc": "2026-11-27T12:46:50.705270+00:00",
-        "observed_at_utc": "2026-11-27T12:00:00+00:00",
-        "sha256": "23f94e466717ca0a8893047e53eb364c12ba31b6b831e5c4b200925a2ecaf5f9"
+        "retrieved_at_utc": "2026-11-27T22:07:25.707073+00:00",
+        "observed_at_utc": "2026-11-27T22:00:00+00:00",
+        "sha256": "9ec5557195ef27115fcf768455772496c18ba9261731dd4c71b895d971269af6"
       }
     },
     "oi": {
@@ -272,7 +264,7 @@
       "oi_btc": 98184.528,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/metrics/BTCUSDT/BTCUSDT-metrics-2026-11-26.zip",
-        "retrieved_at_utc": "2026-11-27T12:46:50.710758+00:00",
+        "retrieved_at_utc": "2026-11-27T22:07:25.430960+00:00",
         "observed_at_utc": "2026-11-26T23:55:00+00:00",
         "sha256": "27f790562b4ba32d71c0a802212855e6d5d00a1eddc39caba388e7f41c09b67d",
         "archive_sha256": "7ed645bb21b4e6ed8886e4a58a5b35af587fd082a6ed42f4ad0932135e954b41",
@@ -289,7 +281,7 @@
       "buy_sell_ratio": 1.012098007034007,
       "source": {
         "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1d/BTCUSDT-1d-2026-11-26.zip",
-        "retrieved_at_utc": "2026-11-27T12:46:50.786380+00:00",
+        "retrieved_at_utc": "2026-11-27T22:07:25.369006+00:00",
         "observed_at_utc": "2026-11-27T00:00:00+00:00",
         "sha256": "a8e94ed52eccf1fc1faa205aed5ed70f7c69ec1658863bb590253cf6f48440e9",
         "archive_sha256": "66289567cc1f2a676d2cdd9f03b274d50c0fb3f3e6c7ffdb62b382c718b7d511",
@@ -298,8 +290,605 @@
       "note": "Последние полные сутки из доступного архива, не скользящие 24 часа live API."
     },
     "etf": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/"
+      "status": "OK",
+      "latest": {
+        "date": "2026-11-25",
+        "total_usdm": -453.0,
+        "complete": true
+      },
+      "sum3_usdm": -1254.1000000000001,
+      "sum5_usdm": -2505.6,
+      "sum20_usdm": -6017.1,
+      "partial_sessions": [
+        "2024-01-11",
+        "2024-01-12",
+        "2024-01-15",
+        "2024-01-16",
+        "2024-01-17",
+        "2024-01-18",
+        "2024-01-19",
+        "2024-01-22",
+        "2024-01-23",
+        "2024-01-24",
+        "2024-01-25",
+        "2024-01-26",
+        "2024-01-29",
+        "2024-01-30",
+        "2024-01-31",
+        "2024-02-01",
+        "2024-02-02",
+        "2024-02-05",
+        "2024-02-06",
+        "2024-02-07",
+        "2024-02-08",
+        "2024-02-09",
+        "2024-02-12",
+        "2024-02-13",
+        "2024-02-14",
+        "2024-02-15",
+        "2024-02-16",
+        "2024-02-19",
+        "2024-02-20",
+        "2024-02-21",
+        "2024-02-22",
+        "2024-02-23",
+        "2024-02-26",
+        "2024-02-27",
+        "2024-02-28",
+        "2024-02-29",
+        "2024-03-01",
+        "2024-03-04",
+        "2024-03-05",
+        "2024-03-06",
+        "2024-03-07",
+        "2024-03-08",
+        "2024-03-11",
+        "2024-03-12",
+        "2024-03-13",
+        "2024-03-14",
+        "2024-03-15",
+        "2024-03-18",
+        "2024-03-19",
+        "2024-03-20",
+        "2024-03-21",
+        "2024-03-22",
+        "2024-03-25",
+        "2024-03-26",
+        "2024-03-27",
+        "2024-03-28",
+        "2024-03-29",
+        "2024-04-01",
+        "2024-04-02",
+        "2024-04-03",
+        "2024-04-04",
+        "2024-04-05",
+        "2024-04-08",
+        "2024-04-09",
+        "2024-04-10",
+        "2024-04-11",
+        "2024-04-12",
+        "2024-04-15",
+        "2024-04-16",
+        "2024-04-17",
+        "2024-04-18",
+        "2024-04-19",
+        "2024-04-22",
+        "2024-04-23",
+        "2024-04-24",
+        "2024-04-25",
+        "2024-04-26",
+        "2024-04-29",
+        "2024-04-30",
+        "2024-05-01",
+        "2024-05-02",
+        "2024-05-03",
+        "2024-05-06",
+        "2024-05-07",
+        "2024-05-08",
+        "2024-05-09",
+        "2024-05-10",
+        "2024-05-13",
+        "2024-05-14",
+        "2024-05-15",
+        "2024-05-16",
+        "2024-05-17",
+        "2024-05-20",
+        "2024-05-21",
+        "2024-05-22",
+        "2024-05-23",
+        "2024-05-24",
+        "2024-05-27",
+        "2024-05-28",
+        "2024-05-29",
+        "2024-05-30",
+        "2024-05-31",
+        "2024-06-03",
+        "2024-06-04",
+        "2024-06-05",
+        "2024-06-06",
+        "2024-06-07",
+        "2024-06-10",
+        "2024-06-11",
+        "2024-06-12",
+        "2024-06-13",
+        "2024-06-14",
+        "2024-06-17",
+        "2024-06-18",
+        "2024-06-19",
+        "2024-06-20",
+        "2024-06-21",
+        "2024-06-24",
+        "2024-06-25",
+        "2024-06-26",
+        "2024-06-27",
+        "2024-06-28",
+        "2024-07-01",
+        "2024-07-02",
+        "2024-07-03",
+        "2024-07-04",
+        "2024-07-05",
+        "2024-07-08",
+        "2024-07-09",
+        "2024-07-10",
+        "2024-07-11",
+        "2024-07-12",
+        "2024-07-15",
+        "2024-07-16",
+        "2024-07-17",
+        "2024-07-18",
+        "2024-07-19",
+        "2024-07-22",
+        "2024-07-23",
+        "2024-07-24",
+        "2024-07-25",
+        "2024-07-26",
+        "2024-07-29",
+        "2024-07-30",
+        "2024-07-31",
+        "2024-08-01",
+        "2024-08-02",
+        "2024-08-05",
+        "2024-08-06",
+        "2024-08-07",
+        "2024-08-08",
+        "2024-08-09",
+        "2024-08-12",
+        "2024-08-13",
+        "2024-08-14",
+        "2024-08-15",
+        "2024-08-16",
+        "2024-08-19",
+        "2024-08-20",
+        "2024-08-21",
+        "2024-08-22",
+        "2024-08-23",
+        "2024-08-26",
+        "2024-08-27",
+        "2024-08-28",
+        "2024-08-29",
+        "2024-08-30",
+        "2024-09-02",
+        "2024-09-03",
+        "2024-09-04",
+        "2024-09-05",
+        "2024-09-06",
+        "2024-09-09",
+        "2024-09-10",
+        "2024-09-11",
+        "2024-09-12",
+        "2024-09-13",
+        "2024-09-16",
+        "2024-09-17",
+        "2024-09-18",
+        "2024-09-19",
+        "2024-09-20",
+        "2024-09-23",
+        "2024-09-24",
+        "2024-09-25",
+        "2024-09-26",
+        "2024-09-27",
+        "2024-09-30",
+        "2024-10-01",
+        "2024-10-02",
+        "2024-10-03",
+        "2024-10-04",
+        "2024-10-07",
+        "2024-10-08",
+        "2024-10-09",
+        "2024-10-10",
+        "2024-10-11",
+        "2024-10-14",
+        "2024-10-15",
+        "2024-10-16",
+        "2024-10-17",
+        "2024-10-18",
+        "2024-10-21",
+        "2024-10-22",
+        "2024-10-23",
+        "2024-10-24",
+        "2024-10-25",
+        "2024-10-28",
+        "2024-10-29",
+        "2024-10-30",
+        "2024-10-31",
+        "2024-11-01",
+        "2024-11-04",
+        "2024-11-05",
+        "2024-11-06",
+        "2024-11-07",
+        "2024-11-08",
+        "2024-11-11",
+        "2024-11-12",
+        "2024-11-13",
+        "2024-11-14",
+        "2024-11-15",
+        "2024-11-18",
+        "2024-11-19",
+        "2024-11-20",
+        "2024-11-21",
+        "2024-11-22",
+        "2024-11-25",
+        "2024-11-26",
+        "2024-11-27",
+        "2024-11-28",
+        "2024-11-29",
+        "2024-12-02",
+        "2024-12-03",
+        "2024-12-04",
+        "2024-12-05",
+        "2024-12-06",
+        "2024-12-09",
+        "2024-12-10",
+        "2024-12-11",
+        "2024-12-12",
+        "2024-12-13",
+        "2024-12-16",
+        "2024-12-17",
+        "2024-12-18",
+        "2024-12-19",
+        "2024-12-20",
+        "2024-12-23",
+        "2024-12-24",
+        "2024-12-25",
+        "2024-12-26",
+        "2024-12-27",
+        "2024-12-30",
+        "2024-12-31",
+        "2025-01-01",
+        "2025-01-02",
+        "2025-01-03",
+        "2025-01-06",
+        "2025-01-07",
+        "2025-01-08",
+        "2025-01-09",
+        "2025-01-10",
+        "2025-01-13",
+        "2025-01-14",
+        "2025-01-15",
+        "2025-01-16",
+        "2025-01-17",
+        "2025-01-20",
+        "2025-01-21",
+        "2025-01-22",
+        "2025-01-23",
+        "2025-01-24",
+        "2025-01-27",
+        "2025-01-28",
+        "2025-01-29",
+        "2025-01-30",
+        "2025-01-31",
+        "2025-02-03",
+        "2025-02-04",
+        "2025-02-05",
+        "2025-02-06",
+        "2025-02-07",
+        "2025-02-10",
+        "2025-02-11",
+        "2025-02-12",
+        "2025-02-13",
+        "2025-02-14",
+        "2025-02-17",
+        "2025-02-18",
+        "2025-02-19",
+        "2025-02-20",
+        "2025-02-21",
+        "2025-02-24",
+        "2025-02-25",
+        "2025-02-26",
+        "2025-02-27",
+        "2025-02-28",
+        "2025-03-03",
+        "2025-03-04",
+        "2025-03-05",
+        "2025-03-06",
+        "2025-03-07",
+        "2025-03-10",
+        "2025-03-11",
+        "2025-03-12",
+        "2025-03-13",
+        "2025-03-14",
+        "2025-03-17",
+        "2025-03-18",
+        "2025-03-19",
+        "2025-03-20",
+        "2025-03-21",
+        "2025-03-24",
+        "2025-03-25",
+        "2025-03-26",
+        "2025-03-27",
+        "2025-03-28",
+        "2025-03-31",
+        "2025-04-01",
+        "2025-04-02",
+        "2025-04-03",
+        "2025-04-04",
+        "2025-04-07",
+        "2025-04-08",
+        "2025-04-09",
+        "2025-04-10",
+        "2025-04-11",
+        "2025-04-14",
+        "2025-04-15",
+        "2025-04-16",
+        "2025-04-17",
+        "2025-04-18",
+        "2025-04-21",
+        "2025-04-22",
+        "2025-04-23",
+        "2025-04-24",
+        "2025-04-25",
+        "2025-04-28",
+        "2025-04-29",
+        "2025-04-30",
+        "2025-05-01",
+        "2025-05-02",
+        "2025-05-05",
+        "2025-05-06",
+        "2025-05-07",
+        "2025-05-08",
+        "2025-05-09",
+        "2025-05-12",
+        "2025-05-13",
+        "2025-05-14",
+        "2025-05-15",
+        "2025-05-16",
+        "2025-05-19",
+        "2025-05-20",
+        "2025-05-21",
+        "2025-05-22",
+        "2025-05-23",
+        "2025-05-26",
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-02",
+        "2025-06-03",
+        "2025-06-04",
+        "2025-06-05",
+        "2025-06-06",
+        "2025-06-09",
+        "2025-06-10",
+        "2025-06-11",
+        "2025-06-12",
+        "2025-06-13",
+        "2025-06-16",
+        "2025-06-17",
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-20",
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25",
+        "2025-06-26",
+        "2025-06-27",
+        "2025-06-30",
+        "2025-07-01",
+        "2025-07-02",
+        "2025-07-03",
+        "2025-07-07",
+        "2025-07-08",
+        "2025-07-09",
+        "2025-07-10",
+        "2025-07-11",
+        "2025-07-14",
+        "2025-07-15",
+        "2025-07-16",
+        "2025-07-17",
+        "2025-07-18",
+        "2025-07-21",
+        "2025-07-22",
+        "2025-07-23",
+        "2025-07-24",
+        "2025-07-25",
+        "2025-07-28",
+        "2025-07-29",
+        "2025-07-30",
+        "2025-07-31",
+        "2025-08-01",
+        "2025-08-04",
+        "2025-08-05",
+        "2025-08-06",
+        "2025-08-07",
+        "2025-08-08",
+        "2025-08-11",
+        "2025-08-12",
+        "2025-08-13",
+        "2025-08-14",
+        "2025-08-15",
+        "2025-08-18",
+        "2025-08-19",
+        "2025-08-20",
+        "2025-08-21",
+        "2025-08-22",
+        "2025-08-25",
+        "2025-08-26",
+        "2025-08-27",
+        "2025-08-28",
+        "2025-08-29",
+        "2025-09-02",
+        "2025-09-03",
+        "2025-09-04",
+        "2025-09-05",
+        "2025-09-08",
+        "2025-09-09",
+        "2025-09-10",
+        "2025-09-11",
+        "2025-09-12",
+        "2025-09-15",
+        "2025-09-16",
+        "2025-09-17",
+        "2025-09-18",
+        "2025-09-19",
+        "2025-09-22",
+        "2025-09-23",
+        "2025-09-24",
+        "2025-09-25",
+        "2025-09-26",
+        "2025-09-29",
+        "2025-09-30",
+        "2025-10-01",
+        "2025-10-02",
+        "2025-10-03",
+        "2025-10-06",
+        "2025-10-07",
+        "2025-10-08",
+        "2025-10-09",
+        "2025-10-10",
+        "2025-10-13",
+        "2025-10-14",
+        "2025-10-15",
+        "2025-10-16",
+        "2025-10-17",
+        "2025-10-20",
+        "2025-10-21",
+        "2025-10-22",
+        "2025-10-23",
+        "2025-10-24",
+        "2025-10-27",
+        "2025-10-28",
+        "2025-10-29",
+        "2025-10-30",
+        "2025-10-31",
+        "2025-11-03",
+        "2025-11-04",
+        "2025-11-05",
+        "2025-11-06",
+        "2025-11-07",
+        "2025-11-10",
+        "2025-11-11",
+        "2025-11-12",
+        "2025-11-13",
+        "2025-11-14",
+        "2025-11-17",
+        "2025-11-18",
+        "2025-11-19",
+        "2025-11-20",
+        "2025-11-21",
+        "2025-11-24",
+        "2025-11-25",
+        "2025-11-26",
+        "2025-11-28",
+        "2025-12-01",
+        "2025-12-02",
+        "2025-12-03",
+        "2025-12-04",
+        "2025-12-05",
+        "2025-12-08",
+        "2025-12-09",
+        "2025-12-10",
+        "2025-12-11",
+        "2025-12-12",
+        "2025-12-15",
+        "2025-12-16",
+        "2025-12-17",
+        "2025-12-18",
+        "2025-12-19",
+        "2025-12-22",
+        "2025-12-23",
+        "2025-12-24",
+        "2025-12-26",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-01-02",
+        "2026-01-05",
+        "2026-01-06",
+        "2026-01-07",
+        "2026-01-08",
+        "2026-01-09",
+        "2026-01-12",
+        "2026-01-13",
+        "2026-01-14",
+        "2026-01-15",
+        "2026-01-16",
+        "2026-01-20",
+        "2026-01-21",
+        "2026-01-22",
+        "2026-01-23",
+        "2026-01-26",
+        "2026-01-27",
+        "2026-01-28",
+        "2026-01-29",
+        "2026-01-30",
+        "2026-02-02",
+        "2026-02-03",
+        "2026-02-04",
+        "2026-02-05",
+        "2026-02-06",
+        "2026-02-09",
+        "2026-02-10",
+        "2026-02-11",
+        "2026-02-12",
+        "2026-02-13",
+        "2026-02-17",
+        "2026-02-18",
+        "2026-02-19",
+        "2026-02-20",
+        "2026-02-23",
+        "2026-02-24",
+        "2026-02-25",
+        "2026-02-26",
+        "2026-02-27",
+        "2026-03-02",
+        "2026-03-03",
+        "2026-03-04",
+        "2026-03-05",
+        "2026-03-06",
+        "2026-03-09",
+        "2026-03-10",
+        "2026-03-11",
+        "2026-03-12",
+        "2026-03-13",
+        "2026-03-16",
+        "2026-03-17",
+        "2026-03-18",
+        "2026-03-19",
+        "2026-03-20",
+        "2026-03-23",
+        "2026-03-24",
+        "2026-03-25",
+        "2026-03-26",
+        "2026-03-27",
+        "2026-03-30",
+        "2026-03-31",
+        "2026-04-01",
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-07-27",
+        "2026-08-07",
+        "2026-11-27"
+      ],
+      "source": {
+        "url": "https://r.jina.ai/https://farside.co.uk/bitcoin-etf-flow-all-data/",
+        "retrieved_at_utc": "2026-11-27T22:07:41.897826+00:00",
+        "observed_at_utc": "2026-11-25",
+        "sha256": "da14ab520540ecc4261d624288dc31c16ed2be0c5c63f2d54ed89d16651b0e21",
+        "original_url": "https://farside.co.uk/bitcoin-etf-flow-all-data/",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "outlook": {
       "status": "OK",
@@ -563,99 +1152,653 @@
       ]
     },
     "fred_M2SL": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/M2SL"
+      "status": "OK",
+      "series_id": "M2SL",
+      "value": "23532.8",
+      "observation_date": "2026-10-01",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/M2SL",
+      "previous_date": "2026-09-01",
+      "change_previous": 118.5,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/M2SL",
+        "retrieved_at_utc": "2026-11-27T22:07:32.615221+00:00",
+        "observed_at_utc": "2026-10-01",
+        "sha256": "50703e27db0058c237f796466f43b995b680a0a2af1a1078738659ea668caf6a",
+        "original_url": "https://fred.stlouisfed.org/series/M2SL",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_WALCL": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WALCL"
+      "status": "OK",
+      "series_id": "WALCL",
+      "value": "6732044",
+      "observation_date": "2026-11-25",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/WALCL",
+      "previous_date": "2026-11-18",
+      "change_previous": -9408.0,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WALCL",
+        "retrieved_at_utc": "2026-11-27T22:07:36.230645+00:00",
+        "observed_at_utc": "2026-11-25",
+        "sha256": "b230f3f5f823f0516c60c348d494b545fdb02886d6fc879436bc15691c6abda9",
+        "original_url": "https://fred.stlouisfed.org/series/WALCL",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_WTREGEN": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WTREGEN"
+      "status": "OK",
+      "series_id": "WTREGEN",
+      "value": "916613",
+      "observation_date": "2026-11-18",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/WTREGEN",
+      "previous_date": "2026-11-11",
+      "change_previous": 2243.0,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WTREGEN",
+        "retrieved_at_utc": "2026-11-27T22:07:37.626051+00:00",
+        "observed_at_utc": "2026-11-18",
+        "sha256": "55d37c5d4dacb5d86d7ed4b42add8fee86934cd8645d26ef812c62b965bd4b27",
+        "original_url": "https://fred.stlouisfed.org/series/WTREGEN",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_RRPONTSYD": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/RRPONTSYD"
+      "status": "OK",
+      "series_id": "RRPONTSYD",
+      "value": "0.350",
+      "observation_date": "2026-11-27",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/RRPONTSYD",
+      "previous_date": "2026-11-25",
+      "change_previous": 0.04999999999999999,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/RRPONTSYD",
+        "retrieved_at_utc": "2026-11-27T22:07:41.899336+00:00",
+        "observed_at_utc": "2026-11-27",
+        "sha256": "90eeaefc25f153dfc4729ae2eea2da8421b769ef99c1d4a51f3c4843d38c7496",
+        "original_url": "https://fred.stlouisfed.org/series/RRPONTSYD",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_DFF": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DFF"
+      "status": "OK",
+      "series_id": "DFF",
+      "value": "3.88",
+      "observation_date": "2026-11-26",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/DFF",
+      "previous_date": "2026-11-25",
+      "change_previous": 0.0,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DFF",
+        "retrieved_at_utc": "2026-11-27T22:07:46.311769+00:00",
+        "observed_at_utc": "2026-11-26",
+        "sha256": "a93fe55d0f44f7c4d921fa6500740b5536aae7844325f196241e33204c5cc4bd",
+        "original_url": "https://fred.stlouisfed.org/series/DFF",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_DGS2": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DGS2"
+      "status": "OK",
+      "series_id": "DGS2",
+      "value": "4.61",
+      "observation_date": "2026-11-25",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/DGS2",
+      "previous_date": "2026-11-24",
+      "change_previous": -0.019999999999999574,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DGS2",
+        "retrieved_at_utc": "2026-11-27T22:07:49.181258+00:00",
+        "observed_at_utc": "2026-11-25",
+        "sha256": "967abf6a9c7add59c7aaa24ceacd384460d19a3cd417fca6eaff42422c9ed18a",
+        "original_url": "https://fred.stlouisfed.org/series/DGS2",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_DGS10": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DGS10"
+      "status": "OK",
+      "series_id": "DGS10",
+      "value": "4.85",
+      "observation_date": "2026-11-25",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "previous_date": "2026-11-24",
+      "change_previous": -0.0600000000000005,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DGS10",
+        "retrieved_at_utc": "2026-11-27T22:07:51.320491+00:00",
+        "observed_at_utc": "2026-11-25",
+        "sha256": "63a4138117b61c9ae8b55ff050882bae48c3c14bd130660f59f8e082863f0be8",
+        "original_url": "https://fred.stlouisfed.org/series/DGS10",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_DFII10": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DFII10"
+      "status": "OK",
+      "series_id": "DFII10",
+      "value": "2.73",
+      "observation_date": "2026-11-25",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/DFII10",
+      "previous_date": "2026-11-24",
+      "change_previous": -0.06000000000000005,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DFII10",
+        "retrieved_at_utc": "2026-11-27T22:07:55.666764+00:00",
+        "observed_at_utc": "2026-11-25",
+        "sha256": "5393ca0e56caa9fac63787412f1b89f6161863f6a961c559c5517b9e5a63a890",
+        "original_url": "https://fred.stlouisfed.org/series/DFII10",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_DTWEXBGS": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DTWEXBGS"
+      "status": "OK",
+      "series_id": "DTWEXBGS",
+      "value": "123.5978",
+      "observation_date": "2026-11-20",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/DTWEXBGS",
+      "previous_date": "2026-11-19",
+      "change_previous": 0.07250000000000512,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DTWEXBGS",
+        "retrieved_at_utc": "2026-11-27T22:07:59.543365+00:00",
+        "observed_at_utc": "2026-11-20",
+        "sha256": "e27962957226f0b3689694d4bc218fdf1d8e4e13d408fcc705e7d925fc4190d7",
+        "original_url": "https://fred.stlouisfed.org/series/DTWEXBGS",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_VIXCLS": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/VIXCLS"
+      "status": "OK",
+      "series_id": "VIXCLS",
+      "value": "26.80",
+      "observation_date": "2026-11-26",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/VIXCLS",
+      "previous_date": "2026-11-25",
+      "change_previous": -1.4899999999999984,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/VIXCLS",
+        "retrieved_at_utc": "2026-11-27T22:08:00.821339+00:00",
+        "observed_at_utc": "2026-11-26",
+        "sha256": "f7ae19b67f194321c6e81ec1cf36f57272f68c421da2e7ca8c201d3fefaf3cc9",
+        "original_url": "https://fred.stlouisfed.org/series/VIXCLS",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_NASDAQCOM": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/NASDAQCOM"
+      "status": "OK",
+      "series_id": "NASDAQCOM",
+      "value": "23585.800",
+      "observation_date": "2026-11-25",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/NASDAQCOM",
+      "previous_date": "2026-11-24",
+      "change_previous": -147.7400000000016,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/NASDAQCOM",
+        "retrieved_at_utc": "2026-11-27T22:08:04.503069+00:00",
+        "observed_at_utc": "2026-11-25",
+        "sha256": "2989fac7841280d556c209839764e37665a4c6b9c44575f07b993c189c9789d4",
+        "original_url": "https://fred.stlouisfed.org/series/NASDAQCOM",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_CPIAUCSL": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/CPIAUCSL"
+      "status": "OK",
+      "series_id": "CPIAUCSL",
+      "value": "337.476",
+      "observation_date": "2026-10-01",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/CPIAUCSL",
+      "previous_date": "2026-09-01",
+      "change_previous": 1.1779999999999973,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/CPIAUCSL",
+        "retrieved_at_utc": "2026-11-27T22:08:07.879035+00:00",
+        "observed_at_utc": "2026-10-01",
+        "sha256": "c0aee9c0127a74ff656070690f562b84c0add7a289af6aa32d8f9243f5abe79e",
+        "original_url": "https://fred.stlouisfed.org/series/CPIAUCSL",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_UNRATE": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/UNRATE"
+      "status": "OK",
+      "series_id": "UNRATE",
+      "value": "4.1",
+      "observation_date": "2026-10-01",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/UNRATE",
+      "previous_date": "2026-09-01",
+      "change_previous": -0.10000000000000053,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/UNRATE",
+        "retrieved_at_utc": "2026-11-27T22:08:09.331250+00:00",
+        "observed_at_utc": "2026-10-01",
+        "sha256": "5e26ca4e2d073b08bfab244774e8b60cb1beac3bbc64d33e3028be6dd0c8ac4a",
+        "original_url": "https://fred.stlouisfed.org/series/UNRATE",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "fred_PAYEMS": {
-      "status": "UNAVAILABLE",
-      "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/PAYEMS"
+      "status": "OK",
+      "series_id": "PAYEMS",
+      "value": "159293",
+      "observation_date": "2026-10-01",
+      "delta_13w": null,
+      "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
+      "previous_date": "2026-09-01",
+      "change_previous": 165.0,
+      "source": {
+        "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/PAYEMS",
+        "retrieved_at_utc": "2026-11-27T22:08:14.534564+00:00",
+        "observed_at_utc": "2026-10-01",
+        "sha256": "0ad47ac33f78e619ec242de223deaababa49a53d859073192e8db1a85fe1cc4b",
+        "original_url": "https://fred.stlouisfed.org/series/PAYEMS",
+        "transport": "PUBLIC_PAGE_READER",
+        "hash_scope": "reader_response_bytes_not_original_html"
+      }
     },
     "wide_context": {
       "status": "UNAVAILABLE",
       "measurements": {
         "WRESBAL": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/WRESBAL"
+          "status": "OK",
+          "observation_date": "2026-11-25",
+          "value": 2963667.0,
+          "n": 5,
+          "change_previous": -15989.0,
+          "previous_date": "2026-11-18",
+          "windows": {
+            "4": {
+              "from": "2026-10-28",
+              "to": "2026-11-25",
+              "change": 69897.0
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-10-28",
+              2893770.0
+            ],
+            [
+              "2026-11-04",
+              2930088.0
+            ],
+            [
+              "2026-11-11",
+              2960603.0
+            ],
+            [
+              "2026-11-18",
+              2979656.0
+            ],
+            [
+              "2026-11-25",
+              2963667.0
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/WRESBAL",
+            "retrieved_at_utc": "2026-11-27T22:08:17.997465+00:00",
+            "observed_at_utc": "2026-11-25",
+            "sha256": "4be6d694ecc0ac6e698232498f890d8016d82dc18971bc3571a5283a30e080d5"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/WRESBAL",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "SOFR": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/SOFR"
+          "status": "OK",
+          "observation_date": "2026-11-25",
+          "value": 3.95,
+          "n": 5,
+          "change_previous": 0.010000000000000231,
+          "previous_date": "2026-11-24",
+          "windows": {
+            "4": {
+              "from": "2026-11-19",
+              "to": "2026-11-25",
+              "change": 0.040000000000000036
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-11-19",
+              3.91
+            ],
+            [
+              "2026-11-20",
+              3.92
+            ],
+            [
+              "2026-11-23",
+              3.92
+            ],
+            [
+              "2026-11-24",
+              3.94
+            ],
+            [
+              "2026-11-25",
+              3.95
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/SOFR",
+            "retrieved_at_utc": "2026-11-27T22:08:19.158710+00:00",
+            "observed_at_utc": "2026-11-25",
+            "sha256": "57fb50e26592100cf26294298482271eeb1bc3ee16696090f244c01b0c8c4b7e"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/SOFR",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "IORB": {
           "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/IORB"
+          "error": "ValueError: Future observation"
         },
         "NFCI": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/NFCI"
+          "status": "OK",
+          "observation_date": "2026-11-20",
+          "value": -0.444,
+          "n": 5,
+          "change_previous": 0.006000000000000005,
+          "previous_date": "2026-11-13",
+          "windows": {
+            "4": {
+              "from": "2026-10-23",
+              "to": "2026-11-20",
+              "change": 0.02200000000000002
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-10-23",
+              -0.466
+            ],
+            [
+              "2026-10-30",
+              -0.46
+            ],
+            [
+              "2026-11-06",
+              -0.455
+            ],
+            [
+              "2026-11-13",
+              -0.45
+            ],
+            [
+              "2026-11-20",
+              -0.444
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/NFCI",
+            "retrieved_at_utc": "2026-11-27T22:08:23.182773+00:00",
+            "observed_at_utc": "2026-11-20",
+            "sha256": "4e75fe70ad9f22395af85acd9150a150bd31c40935bd9e684d56200e1d58da23"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/NFCI",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "ANFCI": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/ANFCI"
+          "status": "OK",
+          "observation_date": "2026-11-20",
+          "value": -0.443,
+          "n": 5,
+          "change_previous": 0.010000000000000009,
+          "previous_date": "2026-11-13",
+          "windows": {
+            "4": {
+              "from": "2026-10-23",
+              "to": "2026-11-20",
+              "change": 0.016000000000000014
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-10-23",
+              -0.459
+            ],
+            [
+              "2026-10-30",
+              -0.458
+            ],
+            [
+              "2026-11-06",
+              -0.456
+            ],
+            [
+              "2026-11-13",
+              -0.453
+            ],
+            [
+              "2026-11-20",
+              -0.443
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/ANFCI",
+            "retrieved_at_utc": "2026-11-27T22:08:23.984132+00:00",
+            "observed_at_utc": "2026-11-20",
+            "sha256": "1f1d021e84ff2bc25e48874a367f4097dbf6f11fc69e32832e4553e65f94ff8a"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/ANFCI",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "T10YIE": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/T10YIE"
+          "status": "OK",
+          "observation_date": "2026-11-25",
+          "value": 2.12,
+          "n": 5,
+          "change_previous": 0.0,
+          "previous_date": "2026-11-24",
+          "windows": {
+            "4": {
+              "from": "2026-11-19",
+              "to": "2026-11-25",
+              "change": -0.040000000000000036
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-11-19",
+              2.16
+            ],
+            [
+              "2026-11-20",
+              2.15
+            ],
+            [
+              "2026-11-23",
+              2.13
+            ],
+            [
+              "2026-11-24",
+              2.12
+            ],
+            [
+              "2026-11-25",
+              2.12
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/T10YIE",
+            "retrieved_at_utc": "2026-11-27T22:08:23.463228+00:00",
+            "observed_at_utc": "2026-11-25",
+            "sha256": "5c7d6902f1bfdbfe0917b65d685214cd8de5b4860e06699df9b7569542e5a29a"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/T10YIE",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "DCOILWTICO": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DCOILWTICO"
+          "status": "OK",
+          "observation_date": "2026-11-24",
+          "value": 82.24,
+          "n": 5,
+          "change_previous": 0.8199999999999932,
+          "previous_date": "2026-11-23",
+          "windows": {
+            "4": {
+              "from": "2026-11-18",
+              "to": "2026-11-24",
+              "change": -4.570000000000007
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-11-18",
+              86.81
+            ],
+            [
+              "2026-11-19",
+              86.78
+            ],
+            [
+              "2026-11-20",
+              87.59
+            ],
+            [
+              "2026-11-23",
+              81.42
+            ],
+            [
+              "2026-11-24",
+              82.24
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DCOILWTICO",
+            "retrieved_at_utc": "2026-11-27T22:08:23.725777+00:00",
+            "observed_at_utc": "2026-11-24",
+            "sha256": "de562668454287532a0aede6b311cc3310237df8a15f3be73fa08e061b83750b"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "DEXJPUS": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/DEXJPUS"
+          "status": "OK",
+          "observation_date": "2026-11-20",
+          "value": 158.76,
+          "n": 5,
+          "change_previous": -1.0,
+          "previous_date": "2026-11-19",
+          "windows": {
+            "4": {
+              "from": "2026-11-16",
+              "to": "2026-11-20",
+              "change": -0.8900000000000148
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-11-16",
+              159.65
+            ],
+            [
+              "2026-11-17",
+              159.27
+            ],
+            [
+              "2026-11-18",
+              159.25
+            ],
+            [
+              "2026-11-19",
+              159.76
+            ],
+            [
+              "2026-11-20",
+              158.76
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/DEXJPUS",
+            "retrieved_at_utc": "2026-11-27T22:08:24.055957+00:00",
+            "observed_at_utc": "2026-11-20",
+            "sha256": "c5cf93a55a8d66b808094f54c915433a1ba71ce63c01ee37719b0ca9c081a726"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/DEXJPUS",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "SP500": {
-          "status": "UNAVAILABLE",
-          "error": "HTTPError: 401 Client Error: Unauthorized for url: https://r.jina.ai/https://fred.stlouisfed.org/series/SP500"
+          "status": "OK",
+          "observation_date": "2026-11-25",
+          "value": 7182.78,
+          "n": 5,
+          "change_previous": -18.3100000000004,
+          "previous_date": "2026-11-24",
+          "windows": {
+            "4": {
+              "from": "2026-11-19",
+              "to": "2026-11-25",
+              "change": 6.949999999999818
+            }
+          },
+          "z_prior_60_observations": null,
+          "history": [
+            [
+              "2026-11-19",
+              7175.83
+            ],
+            [
+              "2026-11-20",
+              6910.39
+            ],
+            [
+              "2026-11-23",
+              7237.17
+            ],
+            [
+              "2026-11-24",
+              7201.09
+            ],
+            [
+              "2026-11-25",
+              7182.78
+            ]
+          ],
+          "source": {
+            "url": "https://r.jina.ai/https://fred.stlouisfed.org/series/SP500",
+            "retrieved_at_utc": "2026-11-27T22:08:24.188328+00:00",
+            "observed_at_utc": "2026-11-25",
+            "sha256": "c08762cbac0df9b4954d9e74983b3c55d99c0aab71059cee0da2a8e27f240653"
+          },
+          "source_url": "https://fred.stlouisfed.org/series/SP500",
+          "history_scope": "RECENT_OFFICIAL_PAGE_ROWS_ONLY",
+          "vintage_policy": "CURRENT_VINTAGE_CONTEXT_ONLY_NOT_HISTORICAL_PIT"
         },
         "SOFR_MINUS_IORB": {
           "status": "UNAVAILABLE",
